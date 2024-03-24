@@ -7,13 +7,15 @@ public class Ball {
    private double radius; // meters
    private double xSpeed; // meters/second
    private double ySpeed; // meters/second
+   private HitBox hitbox; // Collision detection tool
 
-   public Ball(double x, double y, double radius, double xSpeed, double ySpeed) {
+   public Ball(double x, double y, double radius, double xSpeed, double ySpeed, HitBox hitbox) {
       this.x = x; // meters
       this.y = y; // meters
       this.radius = radius; //meters
       this.xSpeed = xSpeed; // meters/second
       this.ySpeed = ySpeed; // meter/second
+      this.hitbox = hitbox; // Collision-detection tool
    }
    
    /** Moves the ball based on the elapsed time and the velocity. */

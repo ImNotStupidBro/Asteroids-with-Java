@@ -36,7 +36,6 @@ public class Presentation {
       scene.setOnKeyPressed(keyPressHandler);
       
       stage.setScene(scene);
-      
    
    }
    
@@ -63,6 +62,10 @@ public class Presentation {
          }       
       
          drawBall(ballX, ballY, ballRadius);
+         
+         graphicsContext.setFill(new Color(1, 0, 0, 0.5));
+         
+         drawBallHitbox(ballX, ballY, ballRadius);
       }
    
       stage.show();     
@@ -74,6 +77,13 @@ public class Presentation {
       double adjustedY = y - radius;
       double diameter = 2.0 * radius;
       graphicsContext.fillOval(adjustedX, adjustedY, diameter, diameter);
+   }
+   
+   private void drawBallHitbox(double x, double y, double radius) {
+      double adjustedX = x - radius;
+      double adjustedY = y - radius;
+      double width = 2.0 * radius;
+      graphicsContext.fillRect(adjustedX, adjustedY, width, width);
    }
    
    private double convertPhysicsScaletoPresentationScale(double location) {
