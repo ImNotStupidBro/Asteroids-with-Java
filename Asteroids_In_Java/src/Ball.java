@@ -22,15 +22,15 @@ public class Ball {
       y += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       
       //Keep ball on the torus
-      if (x < 0) { // moving in the negative x direction
-         x = worldXDimension + x % worldXDimension;
-      } else if (x >= worldXDimension) {
-         x = x % worldXDimension;
+      if (x < 0 - (this.radius * 2)) { // moving in the negative x direction
+         x = worldXDimension + x % worldXDimension + (this.radius * 3);
+      } else if (x >= worldXDimension + (this.radius * 2)) {
+         x = x % worldXDimension - (this.radius * 3);
       }
-      if (y < 0) { // moving in the negative y direction
-         y = worldYDimension + y % worldYDimension;
-      } else if (y >= worldYDimension) {
-         y = y % worldYDimension;
+      if (y < 0 - (this.radius * 2)) { // moving in the negative y direction
+         y = worldYDimension + y % worldYDimension + (this.radius * 3);
+      } else if (y >= worldYDimension + (this.radius * 2)) {
+         y = y % worldYDimension - (this.radius * 3);
       }
    }
    

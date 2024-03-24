@@ -24,7 +24,7 @@ public class World {
       //Generate the player ball.
          ballXStartLocation = X_DIMENSION/2;
          ballYStartLocation = Y_DIMENSION/2;
-         ballRadius = 3; //no zero radius balls
+         ballRadius = 3;
          ballXSpeed = 0.0;
          ballYSpeed = 0.0;
          balls[0] = new Ball(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed);
