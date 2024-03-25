@@ -21,13 +21,15 @@ public class World {
       int ballRadius = 0;
       double ballXSpeed = 0;
       double ballYSpeed = 0;
+      HitBox ballHitbox = new HitBox(0, 0, 0, 0);
       //Generate the player ball.
          ballXStartLocation = X_DIMENSION/2;
          ballYStartLocation = Y_DIMENSION/2;
-         ballRadius = 3; //no zero radius balls
+         ballRadius = 3;
          ballXSpeed = 0.0;
          ballYSpeed = 0.0;
-         balls[0] = new Ball(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed);
+         ballHitbox.set(ballXStartLocation, ballYStartLocation, (ballRadius * 2), (ballRadius * 2));
+         balls[0] = new Ball(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed, ballHitbox);
       //Spawn every other ball.
       for(int i = 1; i < balls.length; i++) {
          ballXStartLocation = random.nextInt(X_DIMENSION);
@@ -35,7 +37,8 @@ public class World {
          ballRadius = random.nextInt(MAX_BALL_RADIUS) + 1; //no zero radius balls
          ballXSpeed = (random.nextDouble() - 0.5) * MAX_BALL_SPEED;
          ballYSpeed = (random.nextDouble() - 0.5) * MAX_BALL_SPEED;
-         balls[i] = new Ball(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed);
+         ballHitbox.set(ballXStartLocation, ballYStartLocation, (ballRadius * 2), (ballRadius * 2));
+         balls[i] = new Ball(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed, ballHitbox);
       }
    }
    

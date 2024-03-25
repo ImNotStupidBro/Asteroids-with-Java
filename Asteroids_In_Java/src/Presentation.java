@@ -36,7 +36,6 @@ public class Presentation {
       scene.setOnKeyPressed(keyPressHandler);
       
       stage.setScene(scene);
-      
    
    }
    
@@ -45,6 +44,7 @@ public class Presentation {
       double ballX = 0.0;
       double ballY = 0.0;
       double ballRadius = 0.0;
+      boolean toggleHitbox = false;
       
       // Clear the screen so old objects don't blur across the screen
       graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
@@ -63,6 +63,12 @@ public class Presentation {
          }       
       
          drawBall(ballX, ballY, ballRadius);
+         
+         if(toggleHitbox){
+            graphicsContext.setFill(new Color(1, 0, 0, 0.5));
+         
+            drawBallHitbox(ballX, ballY, ballRadius);
+         }
       }
    
       stage.show();     
@@ -74,6 +80,13 @@ public class Presentation {
       double adjustedY = y - radius;
       double diameter = 2.0 * radius;
       graphicsContext.fillOval(adjustedX, adjustedY, diameter, diameter);
+   }
+   
+   private void drawBallHitbox(double x, double y, double radius) {
+      double adjustedX = x - radius;
+      double adjustedY = y - radius;
+      double width = 2.0 * radius;
+      graphicsContext.fillRect(adjustedX, adjustedY, width, width);
    }
    
    private double convertPhysicsScaletoPresentationScale(double location) {
