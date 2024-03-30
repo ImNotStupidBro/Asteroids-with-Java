@@ -7,7 +7,7 @@ public class KeyPressHandler implements EventHandler<KeyEvent> {
    private Ball ballToMove;
 
    public KeyPressHandler(World world) {
-      balls = world.getBalls();
+      balls = world.getBallsAsArray();
       ballToMove = balls[0];
    }
 

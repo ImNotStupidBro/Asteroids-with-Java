@@ -40,7 +40,7 @@ public class Presentation {
    }
    
    public void render() {
-      Ball balls[] = world.getBalls();
+      Ball balls[] = world.getBallsAsArray();
       double ballX = 0.0;
       double ballY = 0.0;
       double ballRadius = 0.0;
@@ -55,13 +55,9 @@ public class Presentation {
          ballX = convertPhysicsScaletoPresentationScale(balls[i].getX());
          ballY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(balls[i].getY()));
          ballRadius = convertPhysicsScaletoPresentationScale(balls[i].getRadius());
-         if (i == 0) { // color first ball green
-            graphicsContext.setFill(Color.GREEN);
-         }
-         else {
-            graphicsContext.setFill(Color.BLUE);
-         }       
-      
+         
+         graphicsContext.setFill(Color.BLUE);
+         
          drawBall(ballX, ballY, ballRadius);
          
          if(toggleHitbox){
