@@ -29,7 +29,7 @@ public class World {
          ballXSpeed = 0.0;
          ballYSpeed = 0.0;
          ballHitbox.set(ballXStartLocation, ballYStartLocation, (ballRadius * 2), (ballRadius * 2));
-         balls[0] = new Ball(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed, ballHitbox);
+         balls[0] = new Player(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed, ballHitbox); //changed this line to call player instead of ball
       //Spawn every other ball.
       for(int i = 1; i < balls.length; i++) {
          ballXStartLocation = random.nextInt(X_DIMENSION);
