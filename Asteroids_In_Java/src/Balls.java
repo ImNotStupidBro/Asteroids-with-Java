@@ -15,8 +15,7 @@ public class Balls {
    
    public Balls(int numberOfBalls) {
       this();
-      balls.add(Ball.createPlayerBall());
-      for(int i = 1; i < numberOfBalls; i++) {
+      for(int i = 0; i < numberOfBalls; i++) {
          balls.add(Ball.createRandomBall());
       }
    }
@@ -41,10 +40,6 @@ public class Balls {
             currentIndex++;
          }
       }
-   }
-   public void addPlayerBall() {
-      Ball ball = Ball.createPlayerBall();
-      balls.add(ball);
    }
    
    public void addBall() {
