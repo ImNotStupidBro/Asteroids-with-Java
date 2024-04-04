@@ -41,13 +41,31 @@ public class Presentation {
    
    public void render() {
       Ball balls[] = world.getBalls();
+      Player playerToMove = world.getPlayer();
       double ballX = 0.0;
       double ballY = 0.0;
       double ballRadius = 0.0;
+      double playerX = 0.0;
+      double playerY = 0.0;
+      double playerRadius = 0.0;
       boolean toggleHitbox = false;
       
       // Clear the screen so old objects don't blur across the screen
       graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
+      
+      // Draw the player
+      playerX = convertPhysicsScaletoPresentationScale(playerToMove.getX());
+      playerY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(playerToMove.getY()));
+      playerRadius = convertPhysicsScaletoPresentationScale(playerToMove.getRadius());
+      graphicsContext.setFill(Color.GREEN);
+      drawBall(playerX, playerY, playerRadius); //change from drawBall to new method below when creating a new method named drawPolygon
+      
+      if(toggleHitbox){
+            graphicsContext.setFill(new Color(1, 0, 0, 0.5));
+         
+            drawBallHitbox(ballX, ballY, ballRadius);
+      }
+      
       
       // Draw the balls
    
@@ -55,13 +73,7 @@ public class Presentation {
          ballX = convertPhysicsScaletoPresentationScale(balls[i].getX());
          ballY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(balls[i].getY()));
          ballRadius = convertPhysicsScaletoPresentationScale(balls[i].getRadius());
-         if (i == 0) { // color first ball green
-            graphicsContext.setFill(Color.GREEN);
-         }
-         else {
-            graphicsContext.setFill(Color.BLUE);
-         }       
-      
+         graphicsContext.setFill(Color.BLUE);
          drawBall(ballX, ballY, ballRadius);
          
          if(toggleHitbox){

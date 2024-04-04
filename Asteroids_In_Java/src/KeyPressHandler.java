@@ -4,11 +4,10 @@ import javafx.scene.input.KeyEvent;
 public class KeyPressHandler implements EventHandler<KeyEvent> {
 
    private Ball balls[];
-   private Ball ballToMove;
+   private Player playerToMove;
 
    public KeyPressHandler(World world) {
-      balls = world.getBalls();
-      ballToMove = balls[0];
+      playerToMove = world.getPlayer();
    }
 
    @Override
@@ -16,19 +15,19 @@ public class KeyPressHandler implements EventHandler<KeyEvent> {
       switch(event.getCode()) {
          case UP:
             System.out.println("UP");
-            ballToMove.up();
+            playerToMove.up();
             break;
          case DOWN:
             System.out.println("DOWN");
-            ballToMove.down();
+            playerToMove.down();
             break;
          case RIGHT:
             System.out.println("RIGHT");
-            ballToMove.right();
+            playerToMove.right();
             break;
          case LEFT:
             System.out.println("LEFT");
-            ballToMove.left();
+            playerToMove.left();
             break;
       }
    }      
