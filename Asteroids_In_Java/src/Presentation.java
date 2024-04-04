@@ -40,8 +40,9 @@ public class Presentation {
    }
    
    public void render() {
-      Ball balls[] = world.getBalls();
+      Ball balls[] = world.getBallsAsArray();
       Player playerToMove = world.getPlayer();
+
       double ballX = 0.0;
       double ballY = 0.0;
       double ballRadius = 0.0;
@@ -72,7 +73,7 @@ public class Presentation {
       for(int i = 0; i < balls.length; i++) {
          ballX = convertPhysicsScaletoPresentationScale(balls[i].getX());
          ballY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(balls[i].getY()));
-         ballRadius = convertPhysicsScaletoPresentationScale(balls[i].getRadius());
+         ballRadius = convertPhysicsScaletoPresentationScale(balls[i].getRadius());    
          graphicsContext.setFill(Color.BLUE);
          drawBall(ballX, ballY, ballRadius);
          
@@ -110,7 +111,4 @@ public class Presentation {
       double presentationYLocation = canvasYDimension - physicsYLocation;
       return presentationYLocation;
    }
-      
-   
-    
 }

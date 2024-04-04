@@ -1,6 +1,7 @@
 /**
  * Describes the physics of a ball.
  */
+import java.util.Random;
 public class Ball {
    private double x; // meters
    private double y; // meters
@@ -8,6 +9,9 @@ public class Ball {
    private double xSpeed; // meters/second
    private double ySpeed; // meters/second
    private HitBox hitbox; // Collision detection tool
+   
+   private static final int MAX_BALL_RADIUS = 9;
+   private static final double MAX_BALL_SPEED = 30.0;
 
    public Ball(double x, double y, double radius, double xSpeed, double ySpeed, HitBox hitbox) {
       this.x = x; // meters
@@ -34,6 +38,29 @@ public class Ball {
       } else if (y >= worldYDimension + (this.radius * 2)) {
          y = y % worldYDimension - (this.radius * 3);
       }
+   }
+/*   
+   public static Ball createPlayerBall() {
+      int ballXStartLocation = World.X_DIMENSION/2;
+      int ballYStartLocation = World.Y_DIMENSION/2;
+      int ballRadius = 3;
+      double ballXSpeed = 0.0;
+      double ballYSpeed = 0.0;
+      HitBox ballHitbox = new HitBox(ballXStartLocation, ballYStartLocation, (ballRadius * 2), (ballRadius * 2));
+      Ball ball = new Ball(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed, ballHitbox);
+      return ball;
+   }
+*/   
+   public static Ball createRandomBall() {
+      Random random = new Random();
+      int ballXStartLocation = random.nextInt(World.X_DIMENSION);
+      int ballYStartLocation = random.nextInt(World.Y_DIMENSION);
+      int ballRadius = random.nextInt(MAX_BALL_RADIUS) + 1; //no zero radius balls
+      double ballXSpeed = (random.nextDouble() - 0.5) * MAX_BALL_SPEED;
+      double ballYSpeed = (random.nextDouble() - 0.5) * MAX_BALL_SPEED;
+      HitBox ballHitbox = new HitBox(ballXStartLocation, ballYStartLocation, (ballRadius * 2), (ballRadius * 2));
+      Ball ball = new Ball(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed, ballHitbox);
+      return ball;
    }
    
    public void up() {
@@ -70,5 +97,9 @@ public class Ball {
 
    public double getYSpeed() {
       return ySpeed;
+   }
+   
+   public HitBox getHitbox() {
+      return hitbox;
    }
 }
