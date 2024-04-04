@@ -36,6 +36,9 @@ public class KeyPressHandler implements EventHandler<KeyEvent> {
             System.out.println("LEFT");
             playerToMove.left();
             break;
+         case SPACE:
+            System.out.println("SPACE");
+            break;
       }
    }
 /*
