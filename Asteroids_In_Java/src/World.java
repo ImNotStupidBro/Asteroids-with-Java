@@ -3,14 +3,15 @@
  */
 import java.util.Random;
  
-public class World {
+public class World{
    private Ball balls[];
+   private Player playerToMove;
    private final int X_DIMENSION = 100; // meters
    private final int Y_DIMENSION = 50; // meters
    private final int MAX_BALL_RADIUS = 9;
    private final double MAX_BALL_SPEED = 30.0;
    
-   private final int NUMBER_OF_BALLS = 5;
+   private final int NUMBER_OF_BALLS = 4;
    
    public World() {
       //Define ball properties.
@@ -29,9 +30,10 @@ public class World {
          ballXSpeed = 0.0;
          ballYSpeed = 0.0;
          ballHitbox.set(ballXStartLocation, ballYStartLocation, (ballRadius * 2), (ballRadius * 2));
-         balls[0] = new Player(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed, ballHitbox); //changed this line to call player instead of ball
+         //balls[0] = new Ball(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed, ballHitbox);
+         playerToMove = new Player(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed, ballHitbox);
       //Spawn every other ball.
-      for(int i = 1; i < balls.length; i++) {
+      for(int i = 0; i < balls.length; i++) {
          ballXStartLocation = random.nextInt(X_DIMENSION);
          ballYStartLocation = random.nextInt(Y_DIMENSION);
          ballRadius = random.nextInt(MAX_BALL_RADIUS) + 1; //no zero radius balls
@@ -46,11 +48,16 @@ public class World {
    public void run(long elapsedTimeInNanoseconds) {
       for(int i = 0; i < balls.length; i++) {
          balls[i].move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
-      }      
+      }
+      playerToMove.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());      
    }
 
    public Ball[] getBalls() {
       return balls;
+   }
+   
+   public Player getPlayer() {
+      return playerToMove;
    }
 
    public double getXDimension() {
