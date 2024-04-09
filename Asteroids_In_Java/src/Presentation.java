@@ -59,7 +59,7 @@ public class Presentation {
       playerX = convertPhysicsScaletoPresentationScale(playerToMove.getX());
       playerY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(playerToMove.getY()));
       playerRadius = convertPhysicsScaletoPresentationScale(playerToMove.getRadius());
-      graphicsContext.setFill(Color.GREEN);
+      graphicsContext.setFill(Color.WHITE);
       drawBall(playerX, playerY, playerRadius); //change from drawBall to new method below when creating a new method named drawPolygon
       
       if(toggleHitbox){
@@ -75,7 +75,7 @@ public class Presentation {
          ballX = convertPhysicsScaletoPresentationScale(balls[i].getX());
          ballY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(balls[i].getY()));
          ballRadius = convertPhysicsScaletoPresentationScale(balls[i].getRadius());    
-         graphicsContext.setFill(Color.BLUE);
+         graphicsContext.setFill(Color.WHITE);
          drawBall(ballX, ballY, ballRadius);
          
          if(toggleHitbox){
