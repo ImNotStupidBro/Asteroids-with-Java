@@ -25,7 +25,7 @@ public class Presentation {
       
       root = new Group();
       scene = new Scene(root);
-      //scene.setFill(Color.BLACK);
+      scene.setFill(Color.BLACK);
       canvasXDimension = world.getXDimension()*CANVAS_SCALE;
       canvasYDimension = world.getYDimension()*CANVAS_SCALE;
       canvas = new Canvas(canvasXDimension, canvasYDimension);
