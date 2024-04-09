@@ -7,7 +7,7 @@ public class World {
    private Balls balls;
    private Player playerToMove;
    public static final int X_DIMENSION = 100; // meters
-   public static final int Y_DIMENSION = 50; // meters
+   public static final int Y_DIMENSION = 70; // meters
    private final int MAX_BALL_RADIUS = 9;
    private final double MAX_BALL_SPEED = 30.0;
    private final int NUMBER_OF_BALLS = 4;
