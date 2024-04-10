@@ -39,18 +39,7 @@ public class Ball {
          y = y % worldYDimension - (this.radius * 3);
       }
    }
-/*   
-   public static Ball createPlayerBall() {
-      int ballXStartLocation = World.X_DIMENSION/2;
-      int ballYStartLocation = World.Y_DIMENSION/2;
-      int ballRadius = 3;
-      double ballXSpeed = 0.0;
-      double ballYSpeed = 0.0;
-      HitBox ballHitbox = new HitBox(ballXStartLocation, ballYStartLocation, (ballRadius * 2), (ballRadius * 2));
-      Ball ball = new Ball(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed, ballHitbox);
-      return ball;
-   }
-*/   
+ 
    public static Ball createRandomBall() {
       Random random = new Random();
       int ballXStartLocation = random.nextInt(World.X_DIMENSION);
