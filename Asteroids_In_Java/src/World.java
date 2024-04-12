@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class World {
    private AsteroidSet asteroids;
-   private Ship playerToMove;
+   private Ship ship;
    public static final int X_DIMENSION = 100; // meters
    public static final int Y_DIMENSION = 70; // meters
    private final int[] SHIPXPOINTS = {116, 100, 104, 128, 132, 116};
@@ -15,7 +15,7 @@ public class World {
    
    public World() {
       //Create Asteroid set.
-      asteroids = new Asteroids(NUMBER_OF_ASTEROIDS);
+      asteroids = new AsteroidSet(NUMBER_OF_ASTEROIDS);
 
       //Generate the ship.
       int shipXStartLocation = X_DIMENSION/2;
@@ -27,13 +27,13 @@ public class World {
       Rectangle shipBox = shipPolygon.getBounds();
       shipHitbox.set(shipXStartLocation, shipYStartLocation, shipBox.getWidth(), shipBox.getHeight());
       
-      playerToMove = new Ship(shipXStartLocation, shipYStartLocation, shipRadius, shipXSpeed, shipYSpeed, shipHitbox, shipPolygon);
+      ship = new Ship(shipXStartLocation, shipYStartLocation, shipRadius, shipXSpeed, shipYSpeed, shipHitbox, shipPolygon);
    }
    
    /** Runs the physics of the world. */
    public void run(long elapsedTimeInNanoseconds) {
       asteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
-      shipToMove.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
    }
 
    public AsteroidSet getAsteroidSet() {
@@ -45,7 +45,7 @@ public class World {
    }
 
    public Ship getShip() {
-      return shipToMove;
+      return ship;
    }
 
    public double getXDimension() {

@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.stage.Stage;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.shape.ArcType;
+import javafx.scene.shape.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -41,33 +41,25 @@ public class Presentation {
    }
    
    public void render() {
-      
+      boolean toggleHitbox = false;
       graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
       renderShip();
       renderAsteroids();
       
-      
-      boolean toggleHitbox = false;
-      
-      // Clear the screen so old objects don't blur across the screen
-      graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
-
       stage.show();     
    }
    
    public void renderShip(){
-      Player playerToMove = world.getPlayer();
-      double playerX = 0.0;
-      double playerY = 0.0;
-      int[] shipXVerticies = {116, 100, 104, 128, 132, 116};
-      int[] shipYVerticies = {80, 128, 116, 116, 128, 80};
-      Polygon shipPoly = new Polygon(shipXVerticies, shipYVerticies, shipXVerticies.length);
-      // Draw the player
-      playerX = convertPhysicsScaletoPresentationScale(playerToMove.getX());
-      playerY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(playerToMove.getY()));
-      playerRadius = convertPhysicsScaletoPresentationScale(playerToMove.getRadius());
+      Ship shipToMove = world.getShip();
+      double shipX = 0.0;
+      double shipY = 0.0;
+      Polygon shipPoly;
+      
+      shipX = convertPhysicsScaletoPresentationScale(shipToMove.getX());
+      shipY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(shipToMove.getY()));
+      shipPoly = convertPhysicsScaletoPresentationScale(shipToMove.getPolygon());
       graphicsContext.setFill(Color.WHITE);
-      drawShip(playerX, playerY, shipPoly);
+      drawShip(shipX, shipY, shipPoly);
       
       if(toggleHitbox){
             graphicsContext.setFill(new Color(1, 0, 0, 0.5));
@@ -84,7 +76,7 @@ public class Presentation {
       for(int i = 0; i < asteroidArray.length; i++) {
          asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getX());
          asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getY()));
-         asteroidShape = convertPhysicsScaletoPresentationScale(asteroidArray[i].getRadius());    
+         asteroidShape = convertPhysicsScaletoPresentationScale(asteroidArray[i].getAsteroidShape());    
          graphicsContext.setFill(Color.WHITE);
          drawAsteroid(asteroidX, asteroidY, asteroidShape);
          
@@ -99,7 +91,7 @@ public class Presentation {
    private void drawAsteroid(double x, double y, Polygon asteroidShape) {
       double adjustedX = x;
       double adjustedY = y;
-      Polygon asteroidShape = ;
+      Polygon polygonShape = asteroidShape;
       graphicsContext.drawPolygon(adjustedX, adjustedY, );
    }
    

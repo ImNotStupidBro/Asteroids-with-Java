@@ -58,4 +58,6 @@ public class Asteroid extends InteractableObject{
       Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, ballXSpeed, ballYSpeed, ballHitbox, asteroidPolygon);
       return asteroid;
    }
+   
+   public Polygon getAsteroidShape(){ return asteroidShape }
 }
