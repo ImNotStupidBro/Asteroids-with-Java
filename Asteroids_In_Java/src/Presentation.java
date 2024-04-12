@@ -41,66 +41,76 @@ public class Presentation {
    }
    
    public void render() {
-      Ball balls[] = world.getBallsAsArray();
-      Player playerToMove = world.getPlayer();
-
-      double ballX = 0.0;
-      double ballY = 0.0;
-      double ballRadius = 0.0;
-      double playerX = 0.0;
-      double playerY = 0.0;
-      double playerRadius = 0.0;
+      
+      graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
+      renderShip();
+      renderAsteroids();
+      
+      
       boolean toggleHitbox = false;
       
       // Clear the screen so old objects don't blur across the screen
       graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
-      
+
+      stage.show();     
+   }
+   
+   public void renderShip(){
+      Player playerToMove = world.getPlayer();
+      double playerX = 0.0;
+      double playerY = 0.0;
+      int[] shipXVerticies = {116, 100, 104, 128, 132, 116};
+      int[] shipYVerticies = {80, 128, 116, 116, 128, 80};
+      Polygon shipPoly = new Polygon(shipXVerticies, shipYVerticies, shipXVerticies.length);
       // Draw the player
       playerX = convertPhysicsScaletoPresentationScale(playerToMove.getX());
       playerY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(playerToMove.getY()));
       playerRadius = convertPhysicsScaletoPresentationScale(playerToMove.getRadius());
       graphicsContext.setFill(Color.WHITE);
-      drawBall(playerX, playerY, playerRadius); //change from drawBall to new method below when creating a new method named drawPolygon
+      drawShip(playerX, playerY, shipPoly);
       
       if(toggleHitbox){
             graphicsContext.setFill(new Color(1, 0, 0, 0.5));
-         
-            drawBallHitbox(ballX, ballY, ballRadius);
+            drawHitbox(playerX, playerY, shipPoly);
       }
-      
-      
-      // Draw the balls
+   }
    
-      for(int i = 0; i < balls.length; i++) {
-         ballX = convertPhysicsScaletoPresentationScale(balls[i].getX());
-         ballY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(balls[i].getY()));
-         ballRadius = convertPhysicsScaletoPresentationScale(balls[i].getRadius());    
+   public void renderAsteroids(){
+      Asteroid asteroidArray[] = world.getAsteroidsAsArray();
+      double asteroidX = 0.0;
+      double asteroidY = 0.0;
+      Polygon asteroidShape;
+      
+      for(int i = 0; i < asteroidArray.length; i++) {
+         asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getX());
+         asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getY()));
+         asteroidShape = convertPhysicsScaletoPresentationScale(asteroidArray[i].getRadius());    
          graphicsContext.setFill(Color.WHITE);
-         drawBall(ballX, ballY, ballRadius);
+         drawAsteroid(asteroidX, asteroidY, asteroidShape);
          
          if(toggleHitbox){
             graphicsContext.setFill(new Color(1, 0, 0, 0.5));
-         
-            drawBallHitbox(ballX, ballY, ballRadius);
+            drawHitbox(asteroidX, asteroidY, asteroidShape);
          }
       }
-   
-      stage.show();     
    }
    
    //A circle is drawn in a box with the upper left corner being 0,0. Need to shift this to match the physics.
-   private void drawBall(double x, double y, double radius) {
-      double adjustedX = x - radius;
-      double adjustedY = y - radius;
-      double diameter = 2.0 * radius;
-      graphicsContext.fillOval(adjustedX, adjustedY, diameter, diameter);
+   private void drawAsteroid(double x, double y, Polygon asteroidShape) {
+      double adjustedX = x;
+      double adjustedY = y;
+      Polygon asteroidShape = ;
+      graphicsContext.drawPolygon(adjustedX, adjustedY, );
    }
    
-   private void drawBallHitbox(double x, double y, double radius) {
-      double adjustedX = x - radius;
-      double adjustedY = y - radius;
-      double width = 2.0 * radius;
-      graphicsContext.fillRect(adjustedX, adjustedY, width, width);
+   private void drawShip(double x, double y, Polygon theShipPoly);
+   
+   private void drawHitbox(double x, double y, Polygon thePoly) {
+      double adjustedX = x;
+      double adjustedY = y;
+      double width = thePoly.getBounds().getWidth();
+      double height = thePoly.getBounds().getHeight();
+      graphicsContext.fillRect(adjustedX, adjustedY, width, height);
    }
    
    private double convertPhysicsScaletoPresentationScale(double location) {

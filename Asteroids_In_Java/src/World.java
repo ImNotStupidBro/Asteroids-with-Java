@@ -4,46 +4,48 @@
 import java.util.Random;
 
 public class World {
-   private Balls balls;
-   private Player playerToMove;
+   private AsteroidSet asteroids;
+   private Ship playerToMove;
    public static final int X_DIMENSION = 100; // meters
    public static final int Y_DIMENSION = 70; // meters
-   private final int MAX_BALL_RADIUS = 9;
-   private final double MAX_BALL_SPEED = 30.0;
-   private final int NUMBER_OF_BALLS = 4;
+   private final int[] SHIPXPOINTS = {116, 100, 104, 128, 132, 116};
+   private final int[] SHIPYPOINTS = {80, 128, 116, 116, 128, 80};
+   private final double MAX_SHIP_SPEED = 30.0;
+   private final int NUMBER_OF_ASTEROIDS = 4;
    
    public World() {
-      //Create Ball set.
-      balls = new Balls(NUMBER_OF_BALLS);
+      //Create Asteroid set.
+      asteroids = new Asteroids(NUMBER_OF_ASTEROIDS);
 
-      //Generate the player ball.
-      int ballXStartLocation = X_DIMENSION/2;
-      int ballYStartLocation = Y_DIMENSION/2;
-      int ballRadius = 3;
-      double ballXSpeed = 0.0;
-      double ballYSpeed = 0.0;
+      //Generate the ship.
+      int shipXStartLocation = X_DIMENSION/2;
+      int shipYStartLocation = Y_DIMENSION/2;
+      double shipXSpeed = 0.0;
+      double shipYSpeed = 0.0;
       HitBox ballHitbox = new HitBox(0,0,0,0);
-      ballHitbox.set(ballXStartLocation, ballYStartLocation, (ballRadius * 2), (ballRadius * 2));
+      Polygon shipPolygon = new Polygon(SHIPXPOINTS, SHIPYPOINTS, SHIPXPOINTS.length);
+      Rectangle shipBox = shipPolygon.getBounds();
+      shipHitbox.set(shipXStartLocation, shipYStartLocation, shipBox.getWidth(), shipBox.getHeight());
       
-      playerToMove = new Player(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed, ballHitbox);
+      playerToMove = new Ship(shipXStartLocation, shipYStartLocation, shipRadius, shipXSpeed, shipYSpeed, shipHitbox, shipPolygon);
    }
    
    /** Runs the physics of the world. */
    public void run(long elapsedTimeInNanoseconds) {
-      balls.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
-      playerToMove.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      asteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      shipToMove.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
    }
 
-   public Balls getBalls() {
-      return balls;
+   public AsteroidSet getAsteroidSet() {
+      return asteroids;
    }
    
-   public Ball[] getBallsAsArray() {
-      return balls.getBallsAsArray();
+   public Asteroid[] getAsteroidsAsArray() {
+      return asteroids.getAsteroidsAsArray();
    }
 
-   public Player getPlayer() {
-      return playerToMove;
+   public Ship getShip() {
+      return shipToMove;
    }
 
    public double getXDimension() {

@@ -20,8 +20,6 @@ public class GameLoop extends AnimationTimer{
         lastTime = now;
 
         // render the ball
-        //Ball ball = world.getBall();
-        //System.out.printf("Ball at (%2.2f, %2.2f)\n", ball.getX(), ball.getY());
         presentation.render();
     }
     
