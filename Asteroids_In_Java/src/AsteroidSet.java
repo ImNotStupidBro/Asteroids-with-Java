@@ -2,17 +2,17 @@ import java.util.HashSet;
 import java.util.Random;
 
 public class AsteroidSet{
-   private HashSet<Asteroid> asteroidSet
+   private HashSet<Asteroid> asteroidSet;
    private Random rand;
    
    public AsteroidSet(){
       asteroidSet = new HashSet<Asteroid>();
-      random = new Random();
+      rand = new Random();
    }
    
    public AsteroidSet(int numOfAsteroids){
       this();
-      for(int i = 0; i < numberOfAsteroids; i++) {
+      for(int i = 0; i < numOfAsteroids; i++) {
          asteroidSet.add(Asteroid.createRandomAsteroid());
       }
    }
@@ -27,7 +27,7 @@ public class AsteroidSet{
    public void deleteAsteroid() {
       int size = asteroidSet.size();
       if (size > 0) { // don't try to delete from empty set of balls
-         int indexOfAsteroidToDelete = random.nextInt(size);
+         int indexOfAsteroidToDelete = rand.nextInt(size);
          int currentIndex = 0;
          for(Asteroid asteroid: asteroidSet) {
             if (currentIndex == indexOfAsteroidToDelete) {
@@ -38,9 +38,9 @@ public class AsteroidSet{
          }
       }
    }
-   
+   /*
    public void deleteSpecifiedAsteroid(); //Work in progress
-   
+   */
    public void addAsteroid() {
       Asteroid asteroid = Asteroid.createRandomAsteroid();
       asteroidSet.add(asteroid);
@@ -55,7 +55,7 @@ public class AsteroidSet{
       Asteroid[] asteroidArray = new Asteroid[numberOfAsteroids];
       int i = 0;
       for(Asteroid asteroid: this.asteroidSet) {
-         asteroidSet[i++] = asteroid;
+         asteroidArray[i++] = asteroid;
       }
       return asteroidArray;
    }

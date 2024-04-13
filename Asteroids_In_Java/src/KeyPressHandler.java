@@ -3,38 +3,34 @@ import javafx.scene.input.KeyEvent;
 
 public class KeyPressHandler implements EventHandler<KeyEvent> {
 
-   private Balls balls;
-   private Player playerToMove;
+   private AsteroidSet asteroids;
+   private Ship shipToMove;
    public KeyPressHandler(World world) {
-      balls = world.getBalls();
-      playerToMove = world.getPlayer();
+      asteroids = world.getAsteroidSet();
+      shipToMove = world.getShip();
    }
 
    public void handle(KeyEvent event) {
       switch(event.getCode()) {
          case D:
             System.out.println("d");
-            balls.deleteBall();
+            asteroids.deleteAsteroid();
             break;
          case A:
             System.out.println("a");
-            balls.addBall();
+            asteroids.addAsteroid();
             break;
          case UP:
             System.out.println("UP");
-            playerToMove.up();
-            break;
-         case DOWN:
-            System.out.println("DOWN");
-            playerToMove.down();
+            shipToMove.accelerate();
             break;
          case RIGHT:
             System.out.println("RIGHT");
-            playerToMove.right();
+            shipToMove.turnRight();
             break;
          case LEFT:
             System.out.println("LEFT");
-            playerToMove.left();
+            shipToMove.turnLeft();
             break;
       }
    }

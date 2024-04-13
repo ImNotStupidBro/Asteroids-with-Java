@@ -18,6 +18,8 @@ public class Presentation {
    private double canvasXDimension;
    private double canvasYDimension;
    private final double CANVAS_SCALE = 10.0;
+   
+   public boolean toggleHitbox = false;
 
    public Presentation(Stage stage, World world) throws Exception {
       this.stage = stage;
@@ -41,7 +43,7 @@ public class Presentation {
    }
    
    public void render() {
-      boolean toggleHitbox = false;
+      
       graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
       renderShip();
       renderAsteroids();
@@ -55,15 +57,15 @@ public class Presentation {
       double shipY = 0.0;
       Polygon shipPoly;
       
-      shipX = convertPhysicsScaletoPresentationScale(shipToMove.getX());
-      shipY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(shipToMove.getY()));
-      shipPoly = convertPhysicsScaletoPresentationScale(shipToMove.getPolygon());
+      shipX = convertPhysicsScaletoPresentationScale(shipToMove.getPosition().getX());
+      shipY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(shipToMove.getPosition().getY()));
+      shipPoly = convertPhysicsScaletoPresentationScale(shipToMove.getShape());
       graphicsContext.setFill(Color.WHITE);
       drawShip(shipX, shipY, shipPoly);
       
       if(toggleHitbox){
-            graphicsContext.setFill(new Color(1, 0, 0, 0.5));
-            drawHitbox(playerX, playerY, shipPoly);
+         graphicsContext.setFill(new Color(1, 0, 0, 0.5));
+         drawHitbox(shipX, shipY, shipPoly);
       }
    }
    
@@ -74,9 +76,9 @@ public class Presentation {
       Polygon asteroidShape;
       
       for(int i = 0; i < asteroidArray.length; i++) {
-         asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getX());
-         asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getY()));
-         asteroidShape = convertPhysicsScaletoPresentationScale(asteroidArray[i].getAsteroidShape());    
+         asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getPosition().getX());
+         asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getPosition().getY()));
+         asteroidShape = convertPhysicsScaletoPresentationScale(asteroidArray[i].getShape());    
          graphicsContext.setFill(Color.WHITE);
          drawAsteroid(asteroidX, asteroidY, asteroidShape);
          
@@ -92,16 +94,18 @@ public class Presentation {
       double adjustedX = x;
       double adjustedY = y;
       Polygon polygonShape = asteroidShape;
-      graphicsContext.drawPolygon(adjustedX, adjustedY, );
+      graphicsContext.strokePolygon(polygonShape);
    }
    
-   private void drawShip(double x, double y, Polygon theShipPoly);
+   private void drawShip(double x, double y, Polygon theShipPoly) {
+      
+   }
    
    private void drawHitbox(double x, double y, Polygon thePoly) {
       double adjustedX = x;
       double adjustedY = y;
-      double width = thePoly.getBounds().getWidth();
-      double height = thePoly.getBounds().getHeight();
+      double width = thePoly.getBoundsInParent().getWidth();
+      double height = thePoly.getBoundsInParent().getHeight();
       graphicsContext.fillRect(adjustedX, adjustedY, width, height);
    }
    

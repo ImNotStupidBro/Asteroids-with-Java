@@ -1,63 +1,76 @@
 import java.util.Random;
+import javafx.geometry.Bounds;
+import javafx.scene.shape.Polygon;
+import java.util.Random;
 public class Asteroid extends InteractableObject{
    
-   private Polygon asteroidShape;
-   
-   public Asteroid(double x, double y, double xSpeed, double ySpeed, HitBox hitbox, Polygon theShape){
-      super(x, y, xSpeed, ySpeed, theShape, hitbox);
-      this.asteroidShape = theShape;
-   }
-   
-   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) { 
-      x += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
-      y += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
-      
-      //Keep asteroid on the torus
-      if (x < 0 - (this.getHitbox().getWidth() * 2)) { // moving in the negative x direction
-         x = worldXDimension + x % worldXDimension + (this.getHitbox().getWidth() * 3);
-      } else if (x >= worldXDimension + (this.getHitbox().getWidth() * 2)) {
-         x = x % worldXDimension - (this.getHitbox().getWidth() * 3);
-      }
-      if (y < 0 - (this.getHitbox().getHeight() * 2)) { // moving in the negative y direction
-         y = worldYDimension + y % worldYDimension + (this.getHitbox().getHeight() * 3);
-      } else if (y >= worldYDimension + (this.getHitbox().getHeight() * 2)) {
-         y = y % worldYDimension - (this.getHitbox().getHeight() * 3);
-      }
+   public Asteroid(double x, double y, Polygon theShape, HitBox hitbox){
+      super(x, y, theShape, hitbox);
    }
    
    private static Polygon generateConfiguration() {
-      int[] x_points;
-      int[] y_points;
+      double verticeCoordinates[];
       Random rand = new Random();
       int randNum = rand.nextInt(2);
       
       if(randNum == 0){
-         x_points = {40, 46, 52, 56, 56, 52, 48, 48, 44, 40, 44, 40};
-         y_points = {46, 40, 40, 46, 52, 56, 56, 50, 56, 50, 48, 46};
+         verticeCoordinates = new double[] {
+         40.0, 46.0, 
+         46.0, 40.0,
+         52.0, 40.0,
+         56.0, 46.0,
+         56.0, 52.0,
+         52.0, 56.0,
+         48.0, 56.0,
+         48.0, 50.0,
+         44.0, 56.0,
+         40.0, 50.0,
+         44.0, 48.0,
+         40.0, 46.0};
       }else if(randNum == 1){
-         x_points = {60, 64, 68, 72, 76, 72, 76, 72, 66, 64, 60, 62, 60};
-         y_points = {44, 40, 42, 40, 44, 46, 50, 56, 54, 56, 52, 48, 44};
+         verticeCoordinates = new double[] {
+         60.0, 46.0, 
+         64.0, 40.0,
+         68.0, 42.0,
+         72.0, 40.0,
+         76.0, 44.0,
+         72.0, 46.0,
+         76.0, 50.0,
+         72.0, 56.0,
+         66.0, 54.0,
+         64.0, 56.0,
+         60.0, 52.0,
+         62.0, 48.0,
+         60.0, 44.0};
       }else{
-         x_points = {80, 86, 84, 90, 96, 96, 90, 96, 92, 90, 82, 80, 80};
-         y_points = {44, 44, 40, 40, 44, 46, 48, 50, 56, 54, 56, 50, 44};
+         verticeCoordinates = new double[] {
+         80.0, 44.0, 
+         86.0, 44.0,
+         84.0, 40.0,
+         90.0, 40.0,
+         96.0, 44.0,
+         96.0, 46.0,
+         90.0, 48.0,
+         96.0, 50.0,
+         92.0, 56.0,
+         90.0, 54.0,
+         82.0, 56.0,
+         80.0, 50.0,
+         80.0, 44.0};
       }
       
-      Polygon generatedPolygon = new Polygon(x_points, y_points, x_points.length);
+      Polygon generatedPolygon = new Polygon(verticeCoordinates);
       return generatedPolygon;
    }
    
    public static Asteroid createRandomAsteroid(){
       Random rand = new Random();
-      int asteroidXStartLocation = random.nextInt(World.X_DIMENSION);
-      int asteroidYStartLocation = random.nextInt(World.Y_DIMENSION);
-      double asteroidXSpeed = (random.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
-      double asteroidYSpeed = (random.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
+      int asteroidXStartLocation = rand.nextInt(World.X_DIMENSION);
+      int asteroidYStartLocation = rand.nextInt(World.Y_DIMENSION);
       Polygon asteroidPolygon = generateConfiguration();
-      Rectangle asteroidBox = asteroidPolygon.getBounds();
+      Bounds asteroidBox = asteroidPolygon.getBoundsInParent();
       HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, asteroidBox.getWidth(), asteroidBox.getHeight());
-      Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, ballXSpeed, ballYSpeed, ballHitbox, asteroidPolygon);
+      Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidPolygon, asteroidHitbox);
       return asteroid;
    }
-   
-   public Polygon getAsteroidShape(){ return asteroidShape }
 }

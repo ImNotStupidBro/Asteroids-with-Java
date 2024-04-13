@@ -2,14 +2,22 @@
  * Describes the physics of the world.
  */
 import java.util.Random;
+import javafx.scene.shape.Polygon;
+import javafx.geometry.Bounds;
 
 public class World {
    private AsteroidSet asteroids;
    private Ship ship;
    public static final int X_DIMENSION = 100; // meters
    public static final int Y_DIMENSION = 70; // meters
-   private final int[] SHIPXPOINTS = {116, 100, 104, 128, 132, 116};
-   private final int[] SHIPYPOINTS = {80, 128, 116, 116, 128, 80};
+   private final double[] SHIPVERTICECOORDINATES = {
+      116.0, 80.0,
+      100.0, 128.0,
+      104.0, 116.0,
+      128.0, 116.0,
+      132.0, 128.0,
+      116.0, 80.0
+   };
    private final double MAX_SHIP_SPEED = 30.0;
    private final int NUMBER_OF_ASTEROIDS = 4;
    
@@ -22,12 +30,12 @@ public class World {
       int shipYStartLocation = Y_DIMENSION/2;
       double shipXSpeed = 0.0;
       double shipYSpeed = 0.0;
-      HitBox ballHitbox = new HitBox(0,0,0,0);
-      Polygon shipPolygon = new Polygon(SHIPXPOINTS, SHIPYPOINTS, SHIPXPOINTS.length);
-      Rectangle shipBox = shipPolygon.getBounds();
+      HitBox shipHitbox = new HitBox(0,0,0,0);
+      Polygon shipPolygon = new Polygon(SHIPVERTICECOORDINATES);
+      Bounds shipBox = shipPolygon.getBoundsInParent();
       shipHitbox.set(shipXStartLocation, shipYStartLocation, shipBox.getWidth(), shipBox.getHeight());
       
-      ship = new Ship(shipXStartLocation, shipYStartLocation, shipRadius, shipXSpeed, shipYSpeed, shipHitbox, shipPolygon);
+      ship = new Ship(shipXStartLocation, shipYStartLocation, shipPolygon, shipHitbox);
    }
    
    /** Runs the physics of the world. */
