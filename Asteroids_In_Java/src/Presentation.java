@@ -45,7 +45,7 @@ public class Presentation {
    public void render() {
       
       graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
-      renderShip();
+      //renderShip();
       renderAsteroids();
       
       stage.show();     
@@ -59,9 +59,9 @@ public class Presentation {
       
       shipX = convertPhysicsScaletoPresentationScale(shipToMove.getPosition().getX());
       shipY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(shipToMove.getPosition().getY()));
-      shipPoly = convertPhysicsScaletoPresentationScale(shipToMove.getShape());
+      shipPoly = shipToMove.getShape();
       graphicsContext.setFill(Color.WHITE);
-      drawShip(shipX, shipY, shipPoly);
+      //drawShip(shipX, shipY, shipPoly);
       
       if(toggleHitbox){
          graphicsContext.setFill(new Color(1, 0, 0, 0.5));
@@ -73,18 +73,18 @@ public class Presentation {
       Asteroid asteroidArray[] = world.getAsteroidsAsArray();
       double asteroidX = 0.0;
       double asteroidY = 0.0;
-      Polygon asteroidShape;
+      Polygon asteroidPoly;
       
       for(int i = 0; i < asteroidArray.length; i++) {
          asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getPosition().getX());
          asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getPosition().getY()));
-         asteroidShape = convertPhysicsScaletoPresentationScale(asteroidArray[i].getShape());    
+         asteroidPoly = asteroidArray[i].getShape();    
          graphicsContext.setFill(Color.WHITE);
-         drawAsteroid(asteroidX, asteroidY, asteroidShape);
+         drawAsteroid(asteroidX, asteroidY, asteroidPoly);
          
          if(toggleHitbox){
             graphicsContext.setFill(new Color(1, 0, 0, 0.5));
-            drawHitbox(asteroidX, asteroidY, asteroidShape);
+            drawHitbox(asteroidX, asteroidY, asteroidPoly);
          }
       }
    }
@@ -93,14 +93,27 @@ public class Presentation {
    private void drawAsteroid(double x, double y, Polygon asteroidShape) {
       double adjustedX = x;
       double adjustedY = y;
-      Polygon polygonShape = asteroidShape;
-      graphicsContext.strokePolygon(polygonShape);
+      Object[] objectBufferArray = asteroidShape.getPoints().toArray();
+      double shapeVerticies[] = 
+      double transformedX[] = new double[(shapeVerticies.length / 2)];
+      double transformedY[] = new double[(shapeVerticies.length / 2)];
+      int index = 0;
+      for(int i = 0; i < transformedX.length; i += 2){
+         transformedX[index] = shapeVerticies[i];
+         index++;
+      }
+      index = 0;
+      for(int j = 1; j < transformedX.length; j += 2){
+         transformedX[index] = shapeVerticies[j];
+         index++;
+      }
+      graphicsContext.strokePolygon(transformedX, transformedY, transformedX.length);
    }
-   
+   /*
    private void drawShip(double x, double y, Polygon theShipPoly) {
       
    }
-   
+   */
    private void drawHitbox(double x, double y, Polygon thePoly) {
       double adjustedX = x;
       double adjustedY = y;

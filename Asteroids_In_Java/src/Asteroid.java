@@ -3,16 +3,17 @@ import javafx.geometry.Bounds;
 import javafx.scene.shape.Polygon;
 import java.util.Random;
 public class Asteroid extends InteractableObject{
+
+   private static double verticeCoordinates[];
    
    public Asteroid(double x, double y, Polygon theShape, HitBox hitbox){
       super(x, y, theShape, hitbox);
    }
    
    private static Polygon generateConfiguration() {
-      double verticeCoordinates[];
       Random rand = new Random();
       int randNum = rand.nextInt(2);
-      
+
       if(randNum == 0){
          verticeCoordinates = new double[] {
          40.0, 46.0, 
