@@ -6,16 +6,17 @@ public class Asteroid extends InteractableObject{
 
    private static double verticeCoordinates[];
    
-   public Asteroid(double x, double y, Polygon theShape, HitBox hitbox){
+   public Asteroid(double x, double y, Polygon theShape, HitBox hitbox, double[] VCoords){
       super(x, y, theShape, hitbox);
+      verticeCoordinates = VCoords;
    }
    
-   private static Polygon generateConfiguration() {
+   private static double[] generateConfiguration() {
       Random rand = new Random();
       int randNum = rand.nextInt(2);
 
       if(randNum == 0){
-         verticeCoordinates = new double[] {
+         return new double[]{
          40.0, 46.0, 
          46.0, 40.0,
          52.0, 40.0,
@@ -29,7 +30,7 @@ public class Asteroid extends InteractableObject{
          44.0, 48.0,
          40.0, 46.0};
       }else if(randNum == 1){
-         verticeCoordinates = new double[] {
+         return new double[]{
          60.0, 46.0, 
          64.0, 40.0,
          68.0, 42.0,
@@ -44,7 +45,7 @@ public class Asteroid extends InteractableObject{
          62.0, 48.0,
          60.0, 44.0};
       }else{
-         verticeCoordinates = new double[] {
+         return new double[] {
          80.0, 44.0, 
          86.0, 44.0,
          84.0, 40.0,
@@ -58,20 +59,24 @@ public class Asteroid extends InteractableObject{
          82.0, 56.0,
          80.0, 50.0,
          80.0, 44.0};
-      }
-      
-      Polygon generatedPolygon = new Polygon(verticeCoordinates);
-      return generatedPolygon;
+      } 
+   }
+   
+   private static Polygon generatePolygon(double[] VCoords){
+      return new Polygon(VCoords);
    }
    
    public static Asteroid createRandomAsteroid(){
       Random rand = new Random();
       int asteroidXStartLocation = rand.nextInt(World.X_DIMENSION);
       int asteroidYStartLocation = rand.nextInt(World.Y_DIMENSION);
-      Polygon asteroidPolygon = generateConfiguration();
+      double[] asteroidVCoords = generateConfiguration();
+      Polygon asteroidPolygon = generatePolygon(asteroidVCoords);
       Bounds asteroidBox = asteroidPolygon.getBoundsInParent();
       HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, asteroidBox.getWidth(), asteroidBox.getHeight());
-      Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidPolygon, asteroidHitbox);
+      Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidPolygon, asteroidHitbox, asteroidVCoords);
       return asteroid;
    }
+   
+   public double[] getVerticies(){ return verticeCoordinates; }  
 }

@@ -19,7 +19,7 @@ public class Presentation {
    private double canvasYDimension;
    private final double CANVAS_SCALE = 10.0;
    
-   public boolean toggleHitbox = false;
+   public boolean toggleHitbox = true;
 
    public Presentation(Stage stage, World world) throws Exception {
       this.stage = stage;
@@ -27,7 +27,7 @@ public class Presentation {
       
       root = new Group();
       scene = new Scene(root);
-      scene.setFill(Color.BLACK);
+      scene.setFill(Color.WHITE);
       canvasXDimension = world.getXDimension()*CANVAS_SCALE;
       canvasYDimension = world.getYDimension()*CANVAS_SCALE;
       canvas = new Canvas(canvasXDimension, canvasYDimension);
@@ -47,6 +47,9 @@ public class Presentation {
       graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
       //renderShip();
       renderAsteroids();
+      
+      graphicsContext.setFill(Color.BLACK);
+      graphicsContext.strokePolygon( new double[]{300.0,450.0,300.0,150.0}, new double[]{50.0,150.0,250.0,150.0}, 4);
       
       stage.show();     
    }
@@ -74,13 +77,15 @@ public class Presentation {
       double asteroidX = 0.0;
       double asteroidY = 0.0;
       Polygon asteroidPoly;
+      double asteroidVerticies[];
       
       for(int i = 0; i < asteroidArray.length; i++) {
          asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getPosition().getX());
          asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getPosition().getY()));
-         asteroidPoly = asteroidArray[i].getShape();    
+         asteroidPoly = asteroidArray[i].getShape();
+         asteroidVerticies = asteroidArray[i].getVerticies();    
          graphicsContext.setFill(Color.WHITE);
-         drawAsteroid(asteroidX, asteroidY, asteroidPoly);
+         drawAsteroid(asteroidX, asteroidY, asteroidVerticies);
          
          if(toggleHitbox){
             graphicsContext.setFill(new Color(1, 0, 0, 0.5));
@@ -90,11 +95,10 @@ public class Presentation {
    }
    
    //A circle is drawn in a box with the upper left corner being 0,0. Need to shift this to match the physics.
-   private void drawAsteroid(double x, double y, Polygon asteroidShape) {
+   private void drawAsteroid(double x, double y, double[] asteroidShape) {
       double adjustedX = x;
       double adjustedY = y;
-      Object[] objectBufferArray = asteroidShape.getPoints().toArray();
-      double shapeVerticies[] = 
+      double shapeVerticies[] = asteroidShape;
       double transformedX[] = new double[(shapeVerticies.length / 2)];
       double transformedY[] = new double[(shapeVerticies.length / 2)];
       int index = 0;
@@ -104,13 +108,13 @@ public class Presentation {
       }
       index = 0;
       for(int j = 1; j < transformedX.length; j += 2){
-         transformedX[index] = shapeVerticies[j];
+         transformedY[index] = shapeVerticies[j];
          index++;
       }
       graphicsContext.strokePolygon(transformedX, transformedY, transformedX.length);
    }
    /*
-   private void drawShip(double x, double y, Polygon theShipPoly) {
+   private void drawShip(double x, double y, double[] shipShape) {
       
    }
    */

@@ -11,7 +11,7 @@ public abstract class InteractableObject{
       this.shape = SHAPE;
       this.shape.setTranslateX(x);
       this.shape.setTranslateY(y);
-      this.position = new Point2D(0,0);
+      this.position = new Point2D(100,100);
       this.hitbox = hitbox; // Collision-detection tool
    }
    
@@ -49,23 +49,7 @@ public abstract class InteractableObject{
       
       this.position = this.position.add(changeX, changeY);
    }
-   /*
-   public double getX() {
-      return x;
-   }
-
-   public double getY() {
-      return y;
-   }
    
-   public double getXSpeed() {
-      return xSpeed;
-   }
-
-   public double getYSpeed() {
-      return ySpeed;
-   }
-   */
    public Polygon getShape() { return shape; }
    public Point2D getPosition() { return position; }
    public HitBox getHitbox() { return hitbox; }
