@@ -2,28 +2,33 @@ import javafx.scene.shape.Polygon;
 import javafx.geometry.Point2D;
 
 public abstract class InteractableObject{
-
+   
+   //Don't use Point2D for referencing position anymore.
    private Polygon shape;
-   private Point2D position;
+   private double xPosition;
+   private double yPosition;
+   private double xSpeed;
+   private double ySpeed;
    private HitBox hitbox; // Collision detection tool
 
-   public InteractableObject(double x, double y, Polygon SHAPE, HitBox hitbox){
+   public InteractableObject(double x, double y, , double dx, double dy, Polygon SHAPE, HitBox hitbox){
       this.shape = SHAPE;
-      this.shape.setTranslateX(x);
-      this.shape.setTranslateY(y);
-      this.position = new Point2D(100,100);
+      this.xPosition = x;
+      this.yPosition = y;
+      this.xSpeed = dx;
+      this.ySpeed = dy;
       this.hitbox = hitbox; // Collision-detection tool
    }
    
    public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) { 
-      this.shape.setTranslateX(this.shape.getTranslateX() + this.position.getX()); // * elapsedTimeInNanoseconds / 1_000_000_000.0;
+      this.shape.setTranslateX(this.shape.getTranslateX() + xPosition); // * elapsedTimeInNanoseconds / 1_000_000_000.0;
       this.shape.setTranslateY(this.shape.getTranslateY() + this.position.getY()); // * elapsedTimeInNanoseconds / 1_000_000_000.0;
       
       //Keep object on the torus
-      if (this.position.getX() < 0 - (this.getHitbox().getWidth() * 2)) { // moving in the negative x direction
-         this.shape.setTranslateX(worldXDimension + (this.position.getX() % worldXDimension) + (this.getHitbox().getWidth() * 3));
-      } else if (this.position.getX() >= worldXDimension + (this.getHitbox().getWidth() * 2)) {
-         this.shape.setTranslateX(this.position.getX() % worldXDimension - (this.getHitbox().getWidth() * 3));
+      if (xPosition < 0 - (this.getHitbox().getWidth() * 2)) { // moving in the negative x direction
+         xPosition = worldXDimension + (xPosition % worldXDimension) + (this.getHitbox().getWidth() * 3);
+      } else if (xPosition >= worldXDimension + (this.getHitbox().getWidth() * 2)) {
+         this.shape.setTranslateX(xPosition % worldXDimension - (this.getHitbox().getWidth() * 3));
       }
       if (this.position.getY() < 0 - (this.getHitbox().getHeight() * 2)) { // moving in the negative y direction
          this.shape.setTranslateY(worldYDimension + (this.position.getY() % worldYDimension) + (this.getHitbox().getHeight() * 3));
@@ -50,7 +55,10 @@ public abstract class InteractableObject{
       this.position = this.position.add(changeX, changeY);
    }
    
-   public Polygon getShape() { return shape; }
-   public Point2D getPosition() { return position; }
+   public double getX() { return x; }
+   public double getY() { return y; }
+   public double getXSpeed() { return xSpeed; }
+   public double getYSpeed() { return ySpeed; }
    public HitBox getHitbox() { return hitbox; }
+   public Polygon getShape() { return shape; }
 }
