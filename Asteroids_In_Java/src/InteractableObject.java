@@ -34,10 +34,16 @@ public abstract class InteractableObject{
    }
    
    public void turnRight() {
+      if(direction > 360){
+         direction = 0.0;
+      }
       this.direction += 5.0;
    }
    
    public void turnLeft() {
+      if(direction < 0){
+         direction = 360.0;
+      }
       this.direction -= 5.0;;
    }
    

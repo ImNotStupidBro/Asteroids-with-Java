@@ -46,31 +46,29 @@ public class Presentation {
       
       graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
       graphicsContext.setStroke(Color.WHITE);
-      //renderShip();
+      renderShip();
       renderAsteroids();
       
       stage.show();     
    }
-   /*
+   
    public void renderShip(){
       Ship shipToMove = world.getShip();
       double shipX = 0.0;
       double shipY = 0.0;
-      double shipdouble transformedX[][];
-      double shipdouble transformedY[] [];
+      HitBox shipHitbox;
       
       shipX = convertPhysicsScaletoPresentationScale(shipToMove.getX());
       shipY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(shipToMove.getY()));
-      shipdouble transformedX[] = shipToMove.getShape();
-      graphicsContext.setFill(Color.WHITE);
-      //drawShip(shipX, shipY);
+      shipHitbox = shipToMove.getHitBox();
+      drawShip(shipX, shipY);
       
       if(toggleHitbox){
          graphicsContext.setFill(new Color(1, 0, 0, 0.5));
          drawHitbox(shipX, shipY, shipHitbox);
       }
    }
-   */
+   
    public void renderAsteroids(){
       Asteroid asteroidArray[] = world.getAsteroidsAsArray();
       double asteroidX = 0.0;
@@ -93,7 +91,6 @@ public class Presentation {
       }
    }
    
-   //A circle is drawn in a box with the upper left corner being 0,0. Need to shift this to match the physics.
    private void drawAsteroid(double x, double y, int CONFIGNUM) {
       double adjustedX = x;
       double adjustedY = y;
@@ -144,8 +141,8 @@ public class Presentation {
       }
       graphicsContext.strokePolygon(transformedX, transformedY, numOfVertices);
    }
-   /*
-   private void drawShip(double x, double y, double[] shipShape) {
+   
+   private void drawShip(double x, double y) {
       double adjustedX = x;
       double adjustedY = y;
       double transformedX[] = new double[]{
@@ -160,7 +157,7 @@ public class Presentation {
       
       graphicsContext.strokePolygon(transformedX, transformedY, numOfVertices);
    }
-   */
+   
    private void drawHitbox(double x, double y, HitBox hitbox) {
       double adjustedX = x;
       double adjustedY = y;
