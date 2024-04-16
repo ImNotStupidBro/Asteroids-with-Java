@@ -32,6 +32,10 @@ public class KeyPressHandler implements EventHandler<KeyEvent> {
             System.out.println(shipToMove.getDirection());
             shipToMove.turnLeft();
             break;
+         case SPACE:
+            System.out.println("SPACE");
+            break;
       }
    }    
 }
+
