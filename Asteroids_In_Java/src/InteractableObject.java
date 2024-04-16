@@ -16,7 +16,7 @@ public abstract class InteractableObject{
       this.hitbox = hitbox; // Collision-detection tool
    }
    
-   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) { 
+   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) {
       xPosition += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       yPosition += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       
@@ -34,25 +34,25 @@ public abstract class InteractableObject{
    }
    
    public void turnRight() {
-      if(direction > 360){
-         direction = 0.0;
+      if(direction < 0){
+         direction = 359.9;
       }
-      this.direction += 5.0;
+      this.direction -= 5.0;
    }
    
    public void turnLeft() {
-      if(direction < 0){
-         direction = 360.0;
+      if(direction > 360){
+         direction = 0.0;
       }
-      this.direction -= 5.0;;
+      this.direction += 5.0;;
    }
    
    public void accelerate() {
       xSpeed += Math.cos(Math.toRadians(this.direction));
       ySpeed += Math.sin(Math.toRadians(this.direction));
-   
-      xSpeed *= 0.05;
-      ySpeed *= 0.05;
+
+      xSpeed *= 0.95;
+      ySpeed *= 0.95;
    }
    
    public double getX() { return xPosition; }
