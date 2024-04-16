@@ -12,7 +12,7 @@ public class WorldController extends Application {
       World world = new World();
       Presentation presentation = new Presentation(stage, world);
       GameLoop gameLoop = new GameLoop(world, presentation);
-        
+
       gameLoop.start();
    }
 }
