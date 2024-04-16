@@ -53,16 +53,17 @@ public class Presentation {
       
       stage.show();     
    }
-   
+   /*
    public void renderShip(){
       Ship shipToMove = world.getShip();
       double shipX = 0.0;
       double shipY = 0.0;
-      Polygon shipPoly;
+      double shipXVertices[];
+      double shipYVertices[];
       
-      shipX = convertPhysicsScaletoPresentationScale(shipToMove.getPosition().getX());
-      shipY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(shipToMove.getPosition().getY()));
-      shipPoly = shipToMove.getShape();
+      shipX = convertPhysicsScaletoPresentationScale(shipToMove.getX());
+      shipY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(shipToMove.getY()));
+      shipXVertices = shipToMove.getShape();
       graphicsContext.setFill(Color.WHITE);
       //drawShip(shipX, shipY, shipPoly);
       
@@ -71,46 +72,37 @@ public class Presentation {
          drawHitbox(shipX, shipY, shipPoly);
       }
    }
-   
+   */
    public void renderAsteroids(){
       Asteroid asteroidArray[] = world.getAsteroidsAsArray();
-      double asteroidX = 0.0;
-      double asteroidY = 0.0;
-      Polygon asteroidPoly;
-      double asteroidVerticies[];
+      double asteroidX = 400.0;
+      double asteroidY = 400.0;
+      double asteroidXVertices[];
+      double asteroidYVertices[];
+      HitBox asteroidHitbox;
       
       for(int i = 0; i < asteroidArray.length; i++) {
-         asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getPosition().getX());
-         asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getPosition().getY()));
-         asteroidPoly = asteroidArray[i].getShape();
-         asteroidVerticies = asteroidArray[i].getVerticies();    
+         asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getX());
+         asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getY()));
+         asteroidXVertices = asteroidArray[i].getXVertices();    
+         asteroidYVertices = asteroidArray[i].getYVertices();
+         asteroidHitbox = asteroidArray[i].getHitBox();
          graphicsContext.setFill(Color.WHITE);
-         drawAsteroid(asteroidX, asteroidY, asteroidVerticies);
+         drawAsteroid(asteroidX, asteroidY, asteroidXVertices, asteroidYVertices);
          
          if(toggleHitbox){
             graphicsContext.setFill(new Color(1, 0, 0, 0.5));
-            drawHitbox(asteroidX, asteroidY, asteroidPoly);
+            drawHitbox(asteroidX, asteroidY, asteroidHitbox);
          }
       }
    }
    
    //A circle is drawn in a box with the upper left corner being 0,0. Need to shift this to match the physics.
-   private void drawAsteroid(double x, double y, double[] asteroidShape) {
+   private void drawAsteroid(double x, double y, double[] xVert, double[] yVert) {
       double adjustedX = x;
       double adjustedY = y;
-      double shapeVerticies[] = asteroidShape;
-      double transformedX[] = new double[(shapeVerticies.length / 2)];
-      double transformedY[] = new double[(shapeVerticies.length / 2)];
-      int index = 0;
-      for(int i = 0; i < transformedX.length; i += 2){
-         transformedX[index] = shapeVerticies[i];
-         index++;
-      }
-      index = 0;
-      for(int j = 1; j < transformedX.length; j += 2){
-         transformedY[index] = shapeVerticies[j];
-         index++;
-      }
+      double transformedX[] = xVert;
+      double transformedY[] = yVert;
       graphicsContext.strokePolygon(transformedX, transformedY, transformedX.length);
    }
    /*
@@ -118,11 +110,11 @@ public class Presentation {
       
    }
    */
-   private void drawHitbox(double x, double y, Polygon thePoly) {
+   private void drawHitbox(double x, double y, HitBox hitbox) {
       double adjustedX = x;
       double adjustedY = y;
-      double width = thePoly.getBoundsInParent().getWidth();
-      double height = thePoly.getBoundsInParent().getHeight();
+      double width = hitbox.getWidth();
+      double height = hitbox.getHeight();
       graphicsContext.fillRect(adjustedX, adjustedY, width, height);
    }
    

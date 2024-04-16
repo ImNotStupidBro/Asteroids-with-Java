@@ -4,48 +4,73 @@ import javafx.scene.shape.Polygon;
 import java.util.Random;
 public class Asteroid extends InteractableObject{
 
+   private static final double MAX_ASTEROID_SPEED = 30.0;
    private double[] XVertices;
    private double[] YVertices;
+   private int numOfVertices;
    
-   public Asteroid(double x, double y, Polygon theShape, HitBox hitbox){
-      super(x, y, theShape, hitbox);
+   public Asteroid(double x, double y, double dx, double dy, double degrees, HitBox hitbox){
+      super(x, y, dx, dy, degrees, hitbox);
    }
    
-   private void generateConfiguration(double X, double Y, int SCALE) {
+   private void generateConfiguration(int SCALE) {
       Random rand = new Random();
       int randNum = rand.nextInt(2);
 
       if(randNum == 0){
-      //New Strategy: Create templates for each configuration by referencing the position of the asteroid
-      // and then drawing the vertices from it according to each vertice's disposition.
-         XVertices = new double[]{X + (4.0 * SCALE), X + (4.0 * SCALE), X + (4.0 * SCALE), X + (4.0 * SCALE), 
-         X + (4.0 * SCALE), X + (4.0 * SCALE), X + (4.0 * SCALE), X + (4.0 * SCALE), 
-         X + (4.0 * SCALE), X + (4.0 * SCALE), X + (4.0 * SCALE), X + (4.0 * SCALE)};
-         YVertices = new double[]{Y + (4.0 * SCALE), 40.0, 40.0, 46.0, 52.0, 56.0, 56.0, 50.0, 56.0, 50.0, 48.0, 46.0};
+         XVertices = new double[]{
+         this.getX() - (4.0 * SCALE), this.getX() - (1.0 * SCALE), this.getX() + (2.0 * SCALE), this.getX() + (4.0 * SCALE), 
+         this.getX() + (4.0 * SCALE), this.getX() + (2.0 * SCALE), this.getX() + (0.0 * SCALE), this.getX() + (0.0 * SCALE), 
+         this.getX() - (2.0 * SCALE), this.getX() - (4.0 * SCALE), this.getX() + (2.0 * SCALE), this.getX() - (4.0 * SCALE)};
+         
+         YVertices = new double[]{
+         this.getY() + (1.0 * SCALE), this.getY() + (4.0 * SCALE), this.getY() + (4.0 * SCALE), this.getY() + (1.0 * SCALE),
+         this.getY() - (2.0 * SCALE), this.getY() - (4.0 * SCALE), this.getY() - (4.0 * SCALE), this.getY() - (1.0 * SCALE),
+         this.getY() + (4.0 * SCALE), this.getY() - (1.0 * SCALE), this.getY() + (0.0 * SCALE), this.getY() + (1.0 * SCALE)};
+         numOfVertices = 12;
       }else if(randNum == 1){
-         XVertices = new double[]{60, 64, 68, 72, 76, 72, 76, 72, 66, 64, 60, 62, 60};
-         YVertices = new double[]{46.0, 40.0, 40.0, 46.0, 52.0, 56.0, 56.0, 50.0, 56.0, 50.0, 48.0, 46.0};
+         XVertices = new double[]{
+         this.getX() - (3.0 * SCALE), this.getX() - (4.0 * SCALE), this.getX() - (2.0 * SCALE), this.getX() + (0.0 * SCALE), 
+         this.getX() + (2.0 * SCALE), this.getX() + (4.0 * SCALE), this.getX() + (2.0 * SCALE), this.getX() + (4.0 * SCALE), 
+         this.getX() + (2.0 * SCALE), this.getX() - (1.0 * SCALE), this.getX() - (2.0 * SCALE), this.getX() - (4.0 * SCALE),
+         this.getX() - (3.0 * SCALE)};
+         
+         YVertices = new double[]{
+         this.getY() + (0.0 * SCALE), this.getY() + (2.0 * SCALE), this.getY() + (4.0 * SCALE), this.getY() + (3.0 * SCALE),
+         this.getY() + (4.0 * SCALE), this.getY() + (2.0 * SCALE), this.getY() + (1.0 * SCALE), this.getY() - (1.0 * SCALE),
+         this.getY() - (4.0 * SCALE), this.getY() - (3.0 * SCALE), this.getY() - (4.0 * SCALE), this.getY() + (2.0 * SCALE),
+         this.getY() + (0.0 * SCALE)};
+         numOfVertices = 13;
       }else{
-         XVertices = new double[]{40.0, 46.0, 52.0, 56.0, 56.0, 52.0, 48.0, 48.0, 44.0, 40.0, 44.0, 40.0};
-         YVertices = new double[]{46.0, 40.0, 40.0, 46.0, 52.0, 56.0, 56.0, 50.0, 56.0, 50.0, 48.0, 46.0};
-      } 
-   }
-   
-   private static Polygon generatePolygon(double[] VCoords){
-      return new Polygon(VCoords);
+         XVertices = new double[]{
+         this.getX() - (4.0 * SCALE), this.getX() - (4.0 * SCALE), this.getX() - (1.0 * SCALE), this.getX() - (2.0 * SCALE), 
+         this.getX() + (1.0 * SCALE), this.getX() + (4.0 * SCALE), this.getX() + (4.0 * SCALE), this.getX() + (1.0 * SCALE), 
+         this.getX() + (4.0 * SCALE), this.getX() + (2.0 * SCALE), this.getX() + (1.0 * SCALE), this.getX() - (3.0 * SCALE),
+         this.getX() - (4.0 * SCALE)};
+         
+         YVertices = new double[]{
+         this.getY() - (1.0 * SCALE), this.getY() + (2.0 * SCALE), this.getY() + (2.0 * SCALE), this.getY() + (4.0 * SCALE),
+         this.getY() + (4.0 * SCALE), this.getY() + (2.0 * SCALE), this.getY() + (1.0 * SCALE), this.getY() - (0.0 * SCALE),
+         this.getY() - (1.0 * SCALE), this.getY() - (4.0 * SCALE), this.getY() - (3.0 * SCALE), this.getY() - (4.0 * SCALE),
+         this.getY() - (1.0 * SCALE)};
+         numOfVertices = 13;
+      }
    }
    
    public static Asteroid createRandomAsteroid(){
       Random rand = new Random();
-      int asteroidXStartLocation = rand.nextInt(World.X_DIMENSION);
-      int asteroidYStartLocation = rand.nextInt(World.Y_DIMENSION);
-      Polygon asteroidPolygon = generatePolygon(asteroidVCoords);
-      Bounds asteroidBox = asteroidPolygon.getBoundsInParent();
-      HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, asteroidBox.getWidth(), asteroidBox.getHeight());
-      Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidPolygon, asteroidHitbox);
-      asteroid.generateConfiguration();
+      double asteroidXStartLocation = rand.nextInt(World.X_DIMENSION);
+      double asteroidYStartLocation = rand.nextInt(World.Y_DIMENSION);
+      double asteroidXSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
+      double asteroidYSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
+      double asteroidDirection = 360 * rand.nextDouble();
+      HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, 80, 80);
+      Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidXSpeed, asteroidYSpeed, asteroidDirection, asteroidHitbox);
+      asteroid.generateConfiguration(10);
       return asteroid;
    }
    
-   public double[] getVerticies(){ return verticeCoordinates; }  
+   public double[] getXVertices(){ return XVertices; }  
+   public double[] getYVertices(){ return YVertices; }
+   public int getNumOfVertices(){ return numOfVertices; } 
 }

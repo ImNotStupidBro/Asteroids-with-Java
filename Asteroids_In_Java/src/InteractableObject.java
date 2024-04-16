@@ -1,64 +1,58 @@
-import javafx.scene.shape.Polygon;
-import javafx.geometry.Point2D;
-
 public abstract class InteractableObject{
    
-   //Don't use Point2D for referencing position anymore.
-   private Polygon shape;
    private double xPosition;
    private double yPosition;
    private double xSpeed;
    private double ySpeed;
+   private double direction;
    private HitBox hitbox; // Collision detection tool
 
-   public InteractableObject(double x, double y, , double dx, double dy, Polygon SHAPE, HitBox hitbox){
-      this.shape = SHAPE;
+   public InteractableObject(double x, double y, double dx, double dy, double deg, HitBox hitbox){
       this.xPosition = x;
       this.yPosition = y;
       this.xSpeed = dx;
       this.ySpeed = dy;
+      this.direction = deg;
       this.hitbox = hitbox; // Collision-detection tool
    }
    
    public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) { 
-      this.shape.setTranslateX(this.shape.getTranslateX() + xPosition); // * elapsedTimeInNanoseconds / 1_000_000_000.0;
-      this.shape.setTranslateY(this.shape.getTranslateY() + this.position.getY()); // * elapsedTimeInNanoseconds / 1_000_000_000.0;
+      xPosition += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
+      yPosition += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       
       //Keep object on the torus
-      if (xPosition < 0 - (this.getHitbox().getWidth() * 2)) { // moving in the negative x direction
-         xPosition = worldXDimension + (xPosition % worldXDimension) + (this.getHitbox().getWidth() * 3);
-      } else if (xPosition >= worldXDimension + (this.getHitbox().getWidth() * 2)) {
-         this.shape.setTranslateX(xPosition % worldXDimension - (this.getHitbox().getWidth() * 3));
+      if (xPosition < 0 - (this.getHitBox().getWidth() * 2)) { // moving in the negative x direction
+         xPosition = worldXDimension + (xPosition % worldXDimension) + (this.getHitBox().getWidth() * 3);
+      } else if (xPosition >= worldXDimension + (this.getHitBox().getWidth() * 2)) {
+         xPosition = xPosition % worldXDimension - (this.getHitBox().getWidth() * 3);
       }
-      if (this.position.getY() < 0 - (this.getHitbox().getHeight() * 2)) { // moving in the negative y direction
-         this.shape.setTranslateY(worldYDimension + (this.position.getY() % worldYDimension) + (this.getHitbox().getHeight() * 3));
-      } else if (this.position.getY() >= worldYDimension + (this.getHitbox().getHeight() * 2)) {
-         this.shape.setTranslateY(this.position.getY() % worldYDimension - (this.getHitbox().getHeight() * 3));
+      if (yPosition < 0 - (this.getHitBox().getHeight() * 2)) { // moving in the negative y direction
+         yPosition = worldYDimension + yPosition % worldYDimension + (this.getHitBox().getHeight() * 3);
+      } else if (yPosition >= worldYDimension + (this.getHitBox().getHeight() * 2)) {
+         yPosition = yPosition % worldYDimension - (this.getHitBox().getHeight() * 3);
       }
    }
    
    public void turnRight() {
-      this.getShape().setRotate(this.shape.getRotate() + 5);
+      this.direction += 5.0;
    }
    
    public void turnLeft() {
-      this.getShape().setRotate(this.shape.getRotate() - 5);
+      this.direction -= 5.0;;
    }
    
    public void accelerate() {
-      double changeX = Math.cos(Math.toRadians(this.shape.getRotate()));
-      double changeY = Math.sin(Math.toRadians(this.shape.getRotate()));
+      xSpeed += Math.cos(Math.toRadians(this.direction));
+      ySpeed += Math.sin(Math.toRadians(this.direction));
    
-      changeX *= 0.05;
-      changeY *= 0.05;
-      
-      this.position = this.position.add(changeX, changeY);
+      xSpeed *= 0.05;
+      ySpeed *= 0.05;
    }
    
-   public double getX() { return x; }
-   public double getY() { return y; }
+   public double getX() { return xPosition; }
+   public double getY() { return yPosition; }
    public double getXSpeed() { return xSpeed; }
    public double getYSpeed() { return ySpeed; }
-   public HitBox getHitbox() { return hitbox; }
-   public Polygon getShape() { return shape; }
+   public HitBox getHitBox(){ return hitbox; }
+   public double getDirection() { return direction; }
 }

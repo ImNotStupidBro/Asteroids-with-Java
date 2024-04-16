@@ -25,20 +25,13 @@ public class KeyPressHandler implements EventHandler<KeyEvent> {
             shipToMove.accelerate();
             break;
          case RIGHT:
-            System.out.println("RIGHT");
+            System.out.println(shipToMove.getDirection());
             shipToMove.turnRight();
             break;
          case LEFT:
-            System.out.println("LEFT");
+            System.out.println(shipToMove.getDirection());
             shipToMove.turnLeft();
             break;
       }
-   }
-/*
-   public void handlePlayer(KeyEvent event) {
-      switch(event.getCode()) {
-         
-      }
-   }
-*/      
+   }    
 }
