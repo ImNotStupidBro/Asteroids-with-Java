@@ -21,15 +21,15 @@ public abstract class InteractableObject{
       yPosition += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       
       //Keep object on the torus
-      if (xPosition < 0 - (this.getHitBox().getWidth() * 2)) { // moving in the negative x direction
-         xPosition = worldXDimension + (xPosition % worldXDimension) + (this.getHitBox().getWidth() * 3);
-      } else if (xPosition >= worldXDimension + (this.getHitBox().getWidth() * 2)) {
-         xPosition = xPosition % worldXDimension - (this.getHitBox().getWidth() * 3);
+      if (xPosition < 0) { // moving in the negative x direction
+         xPosition = worldXDimension + xPosition % worldXDimension;
+      } else if (xPosition >= worldXDimension) {
+         xPosition = xPosition % worldXDimension;
       }
-      if (yPosition < 0 - (this.getHitBox().getHeight() * 2)) { // moving in the negative y direction
-         yPosition = worldYDimension + yPosition % worldYDimension + (this.getHitBox().getHeight() * 3);
-      } else if (yPosition >= worldYDimension + (this.getHitBox().getHeight() * 2)) {
-         yPosition = yPosition % worldYDimension - (this.getHitBox().getHeight() * 3);
+      if (yPosition < 0) { // moving in the negative y direction
+         yPosition = worldYDimension + yPosition % worldYDimension;
+      } else if (yPosition >= worldYDimension) {
+         yPosition = yPosition % worldYDimension;
       }
    }
    

@@ -5,18 +5,21 @@ import java.util.Random;
 public class Asteroid extends InteractableObject{
 
    private static final double MAX_ASTEROID_SPEED = 30.0;
+   private int configNumber;
+   /*
    private double[] XVertices;
    private double[] YVertices;
    private int numOfVertices;
+   */
    
    public Asteroid(double x, double y, double dx, double dy, double degrees, HitBox hitbox){
       super(x, y, dx, dy, degrees, hitbox);
    }
    
-   private void generateConfiguration(int SCALE) {
+   private void generateConfiguration() {
       Random rand = new Random();
-      int randNum = rand.nextInt(2);
-
+      configNumber = rand.nextInt(3);
+      /*
       if(randNum == 0){
          XVertices = new double[]{
          this.getX() - (4.0 * SCALE), this.getX() - (1.0 * SCALE), this.getX() + (2.0 * SCALE), this.getX() + (4.0 * SCALE), 
@@ -55,6 +58,8 @@ public class Asteroid extends InteractableObject{
          this.getY() - (1.0 * SCALE)};
          numOfVertices = 13;
       }
+      */
+      
    }
    
    public static Asteroid createRandomAsteroid(){
@@ -66,11 +71,13 @@ public class Asteroid extends InteractableObject{
       double asteroidDirection = 360 * rand.nextDouble();
       HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, 80, 80);
       Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidXSpeed, asteroidYSpeed, asteroidDirection, asteroidHitbox);
-      asteroid.generateConfiguration(10);
+      asteroid.generateConfiguration();
       return asteroid;
    }
-   
+   /*
    public double[] getXVertices(){ return XVertices; }  
    public double[] getYVertices(){ return YVertices; }
    public int getNumOfVertices(){ return numOfVertices; } 
+   */
+   public int getConfigNumber(){ return configNumber; }
 }

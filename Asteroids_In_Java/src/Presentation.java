@@ -27,7 +27,7 @@ public class Presentation {
       
       root = new Group();
       scene = new Scene(root);
-      scene.setFill(Color.WHITE);
+      scene.setFill(Color.BLACK);
       canvasXDimension = world.getXDimension()*CANVAS_SCALE;
       canvasYDimension = world.getYDimension()*CANVAS_SCALE;
       canvas = new Canvas(canvasXDimension, canvasYDimension);
@@ -45,11 +45,9 @@ public class Presentation {
    public void render() {
       
       graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
+      graphicsContext.setStroke(Color.WHITE);
       //renderShip();
       renderAsteroids();
-      
-      graphicsContext.setFill(Color.BLACK);
-      graphicsContext.strokePolygon( new double[]{300.0,450.0,300.0,150.0}, new double[]{50.0,150.0,250.0,150.0}, 4);
       
       stage.show();     
    }
@@ -58,37 +56,35 @@ public class Presentation {
       Ship shipToMove = world.getShip();
       double shipX = 0.0;
       double shipY = 0.0;
-      double shipXVertices[];
-      double shipYVertices[];
+      double shipdouble transformedX[][];
+      double shipdouble transformedY[] [];
       
       shipX = convertPhysicsScaletoPresentationScale(shipToMove.getX());
       shipY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(shipToMove.getY()));
-      shipXVertices = shipToMove.getShape();
+      shipdouble transformedX[] = shipToMove.getShape();
       graphicsContext.setFill(Color.WHITE);
-      //drawShip(shipX, shipY, shipPoly);
+      //drawShip(shipX, shipY);
       
       if(toggleHitbox){
          graphicsContext.setFill(new Color(1, 0, 0, 0.5));
-         drawHitbox(shipX, shipY, shipPoly);
+         drawHitbox(shipX, shipY, shipHitbox);
       }
    }
    */
    public void renderAsteroids(){
       Asteroid asteroidArray[] = world.getAsteroidsAsArray();
-      double asteroidX = 400.0;
-      double asteroidY = 400.0;
-      double asteroidXVertices[];
-      double asteroidYVertices[];
+      double asteroidX = 0.0;
+      double asteroidY = 0.0;
+      int asteroidConfigNumber = 0;
       HitBox asteroidHitbox;
       
       for(int i = 0; i < asteroidArray.length; i++) {
          asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getX());
          asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getY()));
-         asteroidXVertices = asteroidArray[i].getXVertices();    
-         asteroidYVertices = asteroidArray[i].getYVertices();
+         asteroidConfigNumber = asteroidArray[i].getConfigNumber();
          asteroidHitbox = asteroidArray[i].getHitBox();
          graphicsContext.setFill(Color.WHITE);
-         drawAsteroid(asteroidX, asteroidY, asteroidXVertices, asteroidYVertices);
+         drawAsteroid(asteroidX, asteroidY, asteroidConfigNumber);
          
          if(toggleHitbox){
             graphicsContext.setFill(new Color(1, 0, 0, 0.5));
@@ -98,16 +94,71 @@ public class Presentation {
    }
    
    //A circle is drawn in a box with the upper left corner being 0,0. Need to shift this to match the physics.
-   private void drawAsteroid(double x, double y, double[] xVert, double[] yVert) {
+   private void drawAsteroid(double x, double y, int CONFIGNUM) {
       double adjustedX = x;
       double adjustedY = y;
-      double transformedX[] = xVert;
-      double transformedY[] = yVert;
-      graphicsContext.strokePolygon(transformedX, transformedY, transformedX.length);
+      double transformedX[];
+      double transformedY[];
+      int numOfVertices;
+      int configurationNum = CONFIGNUM;
+      if(configurationNum == 0){
+         transformedX = new double[]{
+            x - (4.0 * CANVAS_SCALE), x - (1.0 * CANVAS_SCALE), x + (2.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), 
+            x + (4.0 * CANVAS_SCALE), x + (2.0 * CANVAS_SCALE), x + (0.0 * CANVAS_SCALE), x + (0.0 * CANVAS_SCALE), 
+            x - (2.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE), x - (2.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE)};
+            
+         transformedY = new double[]{
+            y + (1.0 * CANVAS_SCALE), y + (4.0 * CANVAS_SCALE), y + (4.0 * CANVAS_SCALE), y + (1.0 * CANVAS_SCALE),
+            y - (2.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE), y - (1.0 * CANVAS_SCALE),
+            y - (4.0 * CANVAS_SCALE), y - (1.0 * CANVAS_SCALE), y + (0.0 * CANVAS_SCALE), y + (1.0 * CANVAS_SCALE)};
+            
+         numOfVertices = 11;
+      }else if(configurationNum == 1){
+         transformedX = new double[]{
+         x - (3.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE), x - (2.0 * CANVAS_SCALE), x + (0.0 * CANVAS_SCALE), 
+         x + (2.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), x + (2.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), 
+         x + (2.0 * CANVAS_SCALE), x - (1.0 * CANVAS_SCALE), x - (2.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE),
+         x - (3.0 * CANVAS_SCALE)};
+         
+         transformedY = new double[]{
+         y + (0.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (4.0 * CANVAS_SCALE), y + (3.0 * CANVAS_SCALE),
+         y + (4.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (1.0 * CANVAS_SCALE), y - (1.0 * CANVAS_SCALE),
+         y - (4.0 * CANVAS_SCALE), y - (3.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE), y - (2.0 * CANVAS_SCALE),
+         y + (0.0 * CANVAS_SCALE)};
+         
+         numOfVertices = 12;
+      }else{
+         transformedX = new double[]{
+         x - (4.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE), x - (1.0 * CANVAS_SCALE), x - (2.0 * CANVAS_SCALE), 
+         x + (1.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), x + (1.0 * CANVAS_SCALE), 
+         x + (4.0 * CANVAS_SCALE), x + (2.0 * CANVAS_SCALE), x + (1.0 * CANVAS_SCALE), x - (3.0 * CANVAS_SCALE),
+         x - (4.0 * CANVAS_SCALE)};
+         
+         transformedY = new double[]{
+         y - (1.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (4.0 * CANVAS_SCALE),
+         y + (4.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (1.0 * CANVAS_SCALE), y - (0.0 * CANVAS_SCALE),
+         y - (1.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE), y - (3.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE),
+         y - (1.0 * CANVAS_SCALE)};
+         
+         numOfVertices = 12;
+      }
+      graphicsContext.strokePolygon(transformedX, transformedY, numOfVertices);
    }
    /*
    private void drawShip(double x, double y, double[] shipShape) {
+      double adjustedX = x;
+      double adjustedY = y;
+      double transformedX[] = new double[]{
+      x - (0.0 * CANVAS_SCALE), x - (1.0 * CANVAS_SCALE), x - (0.75 * CANVAS_SCALE), x + (0.75 * CANVAS_SCALE), 
+      x + (1.0 * CANVAS_SCALE), x + (0.0 * CANVAS_SCALE)};
       
+      double transformedY[] = new double[]{
+      y - (1.5 * CANVAS_SCALE), y + (1.5 * CANVAS_SCALE), y + (0.75 * CANVAS_SCALE), y + (0.75 * CANVAS_SCALE),
+      y + (1.5 * CANVAS_SCALE), y - (1.5 * CANVAS_SCALE)};
+      
+      int numOfVertices = 5;
+      
+      graphicsContext.strokePolygon(transformedX, transformedY, numOfVertices);
    }
    */
    private void drawHitbox(double x, double y, HitBox hitbox) {
