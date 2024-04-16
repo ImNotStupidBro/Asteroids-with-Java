@@ -51,8 +51,8 @@ public abstract class InteractableObject{
       xSpeed += Math.cos(Math.toRadians(this.direction));
       ySpeed += Math.sin(Math.toRadians(this.direction));
 
-      xSpeed *= 0.95;
-      ySpeed *= 0.95;
+      xSpeed *= 0.9;
+      ySpeed *= 0.9;
    }
    
    public double getX() { return xPosition; }
