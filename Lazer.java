@@ -31,6 +31,7 @@ public class Lazer{
    public static Lazer createLazer(double ShipX, double ShipY, double lazerDegrees) {
       double lazerXStartLocation = ShipX; //ships x position
       double lazerYStartLocation = ShipY; //ships y position
+      radius = 5; //this also corresponds for hitboxes, DO NOT CHANGE
       //double lazerRadius = radius;
       //double lazerDegrees = ShipDirection;
       //double lazerXSpeed = xSpeed;

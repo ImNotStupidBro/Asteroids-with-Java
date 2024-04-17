@@ -96,7 +96,7 @@ public class Presentation {
       Lazer lazerArray[] = world.getLazersAsArray();
       double lazerX = 0.0;
       double lazerY = 0.0;
-      double lazerRadius = 5.0;
+      double lazerRadius = 5;
       HitBox lazerHitbox;
       
       for(int i = 0; i < lazerArray.length; i++) {
