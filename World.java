@@ -1,68 +1,66 @@
 /**
-* Brief description of the class.
-*
-* @author Christian Blair
-*/
-/**
  * Describes the physics of the world.
  */
 import java.util.Random;
- 
-public class World{
-   private Ball balls[];
-   private Player playerToMove;
-   private final int X_DIMENSION = 100; // meters
-   private final int Y_DIMENSION = 50; // meters
-   private final int MAX_BALL_RADIUS = 9;
-   private final double MAX_BALL_SPEED = 30.0;
-   
-   private final int NUMBER_OF_BALLS = 4;
+import javafx.scene.shape.Polygon;
+import javafx.geometry.Bounds;
+
+public class World {
+   private AsteroidSet asteroids;
+   private Ship ship;
+   private Lazers lazers;
+   public static final int X_DIMENSION = 100; // meters
+   public static final int Y_DIMENSION = 70; // meters
+   private final double MAX_SHIP_SPEED = 30.0;
+   private final int NUMBER_OF_ASTEROIDS = 4;
+   private final int NUMBER_OF_LASERS = 1; //this is just a test
    
    public World() {
-      //Define ball properties.
-      Random random = new Random();
-      balls = new Ball[NUMBER_OF_BALLS];
-      int ballXStartLocation = 0;
-      int ballYStartLocation = 0;
-      int ballRadius = 0;
-      double ballXSpeed = 0;
-      double ballYSpeed = 0;
-      HitBox ballHitbox = new HitBox(0, 0, 0, 0);
-      //Generate the player ball.
-         ballXStartLocation = X_DIMENSION/2;
-         ballYStartLocation = Y_DIMENSION/2;
-         ballRadius = 3;
-         ballXSpeed = 0.0;
-         ballYSpeed = 0.0;
-         ballHitbox.set(ballXStartLocation, ballYStartLocation, (ballRadius * 2), (ballRadius * 2));
-         //balls[0] = new Ball(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed, ballHitbox);
-         playerToMove = new Player(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed, ballHitbox);
-      //Spawn every other ball.
-      for(int i = 0; i < balls.length; i++) {
-         ballXStartLocation = random.nextInt(X_DIMENSION);
-         ballYStartLocation = random.nextInt(Y_DIMENSION);
-         ballRadius = random.nextInt(MAX_BALL_RADIUS) + 1; //no zero radius balls
-         ballXSpeed = (random.nextDouble() - 0.5) * MAX_BALL_SPEED;
-         ballYSpeed = (random.nextDouble() - 0.5) * MAX_BALL_SPEED;
-         ballHitbox.set(ballXStartLocation, ballYStartLocation, (ballRadius * 2), (ballRadius * 2));
-         balls[i] = new Ball(ballXStartLocation, ballYStartLocation, ballRadius, ballXSpeed, ballYSpeed, ballHitbox);
-      }
+      //Create Asteroid set.
+      asteroids = new AsteroidSet(NUMBER_OF_ASTEROIDS);
+      
+      //Create Lazer set.
+      lazers = new Lazers();
+
+      //Generate the ship.
+      double shipXStartLocation = X_DIMENSION/2;
+      double shipYStartLocation = Y_DIMENSION/2;
+      double shipXSpeed = 0.0;
+      double shipYSpeed = 0.0;
+      double shipDirection = 0.0;
+      HitBox shipHitbox = new HitBox(0,0,0,0);
+      shipHitbox.set(shipXStartLocation, shipYStartLocation, 20, 40);
+      
+      ship = new Ship(shipXStartLocation, shipYStartLocation, shipXSpeed, shipYSpeed, shipDirection, shipHitbox);
+      
+      
    }
    
    /** Runs the physics of the world. */
    public void run(long elapsedTimeInNanoseconds) {
-      for(int i = 0; i < balls.length; i++) {
-         balls[i].move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
-      }
-      playerToMove.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());      
+      asteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      lazers.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
    }
 
-   public Ball[] getBalls() {
-      return balls;
+   public AsteroidSet getAsteroidSet() {
+      return asteroids;
    }
    
-   public Player getPlayer() {
-      return playerToMove;
+   public Asteroid[] getAsteroidsAsArray() {
+      return asteroids.getAsteroidsAsArray();
+   }
+   
+   public Lazers getLazers() {
+      return lazers;
+   }
+   
+   public Lazer[] getLazersAsArray() {
+      return lazers.getLazersAsArray();
+   }
+
+   public Ship getShip() {
+      return ship;
    }
 
    public double getXDimension() {
