@@ -43,8 +43,24 @@ public class World {
       return asteroids;
    }
    
+   public AsteroidSetMedium getMediumAsteroidSet() {
+      return mediumAsteroids;
+   }
+   
+   public AsteroidSetSmall getSmallAsteroidSet() {
+      return smallAsteroids;
+   }
+   
    public Asteroid[] getAsteroidsAsArray() {
       return asteroids.getAsteroidsAsArray();
+   }
+   
+   public Asteroid[] getMediumAsteroidsAsArray() {
+      return mediumAsteroids.getAsteroidsAsArray();
+   }
+   
+   public Asteroid[] getSmallAsteroidsAsArray() {
+      return smallAsteroids.getAsteroidsAsArray();
    }
 
    public Ship getShip() {

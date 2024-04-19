@@ -48,6 +48,8 @@ public class Presentation {
       graphicsContext.setStroke(Color.WHITE);
       renderShip();
       renderAsteroids();
+      //renderMediumAsteroids();
+      //renderSmallAsteroids();
       
       stage.show();     
    }
@@ -71,6 +73,50 @@ public class Presentation {
    
    public void renderAsteroids(){
       Asteroid asteroidArray[] = world.getAsteroidsAsArray();
+      double asteroidX = 0.0;
+      double asteroidY = 0.0;
+      int asteroidConfigNumber = 0;
+      HitBox asteroidHitbox;
+      
+      for(int i = 0; i < asteroidArray.length; i++) {
+         asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getX());
+         asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getY()));
+         asteroidConfigNumber = asteroidArray[i].getConfigNumber();
+         asteroidHitbox = asteroidArray[i].getHitBox();
+         graphicsContext.setFill(Color.WHITE);
+         drawAsteroid(asteroidX, asteroidY, asteroidConfigNumber);
+         
+         if(toggleHitbox){
+            graphicsContext.setFill(new Color(1, 0, 0, 0.5));
+            drawHitbox(asteroidX, asteroidY, asteroidHitbox);
+         }
+      }
+   }
+   
+   public void renderMediumAsteroids(){
+      Asteroid asteroidArray[] = world.getMediumAsteroidsAsArray();
+      double asteroidX = 0.0;
+      double asteroidY = 0.0;
+      int asteroidConfigNumber = 0;
+      HitBox asteroidHitbox;
+      
+      for(int i = 0; i < asteroidArray.length; i++) {
+         asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getX());
+         asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getY()));
+         asteroidConfigNumber = asteroidArray[i].getConfigNumber();
+         asteroidHitbox = asteroidArray[i].getHitBox();
+         graphicsContext.setFill(Color.WHITE);
+         drawAsteroid(asteroidX, asteroidY, asteroidConfigNumber);
+         
+         if(toggleHitbox){
+            graphicsContext.setFill(new Color(1, 0, 0, 0.5));
+            drawHitbox(asteroidX, asteroidY, asteroidHitbox);
+         }
+      }
+   }
+   
+   public void renderSmallAsteroids(){
+      Asteroid asteroidArray[] = world.getSmallAsteroidsAsArray();
       double asteroidX = 0.0;
       double asteroidY = 0.0;
       int asteroidConfigNumber = 0;

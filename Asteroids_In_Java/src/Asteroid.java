@@ -32,6 +32,20 @@ public class Asteroid extends InteractableObject{
       return asteroid;
    }
    
+   public static Asteroid createAsteroid(double initialX, double initialY, int hitboxWidth, int hitboxHeight){
+      Random rand = new Random();
+      double asteroidXStartLocation = initialX;
+      double asteroidYStartLocation = initialY;
+      double asteroidXSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
+      double asteroidYSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
+      double asteroidDirection = 360 * rand.nextDouble();
+      HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, hitboxWidth, hitboxHeight);
+      int asteroidID = rand.nextInt(1000);
+      Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidXSpeed, asteroidYSpeed, asteroidDirection, asteroidHitbox, asteroidID);
+      asteroid.generateConfiguration();
+      return asteroid;
+   }
+   
    public int getConfigNumber(){ return configNumber; }
    public int getID(){ return id; }
 }
