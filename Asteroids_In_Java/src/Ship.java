@@ -28,8 +28,6 @@ public class Ship extends InteractableObject{
       } else if (yPosition >= worldYDimension) {
          yPosition = yPosition % worldYDimension;
       }
-      
-      applyDrag();
    }
    
    public void turnRight() {
