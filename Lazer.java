@@ -25,18 +25,20 @@ public class Lazer{
       //taken from original move function in ball
       x += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       y += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
+      //move the corresponding hitbox
+      hitbox.moveHitbox(x,y);
      
    }
  
    public static Lazer createLazer(double ShipX, double ShipY, double lazerDegrees) {
       double lazerXStartLocation = ShipX; //ships x position
       double lazerYStartLocation = ShipY; //ships y position
-      radius = 5; //this also corresponds for hitboxes, DO NOT CHANGE
-      //double lazerRadius = radius;
-      //double lazerDegrees = ShipDirection;
-      //double lazerXSpeed = xSpeed;
-      //double lazerYSpeed = ySpeed;
-      HitBox lazerHitbox = new HitBox(lazerXStartLocation, lazerYStartLocation, (radius * 2), (radius * 2));
+      radius = 5; 
+      Point upperLeft = new Point((lazerXStartLocation-radius),(lazerYStartLocation+radius)); 
+      Point upperRight = new Point((lazerXStartLocation+radius),(lazerYStartLocation+radius));
+      Point lowerLeft = new Point((lazerXStartLocation-radius),(lazerYStartLocation-radius));
+      Point lowerRight = new Point((lazerXStartLocation+radius),(lazerYStartLocation-radius));
+      HitBox lazerHitbox = new HitBox(lazerXStartLocation, lazerYStartLocation, (radius * 2), (radius * 2), upperLeft, upperRight, lowerLeft, lowerRight);
       Lazer lazer = new Lazer(lazerXStartLocation, lazerYStartLocation, radius, xSpeed, ySpeed, lazerHitbox, lazerDegrees);
       return lazer;
    } 

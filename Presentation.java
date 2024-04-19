@@ -187,10 +187,10 @@ public class Presentation {
       graphicsContext.fillOval(adjustedX, adjustedY, diameter, diameter);
    }
    
-   
+   //could be changed so 4 corners of hitbox are parameters
    private void drawHitbox(double x, double y, HitBox hitbox) {
-      double adjustedX = x;
-      double adjustedY = y;
+      double adjustedX = x-(hitbox.getWidth()/2);
+      double adjustedY = y-(hitbox.getHeight()/2);
       double width = hitbox.getWidth();
       double height = hitbox.getHeight();
       graphicsContext.fillRect(adjustedX, adjustedY, width, height);

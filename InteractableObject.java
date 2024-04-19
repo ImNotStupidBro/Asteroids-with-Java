@@ -31,7 +31,10 @@ public abstract class InteractableObject{
       } else if (yPosition >= worldYDimension) {
          yPosition = yPosition % worldYDimension;
       }
+      //move the corresponding hitbox
+      hitbox.moveHitbox(xPosition,yPosition);
    }
+   
    
    public void turnRight() {
       if(direction <= (0 - 5)){
