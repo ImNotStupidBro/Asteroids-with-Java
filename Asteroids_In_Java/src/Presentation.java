@@ -18,6 +18,9 @@ public class Presentation {
    private double canvasXDimension;
    private double canvasYDimension;
    private final double CANVAS_SCALE = 10.0;
+   private final double ASTEROID_SCALE = 10.0;
+   private final double MEDIUM_ASTEROID_SCALE = 5.0;
+   private final double SMALL_ASTEROID_SCALE = 2.5;
    
    public boolean toggleHitbox = true;
 
@@ -106,7 +109,7 @@ public class Presentation {
          asteroidConfigNumber = asteroidArray[i].getConfigNumber();
          asteroidHitbox = asteroidArray[i].getHitBox();
          graphicsContext.setFill(Color.WHITE);
-         drawAsteroid(asteroidX, asteroidY, asteroidConfigNumber);
+         drawMediumAsteroid(asteroidX, asteroidY, asteroidConfigNumber);
          
          if(toggleHitbox){
             graphicsContext.setFill(new Color(1, 0, 0, 0.5));
@@ -128,7 +131,7 @@ public class Presentation {
          asteroidConfigNumber = asteroidArray[i].getConfigNumber();
          asteroidHitbox = asteroidArray[i].getHitBox();
          graphicsContext.setFill(Color.WHITE);
-         drawAsteroid(asteroidX, asteroidY, asteroidConfigNumber);
+         drawSmallAsteroid(asteroidX, asteroidY, asteroidConfigNumber);
          
          if(toggleHitbox){
             graphicsContext.setFill(new Color(1, 0, 0, 0.5));
@@ -146,42 +149,144 @@ public class Presentation {
       int configurationNum = CONFIGNUM;
       if(configurationNum == 0){
          transformedX = new double[]{
-            x - (4.0 * CANVAS_SCALE), x - (1.0 * CANVAS_SCALE), x + (2.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), 
-            x + (4.0 * CANVAS_SCALE), x + (2.0 * CANVAS_SCALE), x + (0.0 * CANVAS_SCALE), x + (0.0 * CANVAS_SCALE), 
-            x - (2.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE), x - (2.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE)};
+            x - (4.0 * ASTEROID_SCALE), x - (1.0 * ASTEROID_SCALE), x + (2.0 * ASTEROID_SCALE), x + (4.0 * ASTEROID_SCALE), 
+            x + (4.0 * ASTEROID_SCALE), x + (2.0 * ASTEROID_SCALE), x + (0.0 * ASTEROID_SCALE), x + (0.0 * ASTEROID_SCALE), 
+            x - (2.0 * ASTEROID_SCALE), x - (4.0 * ASTEROID_SCALE), x - (2.0 * ASTEROID_SCALE), x - (4.0 * ASTEROID_SCALE)};
             
          transformedY = new double[]{
-            y + (1.0 * CANVAS_SCALE), y + (4.0 * CANVAS_SCALE), y + (4.0 * CANVAS_SCALE), y + (1.0 * CANVAS_SCALE),
-            y - (2.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE), y - (1.0 * CANVAS_SCALE),
-            y - (4.0 * CANVAS_SCALE), y - (1.0 * CANVAS_SCALE), y + (0.0 * CANVAS_SCALE), y + (1.0 * CANVAS_SCALE)};
+            y + (1.0 * ASTEROID_SCALE), y + (4.0 * ASTEROID_SCALE), y + (4.0 * ASTEROID_SCALE), y + (1.0 * ASTEROID_SCALE),
+            y - (2.0 * ASTEROID_SCALE), y - (4.0 * ASTEROID_SCALE), y - (4.0 * ASTEROID_SCALE), y - (1.0 * ASTEROID_SCALE),
+            y - (4.0 * ASTEROID_SCALE), y - (1.0 * ASTEROID_SCALE), y + (0.0 * ASTEROID_SCALE), y + (1.0 * ASTEROID_SCALE)};
             
          numOfVertices = 11;
       }else if(configurationNum == 1){
          transformedX = new double[]{
-         x - (3.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE), x - (2.0 * CANVAS_SCALE), x + (0.0 * CANVAS_SCALE), 
-         x + (2.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), x + (2.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), 
-         x + (2.0 * CANVAS_SCALE), x - (1.0 * CANVAS_SCALE), x - (2.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE),
-         x - (3.0 * CANVAS_SCALE)};
+         x - (3.0 * ASTEROID_SCALE), x - (4.0 * ASTEROID_SCALE), x - (2.0 * ASTEROID_SCALE), x + (0.0 * ASTEROID_SCALE), 
+         x + (2.0 * ASTEROID_SCALE), x + (4.0 * ASTEROID_SCALE), x + (2.0 * ASTEROID_SCALE), x + (4.0 * ASTEROID_SCALE), 
+         x + (2.0 * ASTEROID_SCALE), x - (1.0 * ASTEROID_SCALE), x - (2.0 * ASTEROID_SCALE), x - (4.0 * ASTEROID_SCALE),
+         x - (3.0 * ASTEROID_SCALE)};
          
          transformedY = new double[]{
-         y + (0.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (4.0 * CANVAS_SCALE), y + (3.0 * CANVAS_SCALE),
-         y + (4.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (1.0 * CANVAS_SCALE), y - (1.0 * CANVAS_SCALE),
-         y - (4.0 * CANVAS_SCALE), y - (3.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE), y - (2.0 * CANVAS_SCALE),
-         y + (0.0 * CANVAS_SCALE)};
+         y + (0.0 * ASTEROID_SCALE), y + (2.0 * ASTEROID_SCALE), y + (4.0 * ASTEROID_SCALE), y + (3.0 * ASTEROID_SCALE),
+         y + (4.0 * ASTEROID_SCALE), y + (2.0 * ASTEROID_SCALE), y + (1.0 * ASTEROID_SCALE), y - (1.0 * ASTEROID_SCALE),
+         y - (4.0 * ASTEROID_SCALE), y - (3.0 * ASTEROID_SCALE), y - (4.0 * ASTEROID_SCALE), y - (2.0 * ASTEROID_SCALE),
+         y + (0.0 * ASTEROID_SCALE)};
          
          numOfVertices = 12;
       }else{
          transformedX = new double[]{
-         x - (4.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE), x - (1.0 * CANVAS_SCALE), x - (2.0 * CANVAS_SCALE), 
-         x + (1.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), x + (1.0 * CANVAS_SCALE), 
-         x + (4.0 * CANVAS_SCALE), x + (2.0 * CANVAS_SCALE), x + (1.0 * CANVAS_SCALE), x - (3.0 * CANVAS_SCALE),
-         x - (4.0 * CANVAS_SCALE)};
+         x - (4.0 * ASTEROID_SCALE), x - (4.0 * ASTEROID_SCALE), x - (1.0 * ASTEROID_SCALE), x - (2.0 * ASTEROID_SCALE), 
+         x + (1.0 * ASTEROID_SCALE), x + (4.0 * ASTEROID_SCALE), x + (4.0 * ASTEROID_SCALE), x + (1.0 * ASTEROID_SCALE), 
+         x + (4.0 * ASTEROID_SCALE), x + (2.0 * ASTEROID_SCALE), x + (1.0 * ASTEROID_SCALE), x - (3.0 * ASTEROID_SCALE),
+         x - (4.0 * ASTEROID_SCALE)};
          
          transformedY = new double[]{
-         y - (1.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (4.0 * CANVAS_SCALE),
-         y + (4.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (1.0 * CANVAS_SCALE), y - (0.0 * CANVAS_SCALE),
-         y - (1.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE), y - (3.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE),
-         y - (1.0 * CANVAS_SCALE)};
+         y - (1.0 * ASTEROID_SCALE), y + (2.0 * ASTEROID_SCALE), y + (2.0 * ASTEROID_SCALE), y + (4.0 * ASTEROID_SCALE),
+         y + (4.0 * ASTEROID_SCALE), y + (2.0 * ASTEROID_SCALE), y + (1.0 * ASTEROID_SCALE), y - (0.0 * ASTEROID_SCALE),
+         y - (1.0 * ASTEROID_SCALE), y - (4.0 * ASTEROID_SCALE), y - (3.0 * ASTEROID_SCALE), y - (4.0 * ASTEROID_SCALE),
+         y - (1.0 * ASTEROID_SCALE)};
+         
+         numOfVertices = 12;
+      }
+      graphicsContext.strokePolygon(transformedX, transformedY, numOfVertices);
+   }
+   
+   private void drawMediumAsteroid(double x, double y, int CONFIGNUM) {
+      double adjustedX = x;
+      double adjustedY = y;
+      double transformedX[];
+      double transformedY[];
+      int numOfVertices;
+      int configurationNum = CONFIGNUM;
+      if(configurationNum == 0){
+         transformedX = new double[]{
+            x - (4.0 * MEDIUM_ASTEROID_SCALE), x - (1.0 * MEDIUM_ASTEROID_SCALE), x + (2.0 * MEDIUM_ASTEROID_SCALE), x + (4.0 * MEDIUM_ASTEROID_SCALE), 
+            x + (4.0 * MEDIUM_ASTEROID_SCALE), x + (2.0 * MEDIUM_ASTEROID_SCALE), x + (0.0 * MEDIUM_ASTEROID_SCALE), x + (0.0 * MEDIUM_ASTEROID_SCALE), 
+            x - (2.0 * MEDIUM_ASTEROID_SCALE), x - (4.0 * MEDIUM_ASTEROID_SCALE), x - (2.0 * MEDIUM_ASTEROID_SCALE), x - (4.0 * MEDIUM_ASTEROID_SCALE)};
+            
+         transformedY = new double[]{
+            y + (1.0 * MEDIUM_ASTEROID_SCALE), y + (4.0 * MEDIUM_ASTEROID_SCALE), y + (4.0 * MEDIUM_ASTEROID_SCALE), y + (1.0 * MEDIUM_ASTEROID_SCALE),
+            y - (2.0 * MEDIUM_ASTEROID_SCALE), y - (4.0 * MEDIUM_ASTEROID_SCALE), y - (4.0 * MEDIUM_ASTEROID_SCALE), y - (1.0 * MEDIUM_ASTEROID_SCALE),
+            y - (4.0 * MEDIUM_ASTEROID_SCALE), y - (1.0 * MEDIUM_ASTEROID_SCALE), y + (0.0 * MEDIUM_ASTEROID_SCALE), y + (1.0 * MEDIUM_ASTEROID_SCALE)};
+            
+         numOfVertices = 11;
+      }else if(configurationNum == 1){
+         transformedX = new double[]{
+         x - (3.0 * MEDIUM_ASTEROID_SCALE), x - (4.0 * MEDIUM_ASTEROID_SCALE), x - (2.0 * MEDIUM_ASTEROID_SCALE), x + (0.0 * MEDIUM_ASTEROID_SCALE), 
+         x + (2.0 * MEDIUM_ASTEROID_SCALE), x + (4.0 * MEDIUM_ASTEROID_SCALE), x + (2.0 * MEDIUM_ASTEROID_SCALE), x + (4.0 * MEDIUM_ASTEROID_SCALE), 
+         x + (2.0 * MEDIUM_ASTEROID_SCALE), x - (1.0 * MEDIUM_ASTEROID_SCALE), x - (2.0 * MEDIUM_ASTEROID_SCALE), x - (4.0 * MEDIUM_ASTEROID_SCALE),
+         x - (3.0 * MEDIUM_ASTEROID_SCALE)};
+         
+         transformedY = new double[]{
+         y + (0.0 * MEDIUM_ASTEROID_SCALE), y + (2.0 * MEDIUM_ASTEROID_SCALE), y + (4.0 * MEDIUM_ASTEROID_SCALE), y + (3.0 * MEDIUM_ASTEROID_SCALE),
+         y + (4.0 * MEDIUM_ASTEROID_SCALE), y + (2.0 * MEDIUM_ASTEROID_SCALE), y + (1.0 * MEDIUM_ASTEROID_SCALE), y - (1.0 * MEDIUM_ASTEROID_SCALE),
+         y - (4.0 * MEDIUM_ASTEROID_SCALE), y - (3.0 * MEDIUM_ASTEROID_SCALE), y - (4.0 * MEDIUM_ASTEROID_SCALE), y - (2.0 * MEDIUM_ASTEROID_SCALE),
+         y + (0.0 * MEDIUM_ASTEROID_SCALE)};
+         
+         numOfVertices = 12;
+      }else{
+         transformedX = new double[]{
+         x - (4.0 * MEDIUM_ASTEROID_SCALE), x - (4.0 * MEDIUM_ASTEROID_SCALE), x - (1.0 * MEDIUM_ASTEROID_SCALE), x - (2.0 * MEDIUM_ASTEROID_SCALE), 
+         x + (1.0 * MEDIUM_ASTEROID_SCALE), x + (4.0 * MEDIUM_ASTEROID_SCALE), x + (4.0 * MEDIUM_ASTEROID_SCALE), x + (1.0 * MEDIUM_ASTEROID_SCALE), 
+         x + (4.0 * MEDIUM_ASTEROID_SCALE), x + (2.0 * MEDIUM_ASTEROID_SCALE), x + (1.0 * MEDIUM_ASTEROID_SCALE), x - (3.0 * MEDIUM_ASTEROID_SCALE),
+         x - (4.0 * MEDIUM_ASTEROID_SCALE)};
+         
+         transformedY = new double[]{
+         y - (1.0 * MEDIUM_ASTEROID_SCALE), y + (2.0 * MEDIUM_ASTEROID_SCALE), y + (2.0 * MEDIUM_ASTEROID_SCALE), y + (4.0 * MEDIUM_ASTEROID_SCALE),
+         y + (4.0 * MEDIUM_ASTEROID_SCALE), y + (2.0 * MEDIUM_ASTEROID_SCALE), y + (1.0 * MEDIUM_ASTEROID_SCALE), y - (0.0 * MEDIUM_ASTEROID_SCALE),
+         y - (1.0 * MEDIUM_ASTEROID_SCALE), y - (4.0 * MEDIUM_ASTEROID_SCALE), y - (3.0 * MEDIUM_ASTEROID_SCALE), y - (4.0 * MEDIUM_ASTEROID_SCALE),
+         y - (1.0 * MEDIUM_ASTEROID_SCALE)};
+         
+         numOfVertices = 12;
+      }
+      graphicsContext.strokePolygon(transformedX, transformedY, numOfVertices);
+   }
+   
+   private void drawSmallAsteroid(double x, double y, int CONFIGNUM) {
+      double adjustedX = x;
+      double adjustedY = y;
+      double transformedX[];
+      double transformedY[];
+      int numOfVertices;
+      int configurationNum = CONFIGNUM;
+      if(configurationNum == 0){
+         transformedX = new double[]{
+            x - (4.0 * SMALL_ASTEROID_SCALE), x - (1.0 * SMALL_ASTEROID_SCALE), x + (2.0 * SMALL_ASTEROID_SCALE), x + (4.0 * SMALL_ASTEROID_SCALE), 
+            x + (4.0 * SMALL_ASTEROID_SCALE), x + (2.0 * SMALL_ASTEROID_SCALE), x + (0.0 * SMALL_ASTEROID_SCALE), x + (0.0 * SMALL_ASTEROID_SCALE), 
+            x - (2.0 * SMALL_ASTEROID_SCALE), x - (4.0 * SMALL_ASTEROID_SCALE), x - (2.0 * SMALL_ASTEROID_SCALE), x - (4.0 * SMALL_ASTEROID_SCALE)};
+            
+         transformedY = new double[]{
+            y + (1.0 * SMALL_ASTEROID_SCALE), y + (4.0 * SMALL_ASTEROID_SCALE), y + (4.0 * SMALL_ASTEROID_SCALE), y + (1.0 * SMALL_ASTEROID_SCALE),
+            y - (2.0 * SMALL_ASTEROID_SCALE), y - (4.0 * SMALL_ASTEROID_SCALE), y - (4.0 * SMALL_ASTEROID_SCALE), y - (1.0 * SMALL_ASTEROID_SCALE),
+            y - (4.0 * SMALL_ASTEROID_SCALE), y - (1.0 * SMALL_ASTEROID_SCALE), y + (0.0 * SMALL_ASTEROID_SCALE), y + (1.0 * SMALL_ASTEROID_SCALE)};
+            
+         numOfVertices = 11;
+      }else if(configurationNum == 1){
+         transformedX = new double[]{
+         x - (3.0 * SMALL_ASTEROID_SCALE), x - (4.0 * SMALL_ASTEROID_SCALE), x - (2.0 * SMALL_ASTEROID_SCALE), x + (0.0 * SMALL_ASTEROID_SCALE), 
+         x + (2.0 * SMALL_ASTEROID_SCALE), x + (4.0 * SMALL_ASTEROID_SCALE), x + (2.0 * SMALL_ASTEROID_SCALE), x + (4.0 * SMALL_ASTEROID_SCALE), 
+         x + (2.0 * SMALL_ASTEROID_SCALE), x - (1.0 * SMALL_ASTEROID_SCALE), x - (2.0 * SMALL_ASTEROID_SCALE), x - (4.0 * SMALL_ASTEROID_SCALE),
+         x - (3.0 * SMALL_ASTEROID_SCALE)};
+         
+         transformedY = new double[]{
+         y + (0.0 * SMALL_ASTEROID_SCALE), y + (2.0 * SMALL_ASTEROID_SCALE), y + (4.0 * SMALL_ASTEROID_SCALE), y + (3.0 * SMALL_ASTEROID_SCALE),
+         y + (4.0 * SMALL_ASTEROID_SCALE), y + (2.0 * SMALL_ASTEROID_SCALE), y + (1.0 * SMALL_ASTEROID_SCALE), y - (1.0 * SMALL_ASTEROID_SCALE),
+         y - (4.0 * SMALL_ASTEROID_SCALE), y - (3.0 * SMALL_ASTEROID_SCALE), y - (4.0 * SMALL_ASTEROID_SCALE), y - (2.0 * SMALL_ASTEROID_SCALE),
+         y + (0.0 * SMALL_ASTEROID_SCALE)};
+         
+         numOfVertices = 12;
+      }else{
+         transformedX = new double[]{
+         x - (4.0 * SMALL_ASTEROID_SCALE), x - (4.0 * SMALL_ASTEROID_SCALE), x - (1.0 * SMALL_ASTEROID_SCALE), x - (2.0 * SMALL_ASTEROID_SCALE), 
+         x + (1.0 * SMALL_ASTEROID_SCALE), x + (4.0 * SMALL_ASTEROID_SCALE), x + (4.0 * SMALL_ASTEROID_SCALE), x + (1.0 * SMALL_ASTEROID_SCALE), 
+         x + (4.0 * SMALL_ASTEROID_SCALE), x + (2.0 * SMALL_ASTEROID_SCALE), x + (1.0 * SMALL_ASTEROID_SCALE), x - (3.0 * SMALL_ASTEROID_SCALE),
+         x - (4.0 * SMALL_ASTEROID_SCALE)};
+         
+         transformedY = new double[]{
+         y - (1.0 * SMALL_ASTEROID_SCALE), y + (2.0 * SMALL_ASTEROID_SCALE), y + (2.0 * SMALL_ASTEROID_SCALE), y + (4.0 * SMALL_ASTEROID_SCALE),
+         y + (4.0 * SMALL_ASTEROID_SCALE), y + (2.0 * SMALL_ASTEROID_SCALE), y + (1.0 * SMALL_ASTEROID_SCALE), y - (0.0 * SMALL_ASTEROID_SCALE),
+         y - (1.0 * SMALL_ASTEROID_SCALE), y - (4.0 * SMALL_ASTEROID_SCALE), y - (3.0 * SMALL_ASTEROID_SCALE), y - (4.0 * SMALL_ASTEROID_SCALE),
+         y - (1.0 * SMALL_ASTEROID_SCALE)};
          
          numOfVertices = 12;
       }
