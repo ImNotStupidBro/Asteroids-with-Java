@@ -22,7 +22,7 @@ public class World {
       double shipYStartLocation = Y_DIMENSION/2;
       double shipXSpeed = 0.0;
       double shipYSpeed = 0.0;
-      double shipDirection = 0.0;
+      double shipDirection = 270.0;
       HitBox shipHitbox = new HitBox(0,0,0,0);
       shipHitbox.set(shipXStartLocation, shipYStartLocation, 20, 40);
       

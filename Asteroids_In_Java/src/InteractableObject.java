@@ -1,11 +1,11 @@
 public abstract class InteractableObject{
    
-   private double xPosition;
-   private double yPosition;
-   private double xSpeed;
-   private double ySpeed;
-   private double direction;
-   private HitBox hitbox; // Collision detection tool
+   public double xPosition;
+   public double yPosition;
+   public double xSpeed;
+   public double ySpeed;
+   public double direction;
+   public HitBox hitbox; // Collision detection tool
 
    public InteractableObject(double x, double y, double dx, double dy, double deg, HitBox hitbox){
       this.xPosition = x;
@@ -45,14 +45,6 @@ public abstract class InteractableObject{
          direction = 5.0;
       }
       this.direction += 5.0;;
-   }
-   
-   public void accelerate() {
-      xSpeed += Math.cos(Math.toRadians(this.direction));
-      ySpeed += Math.sin(Math.toRadians(this.direction));
-
-      xSpeed *= 0.9;
-      ySpeed *= 0.9;
    }
    
    public double getX() { return xPosition; }
