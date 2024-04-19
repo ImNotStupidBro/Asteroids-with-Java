@@ -1,8 +1,3 @@
-/**
-* this file controls the reocurring game loop that updates due to the animation timer
-*
-* @author Jason ZIgmant, Christian Blair
-*/
 import javafx.animation.AnimationTimer;
 
 public class GameLoop extends AnimationTimer{
@@ -25,8 +20,6 @@ public class GameLoop extends AnimationTimer{
         lastTime = now;
 
         // render the ball
-        //Ball ball = world.getBall();
-        //System.out.printf("Ball at (%2.2f, %2.2f)\n", ball.getX(), ball.getY());
         presentation.render();
     }
     

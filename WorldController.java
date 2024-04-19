@@ -1,8 +1,3 @@
-/**
-* starts the game
-*
-* @author Christian Blair
-*/
 import javafx.application.Application;
 import javafx.stage.Stage;
 import java.util.concurrent.TimeUnit;
@@ -17,7 +12,7 @@ public class WorldController extends Application {
       World world = new World();
       Presentation presentation = new Presentation(stage, world);
       GameLoop gameLoop = new GameLoop(world, presentation);
-        
+
       gameLoop.start();
    }
 }
