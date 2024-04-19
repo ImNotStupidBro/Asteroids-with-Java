@@ -1,5 +1,5 @@
 public class Ship extends InteractableObject{
-   
+   private final double MAX_SHIP_SPEED = 30.0;
    private final double[] SHIPVERTICECOORDINATES = {
       116.0, 80.0,
       100.0, 128.0,

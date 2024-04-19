@@ -1,16 +1,16 @@
 import java.util.HashSet;
 import java.util.Random;
 
-public class AsteroidSet{
+public class AsteroidSetSmall{
    private HashSet<Asteroid> asteroidSet;
    private Random rand;
    
-   public AsteroidSet(){
+   public AsteroidSetSmall(){
       asteroidSet = new HashSet<Asteroid>();
       rand = new Random();
    }
    
-   public AsteroidSet(int numOfAsteroids){
+   public AsteroidSetSmall(int numOfAsteroids){
       this();
       for(int i = 0; i < numOfAsteroids; i++) {
          asteroidSet.add(Asteroid.createRandomAsteroid());

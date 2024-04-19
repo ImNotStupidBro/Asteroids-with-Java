@@ -7,15 +7,18 @@ import javafx.geometry.Bounds;
 
 public class World {
    private AsteroidSet asteroids;
+   private AsteroidSetMedium mediumAsteroids;
+   private AsteroidSetSmall smallAsteroids;
    private Ship ship;
    public static final int X_DIMENSION = 100; // meters
    public static final int Y_DIMENSION = 70; // meters
-   private final double MAX_SHIP_SPEED = 30.0;
-   private final int NUMBER_OF_ASTEROIDS = 4;
+   private final int INITIAL_NUMBER_OF_ASTEROIDS = 4;
    
    public World() {
-      //Create Asteroid set.
-      asteroids = new AsteroidSet(NUMBER_OF_ASTEROIDS);
+      //Create Asteroid sets.
+      asteroids = new AsteroidSet(INITIAL_NUMBER_OF_ASTEROIDS);
+      mediumAsteroids = new AsteroidSetMedium(0);
+      smallAsteroids = new AsteroidSetSmall(0);
 
       //Generate the ship.
       double shipXStartLocation = X_DIMENSION/2;
@@ -24,7 +27,7 @@ public class World {
       double shipYSpeed = 0.0;
       double shipDirection = 0.0;
       HitBox shipHitbox = new HitBox(0,0,0,0);
-      shipHitbox.set(shipXStartLocation, shipYStartLocation, 20, 40);
+      shipHitbox.set(shipXStartLocation, shipYStartLocation, 40, 40);
       
       ship = new Ship(shipXStartLocation, shipYStartLocation, shipXSpeed, shipYSpeed, shipDirection, shipHitbox);
    }
@@ -35,6 +38,7 @@ public class World {
       ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
    }
 
+   //Accessor Methods
    public AsteroidSet getAsteroidSet() {
       return asteroids;
    }
