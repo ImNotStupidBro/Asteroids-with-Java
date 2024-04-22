@@ -9,6 +9,7 @@ public class World {
    private AsteroidSet asteroids;
    private Ship ship;
    private Lazers lazers;
+   private Score scoreboard;
    public static final int X_DIMENSION = 100; // meters
    public static final int Y_DIMENSION = 70; // meters
    private final double MAX_SHIP_SPEED = 30.0;
@@ -16,6 +17,9 @@ public class World {
    private final int NUMBER_OF_LASERS = 1; //this is just a test
    
    public World() {
+      //Create the score board
+      scoreboard = new Score();
+      
       //Create Asteroid set.
       asteroids = new AsteroidSet(NUMBER_OF_ASTEROIDS);
       
@@ -53,7 +57,7 @@ public class World {
    }
 
    public void collisionDetect(){
-      
+      scoreboard.addScore(0, 1, 0);
       //part 1 (asteroid and ship collision)
       for(Asteroid asteroid: asteroids.getAsteroidsAsArray()){                          
          //asteroid.getHitBox().printLowerLeft();
@@ -68,6 +72,7 @@ public class World {
          for(Asteroid asteroid: asteroids.getAsteroidsAsArray()){                             
             if(asteroid.getHitBox().intersect(lazer.getHitbox()) == true){
                System.out.println("Collision detected");
+               scoreboard.addScore(0, 1, 0);
             }
          }
       }
@@ -100,5 +105,13 @@ public class World {
 
    public double getYDimension() {
       return Y_DIMENSION;
+   }
+   
+   public int getScoreInt() {
+      return scoreboard.getScoreInt();
+   }
+   
+   public String getScoreString() {
+      return scoreboard.getScoreString();
    }
 }
