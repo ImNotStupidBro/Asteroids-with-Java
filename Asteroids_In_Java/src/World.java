@@ -35,8 +35,10 @@ public class World {
    
    /** Runs the physics of the world. */
    public void run(long elapsedTimeInNanoseconds) {
-      asteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
-      ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      if(numOfLives > 0){
+         asteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+         ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      }
    }
 
    //Accessor Methods
