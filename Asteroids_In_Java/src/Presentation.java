@@ -77,7 +77,7 @@ public class Presentation {
    
    private void renderLives() {
       int lives = world.getNumOfLives();
-      double lifeCounterXPosition = 895.0;
+      double lifeCounterXPosition = 3.0;
       double lifeCounterYPosition = 670.0;
       
       for(int i = lives; i > 0; i--){

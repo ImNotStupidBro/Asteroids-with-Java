@@ -81,4 +81,14 @@ public class World {
    public int getNumOfLives() {
       return numOfLives;
    }
+   
+   public void decrementLives() {
+      numOfLives -= 1;
+   }
+   
+   public void incrementLives() {
+      if(numOfLives < 5){
+         numOfLives += 1;
+      }
+   }
 }
