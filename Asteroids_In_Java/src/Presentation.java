@@ -48,6 +48,7 @@ public class Presentation {
       graphicsContext.setStroke(Color.WHITE);
       renderShip();
       renderAsteroids();
+      //renderLives();
       
       stage.show();     
    }

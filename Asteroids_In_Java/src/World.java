@@ -12,6 +12,7 @@ public class World {
    public static final int Y_DIMENSION = 70; // meters
    private final double MAX_SHIP_SPEED = 30.0;
    private final int NUMBER_OF_ASTEROIDS = 4;
+   private int numOfLives = 3;
    
    public World() {
       //Create Asteroid set.
@@ -53,5 +54,9 @@ public class World {
 
    public double getYDimension() {
       return Y_DIMENSION;
+   }
+   
+   public int getNumOfLives() {
+      return numOfLives;
    }
 }
