@@ -53,6 +53,7 @@ public class Presentation {
       renderAsteroids();
       //renderMediumAsteroids();
       //renderSmallAsteroids();
+      renderLives();
       
       stage.show();     
    }
@@ -71,6 +72,16 @@ public class Presentation {
       if(toggleHitbox){
          graphicsContext.setFill(new Color(1, 0, 0, 0.5));
          drawHitbox(shipX, shipY, shipHitbox);
+      }
+   }
+   
+   private void renderLives() {
+      int lives = world.getNumOfLives();
+      double lifeCounterXPosition = 895.0;
+      double lifeCounterYPosition = 670.0;
+      
+      for(int i = lives; i > 0; i--){
+         drawShip((lifeCounterXPosition + (30 * i)), lifeCounterYPosition);
       }
    }
    
