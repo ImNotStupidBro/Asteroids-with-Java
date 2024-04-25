@@ -10,10 +10,13 @@ public class World {
    private AsteroidSetMedium mediumAsteroids;
    private AsteroidSetSmall smallAsteroids;
    private Ship ship;
+   private currAsteroidCount;
+   private additionAsteroidCount;
+   private int numOfLives = 3;
+   
    public static final int X_DIMENSION = 100; // meters
    public static final int Y_DIMENSION = 70; // meters
    private final int INITIAL_NUMBER_OF_ASTEROIDS = 4;
-   private int numOfLives = 3;
    
    public World() {
       //Create Asteroid sets.
@@ -31,13 +34,45 @@ public class World {
       shipHitbox.set(shipXStartLocation, shipYStartLocation, 40, 40);
       
       ship = new Ship(shipXStartLocation, shipYStartLocation, shipXSpeed, shipYSpeed, shipDirection, shipHitbox);
+      currAsteroidCount = INITIAL_NUMBER_OF_ASTEROIDS;
+      additionalAsteroidCount = 0;
    }
    
    /** Runs the physics of the world. */
    public void run(long elapsedTimeInNanoseconds) {
-      if(numOfLives > 0){
+      while(numOfLives >= 0){
          asteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
          ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+         
+         respawnAsteroids();
+         respawnShip();
+      }
+      System.out.println("Game Over.");
+      System.exit();
+   }
+   
+   private void respawnAsteroids(){
+      if(currAsteroidCount == 0){
+         additionalAsteroidCount++;
+         currAsteroidCount = INITIAL_NUMBER_OF_ASTEROIDS + additionalAsteroidCount;
+         for(int i = currAsteroidCount; i > 0; i--){
+            asteroids.addAsteroid();
+         }
+      }
+   }
+   
+   private void respawnShip(){
+      
+      decrementLives();
+   }
+   
+   private void decrementLives() {
+      numOfLives -= 1;
+   }
+   
+   private void incrementLives() {
+      if(numOfLives < 5){
+         numOfLives += 1;
       }
    }
 
@@ -82,13 +117,4 @@ public class World {
       return numOfLives;
    }
    
-   public void decrementLives() {
-      numOfLives -= 1;
-   }
-   
-   public void incrementLives() {
-      if(numOfLives < 5){
-         numOfLives += 1;
-      }
-   }
 }
