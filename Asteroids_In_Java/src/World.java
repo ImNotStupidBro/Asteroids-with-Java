@@ -4,14 +4,15 @@
 import java.util.Random;
 import javafx.scene.shape.Polygon;
 import javafx.geometry.Bounds;
+import java.util.concurrent.TimeUnit;
 
 public class World {
    private AsteroidSet asteroids;
    private AsteroidSetMedium mediumAsteroids;
    private AsteroidSetSmall smallAsteroids;
    private Ship ship;
-   private currAsteroidCount;
-   private additionAsteroidCount;
+   private int currAsteroidCount;
+   private int additionalAsteroidCount;
    private int numOfLives = 3;
    
    public static final int X_DIMENSION = 100; // meters
@@ -40,15 +41,21 @@ public class World {
    
    /** Runs the physics of the world. */
    public void run(long elapsedTimeInNanoseconds) {
-      while(numOfLives >= 0){
-         asteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
-         ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
-         
-         respawnAsteroids();
-         respawnShip();
+      asteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      
+      respawnAsteroids();
+      //respawnShip();
+      
+      if(numOfLives < 0){
+         System.out.println("Game Over.");
+         try{
+            Thread.sleep(3000);
+         }catch (InterruptedException ie){
+            Thread.currentThread().interrupt();
+         }
+         System.exit(0);
       }
-      System.out.println("Game Over.");
-      System.exit();
    }
    
    private void respawnAsteroids(){
@@ -62,7 +69,7 @@ public class World {
    }
    
    private void respawnShip(){
-      
+      ship.set(X_DIMENSION/2, Y_DIMENSION/2, 0.0, 0.0, 270.0);
       decrementLives();
    }
    

@@ -4,8 +4,8 @@ public abstract class InteractableObject{
    public double yPosition;
    public double xSpeed;
    public double ySpeed;
-   private double direction;
-   private HitBox hitbox; // Collision detection tool
+   public double direction;
+   public HitBox hitbox; // Collision detection tool
 
    public InteractableObject(double x, double y, double dx, double dy, double deg, HitBox hitbox){
       this.xPosition = x;

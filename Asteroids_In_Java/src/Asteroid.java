@@ -13,6 +13,23 @@ public class Asteroid extends InteractableObject{
       id = newID;
    }
    
+   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) {
+      xPosition += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
+      yPosition += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
+      
+      //Keep object on the torus
+      if (xPosition < 0) { // moving in the negative x direction
+         xPosition = worldXDimension + xPosition % worldXDimension;
+      } else if (xPosition >= worldXDimension) {
+         xPosition = xPosition % worldXDimension;
+      }
+      if (yPosition < 0) { // moving in the negative y direction
+         yPosition = worldYDimension + yPosition % worldYDimension;
+      } else if (yPosition >= worldYDimension) {
+         yPosition = yPosition % worldYDimension;
+      }
+   }
+   
    private void generateConfiguration() {
       Random rand = new Random();
       configNumber = rand.nextInt(3);

@@ -35,6 +35,9 @@ public class KeyPressHandler implements EventHandler<KeyEvent> {
          case SPACE:
             System.out.println("SPACE");
             break;
+         case P:
+            System.exit(0);
+            break;
       }
    }    
 }
