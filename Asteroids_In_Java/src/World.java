@@ -22,15 +22,15 @@ public class World {
    public World() {
       //Create Asteroid sets.
       asteroids = new AsteroidSet(INITIAL_NUMBER_OF_ASTEROIDS);
-      mediumAsteroids = new AsteroidSetMedium(0);
-      smallAsteroids = new AsteroidSetSmall(0);
+      mediumAsteroids = new AsteroidSetMedium(2);
+      smallAsteroids = new AsteroidSetSmall(2);
 
       //Generate the ship.
       double shipXStartLocation = X_DIMENSION/2;
       double shipYStartLocation = Y_DIMENSION/2;
       double shipXSpeed = 0.0;
       double shipYSpeed = 0.0;
-      double shipDirection = 0.0;
+      double shipDirection = 270.0;
       HitBox shipHitbox = new HitBox(0,0,0,0);
       shipHitbox.set(shipXStartLocation, shipYStartLocation, 40, 40);
       
@@ -42,6 +42,8 @@ public class World {
    /** Runs the physics of the world. */
    public void run(long elapsedTimeInNanoseconds) {
       asteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      mediumAsteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      smallAsteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       
       respawnAsteroids();

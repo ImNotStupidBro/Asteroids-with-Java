@@ -47,19 +47,21 @@ public class Presentation {
    
    }
    
+   // Render: Draw everything using the rendering methods given.
    public void render() {
       
       graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
       graphicsContext.setStroke(Color.WHITE);
       renderShip();
-      renderAsteroids();
-      //renderMediumAsteroids();
-      //renderSmallAsteroids();
+      //renderAsteroids();
+      renderMediumAsteroids();
+      renderSmallAsteroids();
       renderLives();
       
       stage.show();     
    }
    
+   // Render Call for the ship
    public void renderShip(){
       Ship shipToMove = world.getShip();
       double shipX = 0.0;
@@ -69,7 +71,7 @@ public class Presentation {
       
       shipX = convertPhysicsScaletoPresentationScale(shipToMove.getX());
       shipY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(shipToMove.getY()));
-      shipDirection = shipToMove.getDirection();
+      shipDirection = shipToMove.getDirection() + 90.0;
       shipHitbox = shipToMove.getHitBox();
       drawShip(shipX, shipY, shipDirection);
       
@@ -79,17 +81,19 @@ public class Presentation {
       }
    }
    
+   // Render Call for the life counter
    private void renderLives() {
       int lives = world.getNumOfLives();
       double lifeCounterXPosition = 3.0;
       double lifeCounterYPosition = 670.0;
-      double lifeCounterDirection = 315;
+      double lifeCounterDirection = 22.5;
       
       for(int i = lives; i > 0; i--){
          drawShip((lifeCounterXPosition + (30 * i)), lifeCounterYPosition, lifeCounterDirection);
       }
    }
    
+   // Render Call for the regular asteroids
    public void renderAsteroids(){
       Asteroid asteroidArray[] = world.getAsteroidsAsArray();
       double asteroidX = 0.0;
@@ -112,6 +116,7 @@ public class Presentation {
       }
    }
    
+   // Render Call for the medium asteroids
    public void renderMediumAsteroids(){
       Asteroid asteroidArray[] = world.getMediumAsteroidsAsArray();
       double asteroidX = 0.0;
@@ -134,6 +139,7 @@ public class Presentation {
       }
    }
    
+   // Render Call for the small asteroids
    public void renderSmallAsteroids(){
       Asteroid asteroidArray[] = world.getSmallAsteroidsAsArray();
       double asteroidX = 0.0;
@@ -156,6 +162,7 @@ public class Presentation {
       }
    }
    
+   // Regular Asteroid Drawing Method
    private void drawAsteroid(double x, double y, int CONFIGNUM) {
       double adjustedX = x;
       double adjustedY = y;
@@ -207,6 +214,7 @@ public class Presentation {
       graphicsContext.strokePolygon(transformedX, transformedY, numOfVertices);
    }
    
+   //Medium Asteroid Drawing Method
    private void drawMediumAsteroid(double x, double y, int CONFIGNUM) {
       double adjustedX = x;
       double adjustedY = y;
@@ -258,6 +266,7 @@ public class Presentation {
       graphicsContext.strokePolygon(transformedX, transformedY, numOfVertices);
    }
    
+   // Small Asteroid Drawing Method
    private void drawSmallAsteroid(double x, double y, int CONFIGNUM) {
       double adjustedX = x;
       double adjustedY = y;
@@ -309,6 +318,7 @@ public class Presentation {
       graphicsContext.strokePolygon(transformedX, transformedY, numOfVertices);
    }
    
+   // Ship Drawing Method
    private void drawShip(double x, double y, double Deg) {
       double adjustedX = x;
       double adjustedY = y;
@@ -317,17 +327,42 @@ public class Presentation {
       double maxXFromOrigin = 1.0 * CANVAS_SCALE;
       double baseFromOrigin = 0.75 * CANVAS_SCALE;
       
+      double tipInitX = ((0-0.001)*Math.cos(Math.toRadians(Deg)))+((0-maxYFromOrigin)*Math.sin(Math.toRadians(Deg)));
+      double tipInitY = ((0-maxYFromOrigin)*Math.cos(Math.toRadians(Deg)))+((0-0.001)*Math.sin(Math.toRadians(Deg)));
+      
+      double tipFinalX = (0.001*Math.cos(Math.toRadians(Deg)))+((0-maxYFromOrigin)*Math.sin(Math.toRadians(Deg)));
+      double tipFinalY = ((0-maxYFromOrigin)*Math.cos(Math.toRadians(Deg)))+(0.001*Math.sin(Math.toRadians(Deg)));
+      /* //Debug feature: Give the exact coordinates of the tip.
+      System.out.println("Tip X: " + (x-tipInitX));
+      System.out.println("Tip Y: " + (y+tipInitY));
+      */
+      double tail1X = ((0-maxXFromOrigin)*Math.cos(Math.toRadians(Deg)))-((0-maxYFromOrigin)*Math.sin(Math.toRadians(Deg)));
+      double tail1Y = ((0-maxYFromOrigin)*Math.cos(Math.toRadians(Deg)))+((0-maxXFromOrigin)*Math.sin(Math.toRadians(Deg)));
+      
+      double tail2X = (maxXFromOrigin*Math.cos(Math.toRadians(Deg)))-((0-maxYFromOrigin)*Math.sin(Math.toRadians(Deg)));
+      double tail2Y = ((0-maxYFromOrigin)*Math.cos(Math.toRadians(Deg)))+(maxXFromOrigin*Math.sin(Math.toRadians(Deg)));
+      
+      double base1X = ((0-baseFromOrigin)*Math.cos(Math.toRadians(Deg)))-((0-baseFromOrigin)*Math.sin(Math.toRadians(Deg)));
+      double base1Y = ((0-baseFromOrigin)*Math.cos(Math.toRadians(Deg)))+((0-baseFromOrigin)*Math.sin(Math.toRadians(Deg)));
+      
+      double base2X = (baseFromOrigin*Math.cos(Math.toRadians(Deg)))-((0-baseFromOrigin)*Math.sin(Math.toRadians(Deg)));
+      double base2Y = ((0-baseFromOrigin)*Math.cos(Math.toRadians(Deg)))+(baseFromOrigin*Math.sin(Math.toRadians(Deg)));
+
       double transformedX[] = new double[]{
-      x, x - maxXFromOrigin, x - baseFromOrigin, x + baseFromOrigin, 
-      x + maxXFromOrigin, x};
+      x - tipInitX, x - tail1X, x - base1X, x - base2X, 
+      x - tail2X, x - tipFinalX};
       
       double transformedY[] = new double[]{
-      y - maxYFromOrigin, y + maxYFromOrigin, y + baseFromOrigin, y + baseFromOrigin,
-      y + maxYFromOrigin, y - maxYFromOrigin};
+      y + tipInitY, y - tail1Y, y - base1Y, y - base2Y,
+      y - tail2Y, y - tipFinalY};
       
       int numOfVertices = 5;
       
       graphicsContext.strokePolygon(transformedX, transformedY, numOfVertices);
+      /* //Debug feature: Draw point onto wherever the tip of the ship is.
+      graphicsContext.setFill(Color.RED);
+      graphicsContext.fillOval((x-tipFinalX)-2.5, (y+tipFinalY) - 2.5, 5, 5);
+      */
    }
    
    private void drawHitbox(double x, double y, HitBox hitbox) {

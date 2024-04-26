@@ -1,5 +1,5 @@
 public class Ship extends InteractableObject{
-   private final double MAX_SHIP_SPEED = 30.0;
+   private final double MAX_SHIP_SPEED = 20.0;
    public boolean isAccelerating;
    
    public Ship(double x, double y, double dx, double dy, double degrees, HitBox hitbox) {
@@ -35,9 +35,11 @@ public class Ship extends InteractableObject{
          }
          
          xSpeed += Math.cos(Math.toRadians(this.direction));
-         ySpeed += Math.sin(Math.toRadians(this.direction));
+         ySpeed -= Math.sin(Math.toRadians(this.direction));
+         /*
          System.out.println("X Speed: " + xSpeed);
          System.out.println("Y Speed: " + ySpeed);
+         */
    }
    
    public void decelerate() {

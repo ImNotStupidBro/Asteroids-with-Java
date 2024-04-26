@@ -49,6 +49,34 @@ public class Asteroid extends InteractableObject{
       return asteroid;
    }
    
+   public static Asteroid createRandomMediumAsteroid(){
+      Random rand = new Random();
+      double asteroidXStartLocation = rand.nextInt(World.X_DIMENSION);
+      double asteroidYStartLocation = rand.nextInt(World.Y_DIMENSION);
+      double asteroidXSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
+      double asteroidYSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
+      double asteroidDirection = 360 * rand.nextDouble();
+      HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, 40, 40);
+      int asteroidID = rand.nextInt(1000);
+      Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidXSpeed, asteroidYSpeed, asteroidDirection, asteroidHitbox, asteroidID);
+      asteroid.generateConfiguration();
+      return asteroid;
+   }
+   
+   public static Asteroid createRandomSmallAsteroid(){
+      Random rand = new Random();
+      double asteroidXStartLocation = rand.nextInt(World.X_DIMENSION);
+      double asteroidYStartLocation = rand.nextInt(World.Y_DIMENSION);
+      double asteroidXSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
+      double asteroidYSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
+      double asteroidDirection = 360 * rand.nextDouble();
+      HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, 20, 20);
+      int asteroidID = rand.nextInt(1000);
+      Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidXSpeed, asteroidYSpeed, asteroidDirection, asteroidHitbox, asteroidID);
+      asteroid.generateConfiguration();
+      return asteroid;
+   }
+   
    public static Asteroid createAsteroid(double initialX, double initialY, int hitboxWidth, int hitboxHeight){
       Random rand = new Random();
       double asteroidXStartLocation = initialX;

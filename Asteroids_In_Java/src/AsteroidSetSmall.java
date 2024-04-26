@@ -13,7 +13,7 @@ public class AsteroidSetSmall{
    public AsteroidSetSmall(int numOfAsteroids){
       this();
       for(int i = 0; i < numOfAsteroids; i++) {
-         asteroidSet.add(Asteroid.createRandomAsteroid());
+         asteroidSet.add(Asteroid.createRandomSmallAsteroid());
       }
    }
    

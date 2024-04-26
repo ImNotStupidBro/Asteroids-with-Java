@@ -13,7 +13,7 @@ public class AsteroidSetMedium{
    public AsteroidSetMedium(int numOfAsteroids){
       this();
       for(int i = 0; i < numOfAsteroids; i++) {
-         asteroidSet.add(Asteroid.createRandomAsteroid());
+         asteroidSet.add(Asteroid.createRandomMediumAsteroid());
       }
    }
    
