@@ -14,11 +14,10 @@ public class World {
    private int currAsteroidCount;
    private int additionalAsteroidCount;
    private int numOfLives = 3;
-   
+  
    public static final int X_DIMENSION = 100; // meters
    public static final int Y_DIMENSION = 70; // meters
-   private final int INITIAL_NUMBER_OF_ASTEROIDS = 4;
-   private int numOfLives = 3;
+   private final int INITIAL_NUMBER_OF_ASTEROIDS = 1;
    
    public World() {
       //Create Asteroid sets.
@@ -48,7 +47,23 @@ public class World {
       ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       
       respawnAsteroids();
-      //respawnShip();
+      
+      /*
+      if(Collision Detection Method Here){
+         respawnShip();
+      }
+      if(Collision Detection Method Here){
+         asteroidCollision();
+      }
+      
+      if(Collision Detection Method Here){
+         mediumAsteroidCollision();
+      }
+      
+      if(Collision Detection Method Here){
+         smallAsteroidCollision();
+      }
+      */
       
       if(numOfLives < 0){
          System.out.println("Game Over.");
@@ -87,7 +102,18 @@ public class World {
    }
    /*
    private asteroidCollision() {
-      
+      If a regular asteroid detects a collision with a bullet,
+      destroy the regular asteroid and spawn two medium asteroids.
+   }
+   
+   private mediumAsteroidCollision() {
+      If a medium asteroid detects a collision with a bullet,
+      destroy the medium asteroid and spawn two small asteroids.
+   }
+   
+   private asteroidCollision() {
+      If a small asteroid detects a collision with a bullet,
+      destroy the small asteroid.
    }
    */
    //Accessor Methods
