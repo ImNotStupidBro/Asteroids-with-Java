@@ -36,17 +36,17 @@ public class Ship extends InteractableObject{
          
          xSpeed += Math.cos(Math.toRadians(this.direction));
          ySpeed += Math.sin(Math.toRadians(this.direction));
+         System.out.println("X Speed: " + xSpeed);
+         System.out.println("Y Speed: " + ySpeed);
    }
    
    public void decelerate() {
       if(!isAccelerating){
-         xSpeed *= 0.99;
-         ySpeed *= 0.99;
-         if(xSpeed < 0.0){
-            xSpeed = 0.0;
+         if(xSpeed > 0 || xSpeed < 0.0){
+            xSpeed *= 0.975;
          }
-         if(ySpeed < 0.0){
-            ySpeed = 0.0;
+         if(ySpeed > 0 || ySpeed < 0.0){
+            ySpeed *= 0.975;
          }
       }
    }

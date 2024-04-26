@@ -64,12 +64,14 @@ public class Presentation {
       Ship shipToMove = world.getShip();
       double shipX = 0.0;
       double shipY = 0.0;
+      double shipDirection = 0.0;
       HitBox shipHitbox;
       
       shipX = convertPhysicsScaletoPresentationScale(shipToMove.getX());
       shipY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(shipToMove.getY()));
+      shipDirection = shipToMove.getDirection();
       shipHitbox = shipToMove.getHitBox();
-      drawShip(shipX, shipY);
+      drawShip(shipX, shipY, shipDirection);
       
       if(toggleHitbox){
          graphicsContext.setFill(new Color(1, 0, 0, 0.5));
@@ -81,9 +83,10 @@ public class Presentation {
       int lives = world.getNumOfLives();
       double lifeCounterXPosition = 3.0;
       double lifeCounterYPosition = 670.0;
+      double lifeCounterDirection = 315;
       
       for(int i = lives; i > 0; i--){
-         drawShip((lifeCounterXPosition + (30 * i)), lifeCounterYPosition);
+         drawShip((lifeCounterXPosition + (30 * i)), lifeCounterYPosition, lifeCounterDirection);
       }
    }
    
@@ -306,16 +309,21 @@ public class Presentation {
       graphicsContext.strokePolygon(transformedX, transformedY, numOfVertices);
    }
    
-   private void drawShip(double x, double y) {
+   private void drawShip(double x, double y, double Deg) {
       double adjustedX = x;
       double adjustedY = y;
+      
+      double maxYFromOrigin = 1.5 * CANVAS_SCALE;
+      double maxXFromOrigin = 1.0 * CANVAS_SCALE;
+      double baseFromOrigin = 0.75 * CANVAS_SCALE;
+      
       double transformedX[] = new double[]{
-      x - (0.0 * CANVAS_SCALE), x - (1.0 * CANVAS_SCALE), x - (0.75 * CANVAS_SCALE), x + (0.75 * CANVAS_SCALE), 
-      x + (1.0 * CANVAS_SCALE), x + (0.0 * CANVAS_SCALE)};
+      x, x - maxXFromOrigin, x - baseFromOrigin, x + baseFromOrigin, 
+      x + maxXFromOrigin, x};
       
       double transformedY[] = new double[]{
-      y - (1.5 * CANVAS_SCALE), y + (1.5 * CANVAS_SCALE), y + (0.75 * CANVAS_SCALE), y + (0.75 * CANVAS_SCALE),
-      y + (1.5 * CANVAS_SCALE), y - (1.5 * CANVAS_SCALE)};
+      y - maxYFromOrigin, y + maxYFromOrigin, y + baseFromOrigin, y + baseFromOrigin,
+      y + maxYFromOrigin, y - maxYFromOrigin};
       
       int numOfVertices = 5;
       

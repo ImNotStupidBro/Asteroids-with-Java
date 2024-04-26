@@ -82,7 +82,11 @@ public class World {
          numOfLives += 1;
       }
    }
-
+   /*
+   private asteroidCollision() {
+      
+   }
+   */
    //Accessor Methods
    public AsteroidSet getAsteroidSet() {
       return asteroids;
