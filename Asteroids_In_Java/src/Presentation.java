@@ -53,7 +53,8 @@ public class Presentation {
       graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
       graphicsContext.setStroke(Color.WHITE);
       renderShip();
-      //renderAsteroids();
+
+      renderAsteroids();
       renderMediumAsteroids();
       renderSmallAsteroids();
       renderLives();

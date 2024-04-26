@@ -18,6 +18,7 @@ public class World {
    public static final int X_DIMENSION = 100; // meters
    public static final int Y_DIMENSION = 70; // meters
    private final int INITIAL_NUMBER_OF_ASTEROIDS = 4;
+   private int numOfLives = 3;
    
    public World() {
       //Create Asteroid sets.
@@ -129,5 +130,4 @@ public class World {
    public int getNumOfLives() {
       return numOfLives;
    }
-   
 }

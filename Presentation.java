@@ -4,7 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.Group;
 import javafx.stage.Stage;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.shape.ArcType;
+import javafx.scene.shape.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
@@ -18,6 +18,8 @@ public class Presentation {
    private double canvasXDimension;
    private double canvasYDimension;
    private final double CANVAS_SCALE = 10.0;
+   
+   public boolean toggleHitbox = true;
 
    public Presentation(Stage stage, World world) throws Exception {
       this.stage = stage;
@@ -25,6 +27,7 @@ public class Presentation {
       
       root = new Group();
       scene = new Scene(root);
+      scene.setFill(Color.BLACK);
       canvasXDimension = world.getXDimension()*CANVAS_SCALE;
       canvasYDimension = world.getYDimension()*CANVAS_SCALE;
       canvas = new Canvas(canvasXDimension, canvasYDimension);
@@ -40,65 +43,157 @@ public class Presentation {
    }
    
    public void render() {
-      Ball balls[] = world.getBalls();
-      Player playerToMove = world.getPlayer();
-      double ballX = 0.0;
-      double ballY = 0.0;
-      double ballRadius = 0.0;
-      double playerX = 0.0;
-      double playerY = 0.0;
-      double playerRadius = 0.0;
-      boolean toggleHitbox = false;
       
-      // Clear the screen so old objects don't blur across the screen
       graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
+      graphicsContext.setStroke(Color.WHITE);
+      renderShip();
+      renderAsteroids();
+      renderLazers();
       
-      // Draw the player
-      playerX = convertPhysicsScaletoPresentationScale(playerToMove.getX());
-      playerY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(playerToMove.getY()));
-      playerRadius = convertPhysicsScaletoPresentationScale(playerToMove.getRadius());
-      graphicsContext.setFill(Color.GREEN);
-      drawBall(playerX, playerY, playerRadius); //change from drawBall to new method below when creating a new method named drawPolygon
-      
-      if(toggleHitbox){
-            graphicsContext.setFill(new Color(1, 0, 0, 0.5));
-         
-            drawBallHitbox(ballX, ballY, ballRadius);
-      }
-      
-      
-      // Draw the balls
-   
-      for(int i = 0; i < balls.length; i++) {
-         ballX = convertPhysicsScaletoPresentationScale(balls[i].getX());
-         ballY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(balls[i].getY()));
-         ballRadius = convertPhysicsScaletoPresentationScale(balls[i].getRadius());
-         graphicsContext.setFill(Color.BLUE);
-         drawBall(ballX, ballY, ballRadius);
-         
-         if(toggleHitbox){
-            graphicsContext.setFill(new Color(1, 0, 0, 0.5));
-         
-            drawBallHitbox(ballX, ballY, ballRadius);
-         }
-      }
-   
       stage.show();     
    }
    
-   //A circle is drawn in a box with the upper left corner being 0,0. Need to shift this to match the physics.
-   private void drawBall(double x, double y, double radius) {
+   public void renderShip(){
+      Ship shipToMove = world.getShip();
+      double shipX = 0.0;
+      double shipY = 0.0;
+      HitBox shipHitbox;
+      
+      shipX = convertPhysicsScaletoPresentationScale(shipToMove.getX());
+      shipY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(shipToMove.getY()));
+      shipHitbox = shipToMove.getHitBox();
+      drawShip(shipX, shipY);
+      
+      if(toggleHitbox){
+         graphicsContext.setFill(new Color(1, 0, 0, 0.5));
+         drawHitbox(shipX, shipY, shipHitbox);
+      }
+   }
+   
+   public void renderAsteroids(){
+      Asteroid asteroidArray[] = world.getAsteroidsAsArray();
+      double asteroidX = 0.0;
+      double asteroidY = 0.0;
+      int asteroidConfigNumber = 0;
+      HitBox asteroidHitbox;
+      
+      for(int i = 0; i < asteroidArray.length; i++) {
+         asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getX());
+         asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getY()));
+         asteroidConfigNumber = asteroidArray[i].getConfigNumber();
+         asteroidHitbox = asteroidArray[i].getHitBox();
+         graphicsContext.setFill(Color.WHITE);
+         drawAsteroid(asteroidX, asteroidY, asteroidConfigNumber);
+         
+         if(toggleHitbox){
+            graphicsContext.setFill(new Color(1, 0, 0, 0.5));
+            drawHitbox(asteroidX, asteroidY, asteroidHitbox);
+         }
+      }
+   }
+   
+   public void renderLazers(){
+      Lazer lazerArray[] = world.getLazersAsArray();
+      double lazerX = 0.0;
+      double lazerY = 0.0;
+      double lazerRadius = 5;
+      HitBox lazerHitbox;
+      
+      for(int i = 0; i < lazerArray.length; i++) {
+         lazerX = convertPhysicsScaletoPresentationScale(lazerArray[i].getX());
+         lazerY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(lazerArray[i].getY()));
+         lazerHitbox = lazerArray[i].getHitbox();
+         graphicsContext.setFill(Color.WHITE);
+         drawLazer(lazerX, lazerY, lazerRadius);
+         
+         if(toggleHitbox){
+            graphicsContext.setFill(new Color(1, 0, 0, 0.5));
+            drawHitbox(lazerX, lazerY, lazerHitbox);
+         }
+      }
+   }
+   
+   private void drawAsteroid(double x, double y, int CONFIGNUM) {
+      double adjustedX = x;
+      double adjustedY = y;
+      double transformedX[];
+      double transformedY[];
+      int numOfVertices;
+      int configurationNum = CONFIGNUM;
+      if(configurationNum == 0){
+         transformedX = new double[]{
+            x - (4.0 * CANVAS_SCALE), x - (1.0 * CANVAS_SCALE), x + (2.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), 
+            x + (4.0 * CANVAS_SCALE), x + (2.0 * CANVAS_SCALE), x + (0.0 * CANVAS_SCALE), x + (0.0 * CANVAS_SCALE), 
+            x - (2.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE), x - (2.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE)};
+            
+         transformedY = new double[]{
+            y + (1.0 * CANVAS_SCALE), y + (4.0 * CANVAS_SCALE), y + (4.0 * CANVAS_SCALE), y + (1.0 * CANVAS_SCALE),
+            y - (2.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE), y - (1.0 * CANVAS_SCALE),
+            y - (4.0 * CANVAS_SCALE), y - (1.0 * CANVAS_SCALE), y + (0.0 * CANVAS_SCALE), y + (1.0 * CANVAS_SCALE)};
+            
+         numOfVertices = 11;
+      }else if(configurationNum == 1){
+         transformedX = new double[]{
+         x - (3.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE), x - (2.0 * CANVAS_SCALE), x + (0.0 * CANVAS_SCALE), 
+         x + (2.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), x + (2.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), 
+         x + (2.0 * CANVAS_SCALE), x - (1.0 * CANVAS_SCALE), x - (2.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE),
+         x - (3.0 * CANVAS_SCALE)};
+         
+         transformedY = new double[]{
+         y + (0.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (4.0 * CANVAS_SCALE), y + (3.0 * CANVAS_SCALE),
+         y + (4.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (1.0 * CANVAS_SCALE), y - (1.0 * CANVAS_SCALE),
+         y - (4.0 * CANVAS_SCALE), y - (3.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE), y - (2.0 * CANVAS_SCALE),
+         y + (0.0 * CANVAS_SCALE)};
+         
+         numOfVertices = 12;
+      }else{
+         transformedX = new double[]{
+         x - (4.0 * CANVAS_SCALE), x - (4.0 * CANVAS_SCALE), x - (1.0 * CANVAS_SCALE), x - (2.0 * CANVAS_SCALE), 
+         x + (1.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), x + (4.0 * CANVAS_SCALE), x + (1.0 * CANVAS_SCALE), 
+         x + (4.0 * CANVAS_SCALE), x + (2.0 * CANVAS_SCALE), x + (1.0 * CANVAS_SCALE), x - (3.0 * CANVAS_SCALE),
+         x - (4.0 * CANVAS_SCALE)};
+         
+         transformedY = new double[]{
+         y - (1.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (4.0 * CANVAS_SCALE),
+         y + (4.0 * CANVAS_SCALE), y + (2.0 * CANVAS_SCALE), y + (1.0 * CANVAS_SCALE), y - (0.0 * CANVAS_SCALE),
+         y - (1.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE), y - (3.0 * CANVAS_SCALE), y - (4.0 * CANVAS_SCALE),
+         y - (1.0 * CANVAS_SCALE)};
+         
+         numOfVertices = 12;
+      }
+      graphicsContext.strokePolygon(transformedX, transformedY, numOfVertices);
+   }
+   
+   private void drawShip(double x, double y) {
+      double adjustedX = x;
+      double adjustedY = y;
+      double transformedX[] = new double[]{
+      x - (0.0 * CANVAS_SCALE), x - (1.0 * CANVAS_SCALE), x - (0.75 * CANVAS_SCALE), x + (0.75 * CANVAS_SCALE), 
+      x + (1.0 * CANVAS_SCALE), x + (0.0 * CANVAS_SCALE)};
+      
+      double transformedY[] = new double[]{
+      y - (1.5 * CANVAS_SCALE), y + (1.5 * CANVAS_SCALE), y + (0.75 * CANVAS_SCALE), y + (0.75 * CANVAS_SCALE),
+      y + (1.5 * CANVAS_SCALE), y - (1.5 * CANVAS_SCALE)};
+      
+      int numOfVertices = 5;
+      
+      graphicsContext.strokePolygon(transformedX, transformedY, numOfVertices);
+   }
+   
+   public void drawLazer(double x, double y, double radius){
       double adjustedX = x - radius;
       double adjustedY = y - radius;
       double diameter = 2.0 * radius;
       graphicsContext.fillOval(adjustedX, adjustedY, diameter, diameter);
    }
    
-   private void drawBallHitbox(double x, double y, double radius) {
-      double adjustedX = x - radius;
-      double adjustedY = y - radius;
-      double width = 2.0 * radius;
-      graphicsContext.fillRect(adjustedX, adjustedY, width, width);
+   //could be changed so 4 corners of hitbox are parameters
+   private void drawHitbox(double x, double y, HitBox hitbox) {
+      double adjustedX = x-(hitbox.getWidth()/2);
+      double adjustedY = y-(hitbox.getHeight()/2);
+      double width = hitbox.getWidth();
+      double height = hitbox.getHeight();
+      graphicsContext.fillRect(adjustedX, adjustedY, width, height);
    }
    
    private double convertPhysicsScaletoPresentationScale(double location) {
@@ -110,7 +205,4 @@ public class Presentation {
       double presentationYLocation = canvasYDimension - physicsYLocation;
       return presentationYLocation;
    }
-      
-   
-    
 }
