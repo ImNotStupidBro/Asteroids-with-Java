@@ -39,7 +39,9 @@ public class Presentation {
       root.getChildren().add(canvas);
    
       KeyPressHandler keyPressHandler = new KeyPressHandler(world);
+      KeyReleaseHandler keyReleaseHandler = new KeyReleaseHandler(world);
       scene.setOnKeyPressed(keyPressHandler);
+      scene.setOnKeyReleased(keyReleaseHandler);
       
       stage.setScene(scene);
    

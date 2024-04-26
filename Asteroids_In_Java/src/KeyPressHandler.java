@@ -23,6 +23,7 @@ public class KeyPressHandler implements EventHandler<KeyEvent> {
          case UP:
             System.out.println("UP");
             shipToMove.accelerate();
+            shipToMove.isAccelerating = true;
             break;
          case RIGHT:
             System.out.println(shipToMove.getDirection());
