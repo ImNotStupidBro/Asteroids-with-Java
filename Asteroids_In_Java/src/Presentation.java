@@ -7,6 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import java.util.Random;
 
 public class Presentation {
    private Stage stage;
@@ -51,7 +52,7 @@ public class Presentation {
    public void render() {
       
       graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
-      graphicsContext.setStroke(Color.WHITE);
+      
       renderShip();
 
       renderAsteroids();
@@ -75,6 +76,8 @@ public class Presentation {
       shipY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(shipToMove.getY()));
       shipDirection = shipToMove.getDirection() + 90.0;
       shipHitbox = shipToMove.getHitBox();
+      
+      graphicsContext.setStroke(Color.WHITE);
       drawShip(shipX, shipY, shipDirection);
       
       if(toggleHitbox){
@@ -88,12 +91,29 @@ public class Presentation {
       double alienShipX = 0.0;
       double alienShipY = 0.0;
       HitBox alienShipHitbox;
+      Random random = new Random();
+      
+      int r = 0;
+      int g = 0;
+      int b = 0;
+      Color randomColor;
       
       for(int i = 0; i < alienShipArray.length; i++) {
          alienShipX = convertPhysicsScaletoPresentationScale(alienShipArray[i].getX());
          alienShipY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(alienShipArray[i].getY()));
          alienShipHitbox = alienShipArray[i].getHitBox();
-         graphicsContext.setFill(Color.WHITE);
+         
+         if(world.getAdditionalAsteroidCount() >= 5){
+            r = random.nextInt(256);
+            g = random.nextInt(256);
+            b = random.nextInt(256);
+            randomColor = Color.rgb(r, g, b);
+            graphicsContext.setStroke(randomColor);
+            graphicsContext.setFill(randomColor);
+         }else{
+            graphicsContext.setStroke(Color.WHITE);
+            graphicsContext.setFill(Color.WHITE);
+         }
          drawAlienShip(alienShipX, alienShipY);
          
          if(toggleHitbox){
@@ -122,13 +142,28 @@ public class Presentation {
       double asteroidY = 0.0;
       int asteroidConfigNumber = 0;
       HitBox asteroidHitbox;
+      Random random = new Random();
+      
+      int r = 0;
+      int g = 0;
+      int b = 0;
+      Color randomColor;
       
       for(int i = 0; i < asteroidArray.length; i++) {
          asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getX());
          asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getY()));
          asteroidConfigNumber = asteroidArray[i].getConfigNumber();
          asteroidHitbox = asteroidArray[i].getHitBox();
-         graphicsContext.setFill(Color.WHITE);
+         
+         if(world.getAdditionalAsteroidCount() >= 5){
+            r = random.nextInt(256);
+            g = random.nextInt(256);
+            b = random.nextInt(256);
+            randomColor = Color.rgb(r, g, b);
+            graphicsContext.setStroke(randomColor);
+         }else{
+            graphicsContext.setStroke(Color.WHITE);
+         }
          drawAsteroid(asteroidX, asteroidY, asteroidConfigNumber);
          
          if(toggleHitbox){
@@ -145,13 +180,30 @@ public class Presentation {
       double asteroidY = 0.0;
       int asteroidConfigNumber = 0;
       HitBox asteroidHitbox;
+      Random random = new Random();
+      
+      int r = 0;
+      int g = 0;
+      int b = 0;
+      Color randomColor;
       
       for(int i = 0; i < asteroidArray.length; i++) {
          asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getX());
          asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getY()));
          asteroidConfigNumber = asteroidArray[i].getConfigNumber();
          asteroidHitbox = asteroidArray[i].getHitBox();
-         graphicsContext.setFill(Color.WHITE);
+         
+         if(world.getAdditionalAsteroidCount() >= 5){
+            r = random.nextInt(256);
+            g = random.nextInt(256);
+            b = random.nextInt(256);
+            randomColor = Color.rgb(r, g, b);
+            graphicsContext.setStroke(randomColor);
+            graphicsContext.setFill(randomColor);
+         }else{
+            graphicsContext.setStroke(Color.WHITE);
+            graphicsContext.setFill(Color.WHITE);
+         }
          drawMediumAsteroid(asteroidX, asteroidY, asteroidConfigNumber);
          
          if(toggleHitbox){
@@ -168,13 +220,30 @@ public class Presentation {
       double asteroidY = 0.0;
       int asteroidConfigNumber = 0;
       HitBox asteroidHitbox;
+      Random random = new Random();
+      
+      int r = 0;
+      int g = 0;
+      int b = 0;
+      Color randomColor;
       
       for(int i = 0; i < asteroidArray.length; i++) {
          asteroidX = convertPhysicsScaletoPresentationScale(asteroidArray[i].getX());
          asteroidY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(asteroidArray[i].getY()));
          asteroidConfigNumber = asteroidArray[i].getConfigNumber();
          asteroidHitbox = asteroidArray[i].getHitBox();
-         graphicsContext.setFill(Color.WHITE);
+         
+         if(world.getAdditionalAsteroidCount() >= 5){
+            r = random.nextInt(256);
+            g = random.nextInt(256);
+            b = random.nextInt(256);
+            randomColor = Color.rgb(r, g, b);
+            graphicsContext.setStroke(randomColor);
+            graphicsContext.setFill(randomColor);
+         }else{
+            graphicsContext.setStroke(Color.WHITE);
+            graphicsContext.setFill(Color.WHITE);
+         }
          drawSmallAsteroid(asteroidX, asteroidY, asteroidConfigNumber);
          
          if(toggleHitbox){
