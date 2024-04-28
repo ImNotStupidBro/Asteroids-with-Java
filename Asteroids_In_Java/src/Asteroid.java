@@ -18,15 +18,15 @@ public class Asteroid extends InteractableObject{
       yPosition += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       
       //Keep object on the torus
-      if (xPosition < 0) { // moving in the negative x direction
-         xPosition = worldXDimension + xPosition % worldXDimension;
-      } else if (xPosition >= worldXDimension) {
-         xPosition = xPosition % worldXDimension;
+      if (xPosition < 0 - (this.hitbox.getWidth() / 4)) { // moving in the negative x direction
+         xPosition = worldXDimension + xPosition % worldXDimension + (this.hitbox.getWidth() / 4);
+      } else if (xPosition >= worldXDimension + (this.hitbox.getWidth() / 4)) {
+         xPosition = xPosition % worldXDimension - (this.hitbox.getWidth() / 4);
       }
-      if (yPosition < 0) { // moving in the negative y direction
-         yPosition = worldYDimension + yPosition % worldYDimension;
-      } else if (yPosition >= worldYDimension) {
-         yPosition = yPosition % worldYDimension;
+      if (yPosition < 0 - (this.hitbox.getHeight() / 4)) { // moving in the negative y direction
+         yPosition = worldYDimension + yPosition % worldYDimension + (this.hitbox.getHeight() / 4);
+      } else if (yPosition >= worldYDimension + (this.hitbox.getHeight() / 4)) {
+         yPosition = yPosition % worldYDimension - (this.hitbox.getHeight() / 4);
       }
    }
    
