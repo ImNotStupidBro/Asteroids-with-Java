@@ -69,7 +69,7 @@ public class World {
       if(numOfLives < 0){
          System.out.println("Game Over.");
          try{
-            Thread.sleep(3000);
+            Thread.sleep(5000);
          }catch (InterruptedException ie){
             Thread.currentThread().interrupt();
          }
