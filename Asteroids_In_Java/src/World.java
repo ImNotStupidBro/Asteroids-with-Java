@@ -2,14 +2,13 @@
  * Describes the physics of the world.
  */
 import java.util.Random;
-import javafx.scene.shape.Polygon;
-import javafx.geometry.Bounds;
 import java.util.concurrent.TimeUnit;
 
 public class World {
    private AsteroidSet asteroids;
    private AsteroidSetMedium mediumAsteroids;
    private AsteroidSetSmall smallAsteroids;
+   private AlienShipSet alienShips;
    private Ship ship;
    private int currAsteroidCount;
    private int additionalAsteroidCount;
@@ -24,6 +23,7 @@ public class World {
       asteroids = new AsteroidSet(INITIAL_NUMBER_OF_ASTEROIDS);
       mediumAsteroids = new AsteroidSetMedium(2);
       smallAsteroids = new AsteroidSetSmall(2);
+      alienShips = new AlienShipSet(1);
 
       //Generate the ship.
       double shipXStartLocation = X_DIMENSION/2;
@@ -45,6 +45,7 @@ public class World {
       mediumAsteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       smallAsteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      alienShips.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       
       respawnAsteroids();
       
@@ -129,6 +130,10 @@ public class World {
       return smallAsteroids;
    }
    
+   public AlienShipSet getAlienShipSet(){
+      return alienShips;
+   }
+   
    public Asteroid[] getAsteroidsAsArray() {
       return asteroids.getAsteroidsAsArray();
    }
@@ -139,6 +144,10 @@ public class World {
    
    public Asteroid[] getSmallAsteroidsAsArray() {
       return smallAsteroids.getAsteroidsAsArray();
+   }
+   
+   public AlienShip[] getAlienShipsAsArray() {
+      return alienShips.getAlienShipsAsArray();
    }
 
    public Ship getShip() {
@@ -155,5 +164,9 @@ public class World {
    
    public int getNumOfLives() {
       return numOfLives;
+   }
+   
+   public int getAdditionalAsteroidCount() {
+      return additionalAsteroidCount;
    }
 }

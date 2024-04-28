@@ -57,6 +57,7 @@ public class Presentation {
       renderAsteroids();
       renderMediumAsteroids();
       renderSmallAsteroids();
+      renderAlienShips();
       renderLives();
       
       stage.show();     
@@ -79,6 +80,26 @@ public class Presentation {
       if(toggleHitbox){
          graphicsContext.setFill(new Color(1, 0, 0, 0.5));
          drawHitbox(shipX, shipY, shipHitbox);
+      }
+   }
+   
+   private void renderAlienShips(){
+      AlienShip alienShipArray[] = world.getAlienShipsAsArray();
+      double alienShipX = 0.0;
+      double alienShipY = 0.0;
+      HitBox alienShipHitbox;
+      
+      for(int i = 0; i < alienShipArray.length; i++) {
+         alienShipX = convertPhysicsScaletoPresentationScale(alienShipArray[i].getX());
+         alienShipY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(alienShipArray[i].getY()));
+         alienShipHitbox = alienShipArray[i].getHitBox();
+         graphicsContext.setFill(Color.WHITE);
+         drawAlienShip(alienShipX, alienShipY);
+         
+         if(toggleHitbox){
+            graphicsContext.setFill(new Color(1, 0, 0, 0.5));
+            drawHitbox(alienShipX, alienShipY, alienShipHitbox);
+         }
       }
    }
    
@@ -364,6 +385,53 @@ public class Presentation {
       graphicsContext.setFill(Color.RED);
       graphicsContext.fillOval((x-tipFinalX)-2.5, (y+tipFinalY) - 2.5, 5, 5);
       */
+   }
+   
+   // Alien Ship Drawing Method
+   private void drawAlienShip(double x, double y) {
+      double adjustedX = x;
+      double adjustedY = y;
+
+      double unitFromOrigin = 0.5 * CANVAS_SCALE;
+      
+      //Top Trapezoid
+      double topTrapX[] = new double[]{
+      x - unitFromOrigin, x + unitFromOrigin, x + (2*unitFromOrigin), x - (2*unitFromOrigin), x - unitFromOrigin
+      };
+      double topTrapY[] = new double[]{
+      y - (4*unitFromOrigin), y - (4*unitFromOrigin), y - (2*unitFromOrigin), y - (2*unitFromOrigin), y - (4*unitFromOrigin)
+      };
+      
+      //Base Trapezoid
+      double baseTrapX[] = new double[]{
+      x - (2*unitFromOrigin), x + (2*unitFromOrigin), x + (6*unitFromOrigin), x - (6*unitFromOrigin), x - (2*unitFromOrigin)
+      };
+      double baseTrapY[] = new double[]{
+      y - (2*unitFromOrigin), y - (2*unitFromOrigin), y, y, y - (2*unitFromOrigin)
+      };
+      
+      //Base Rectangle
+      double baseRectX[] = new double[]{
+      x - (8*unitFromOrigin), x + (8*unitFromOrigin), x + (8*unitFromOrigin), x - (8*unitFromOrigin), x - (8*unitFromOrigin)
+      };
+      double baseRectY[] = new double[]{
+      y, y, y + (2*unitFromOrigin), y + (2*unitFromOrigin), y
+      };
+      
+      //Base Trapezoid Inverted
+      double baseInvTrapX[] = new double[]{
+      x - (6*unitFromOrigin), x + (6*unitFromOrigin), x + (2*unitFromOrigin), x - (2*unitFromOrigin), x - (6*unitFromOrigin)
+      };
+      double baseInvTrapY[] = new double[]{
+      y + (2*unitFromOrigin), y + (2*unitFromOrigin), y + (4*unitFromOrigin), y + (4*unitFromOrigin), y + (2*unitFromOrigin)
+      };
+      
+      int numOfVertices = 4;
+      
+      graphicsContext.strokePolygon(topTrapX, topTrapY, numOfVertices);
+      graphicsContext.strokePolygon(baseTrapX, baseTrapY, numOfVertices);
+      graphicsContext.fillPolygon(baseRectX, baseRectY, numOfVertices);
+      graphicsContext.strokePolygon(baseInvTrapX, baseInvTrapY, numOfVertices);
    }
    
    private void drawHitbox(double x, double y, HitBox hitbox) {
