@@ -80,7 +80,7 @@ public class World {
    private void respawnAsteroids(){
       if(currAsteroidCount == 0){
          additionalAsteroidCount++;
-         currAsteroidCount = INITIAL_NUMBER_OF_ASTEROIDS + additionalAsteroidCount;
+         currAsteroidCount += INITIAL_NUMBER_OF_ASTEROIDS + additionalAsteroidCount;
          for(int i = currAsteroidCount; i > 0; i--){
             asteroids.addAsteroid();
          }
