@@ -121,7 +121,6 @@ public class World {
    }
    
    public void mediumAsteroidCollisionDetect(){
-      //part 2 (lazer and ship collision)
       for(Lazer lazer: lazers.getLazersAsArray()){  ;                                      
          for(Asteroid asteroid: mediumAsteroids.getAsteroidsAsArray()){                             
             if(asteroid.getHitBox().intersect(lazer.getHitbox())){

@@ -24,7 +24,7 @@ public class Presentation {
    private final double MEDIUM_ASTEROID_SCALE = 5.0;
    private final double SMALL_ASTEROID_SCALE = 2.5;
    
-   public boolean toggleHitbox = true;
+   public boolean toggleHitbox = false;
 
    public Presentation(Stage stage, World world) throws Exception {
       this.stage = stage;
