@@ -11,6 +11,7 @@ public class World {
    private AsteroidSetMedium mediumAsteroids;
    private AsteroidSetSmall smallAsteroids;
    private Ship ship;
+   private Lazers lazers;
    private int currAsteroidCount;
    private int additionalAsteroidCount;
    private int numOfLives = 3;
@@ -18,13 +19,16 @@ public class World {
    public static final int X_DIMENSION = 100; // meters
    public static final int Y_DIMENSION = 70; // meters
    private final int INITIAL_NUMBER_OF_ASTEROIDS = 4;
-   private int numOfLives = 3;
+   private final int NUMBER_OF_LASERS = 1;
    
    public World() {
       //Create Asteroid sets.
       asteroids = new AsteroidSet(INITIAL_NUMBER_OF_ASTEROIDS);
       mediumAsteroids = new AsteroidSetMedium(2);
       smallAsteroids = new AsteroidSetSmall(2);
+      
+      //Create Lazer set.
+      lazers = new Lazers();
 
       //Generate the ship.
       double shipXStartLocation = X_DIMENSION/2;
@@ -32,8 +36,16 @@ public class World {
       double shipXSpeed = 0.0;
       double shipYSpeed = 0.0;
       double shipDirection = 270.0;
-      HitBox shipHitbox = new HitBox(0,0,0,0);
-      shipHitbox.set(shipXStartLocation, shipYStartLocation, 40, 40);
+      Point upperLeft = new Point(0,0); 
+      Point upperRight = new Point(0,0);
+      Point lowerLeft = new Point(0,0);
+      Point lowerRight = new Point(0,0);
+      HitBox shipHitbox = new HitBox(0,0,0,0, upperLeft, upperRight, lowerLeft, lowerRight);
+      Point shipUpperLeft = new Point(shipXStartLocation-10,shipYStartLocation+20); 
+      Point shipUpperRight = new Point(shipXStartLocation+10,shipYStartLocation+20);
+      Point shipLowerLeft = new Point(shipXStartLocation-10,shipYStartLocation-20);
+      Point shipLowerRight = new Point(shipXStartLocation+10,shipYStartLocation-20);
+      shipHitbox.set(shipXStartLocation, shipYStartLocation, 20, 40, shipUpperLeft, shipUpperRight, shipLowerLeft, shipLowerRight);
       
       ship = new Ship(shipXStartLocation, shipYStartLocation, shipXSpeed, shipYSpeed, shipDirection, shipHitbox);
       currAsteroidCount = INITIAL_NUMBER_OF_ASTEROIDS;
@@ -46,6 +58,7 @@ public class World {
       mediumAsteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       smallAsteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      lazers.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       
       respawnAsteroids();
       //respawnShip();
@@ -117,6 +130,14 @@ public class World {
 
    public Ship getShip() {
       return ship;
+   }
+   
+   public Lazers getLazers() {
+      return lazers;
+   }
+   
+   public Lazer[] getLazersAsArray() {
+      return lazers.getLazersAsArray();
    }
 
    public double getXDimension() {

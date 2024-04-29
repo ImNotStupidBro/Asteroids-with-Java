@@ -5,9 +5,11 @@ public class KeyPressHandler implements EventHandler<KeyEvent> {
 
    private AsteroidSet asteroids;
    private Ship shipToMove;
+   private Lazers fireLazer;
    public KeyPressHandler(World world) {
       asteroids = world.getAsteroidSet();
       shipToMove = world.getShip();
+      fireLazer = world.getLazers();
    }
 
    public void handle(KeyEvent event) {
@@ -34,7 +36,8 @@ public class KeyPressHandler implements EventHandler<KeyEvent> {
             shipToMove.turnLeft();
             break;
          case SPACE:
-            System.out.println("SPACE");
+            System.out.println("FIRE LAZER");
+            fireLazer.addLazer(shipToMove.getX(), shipToMove.getY(), shipToMove.getDirection());
             break;
          case P:
             System.exit(0);

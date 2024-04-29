@@ -52,7 +52,9 @@ public class Presentation {
       
       graphicsContext.clearRect(0, 0, canvasXDimension, canvasYDimension);
       graphicsContext.setStroke(Color.WHITE);
+      
       renderShip();
+      renderLazers();
 
       renderAsteroids();
       renderMediumAsteroids();
@@ -79,6 +81,28 @@ public class Presentation {
       if(toggleHitbox){
          graphicsContext.setFill(new Color(1, 0, 0, 0.5));
          drawHitbox(shipX, shipY, shipHitbox);
+      }
+   }
+   
+   // Render Call for the lazers
+   public void renderLazers(){
+      Lazer lazerArray[] = world.getLazersAsArray();
+      double lazerX = 0.0;
+      double lazerY = 0.0;
+      double lazerRadius = 5;
+      HitBox lazerHitbox;
+      
+      for(int i = 0; i < lazerArray.length; i++) {
+         lazerX = convertPhysicsScaletoPresentationScale(lazerArray[i].getX());
+         lazerY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(lazerArray[i].getY()));
+         lazerHitbox = lazerArray[i].getHitbox();
+         graphicsContext.setFill(Color.WHITE);
+         drawLazer(lazerX, lazerY, lazerRadius);
+         
+         if(toggleHitbox){
+            graphicsContext.setFill(new Color(1, 0, 0, 0.5));
+            drawHitbox(lazerX, lazerY, lazerHitbox);
+         }
       }
    }
    
@@ -364,6 +388,13 @@ public class Presentation {
       graphicsContext.setFill(Color.RED);
       graphicsContext.fillOval((x-tipFinalX)-2.5, (y+tipFinalY) - 2.5, 5, 5);
       */
+   }
+   
+   public void drawLazer(double x, double y, double radius){
+      double adjustedX = x - radius;
+      double adjustedY = y - radius;
+      double diameter = 2.0 * radius;
+      graphicsContext.fillOval(adjustedX, adjustedY, diameter, diameter);
    }
    
    private void drawHitbox(double x, double y, HitBox hitbox) {

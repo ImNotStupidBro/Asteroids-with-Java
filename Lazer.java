@@ -23,11 +23,10 @@ public class Lazer{
       xSpeed = 50*(Math.cos(Math.toRadians(LazerDegrees)));
       ySpeed = 50*(Math.sin(Math.toRadians(LazerDegrees)));
       //taken from original move function in ball
-      x += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
-      y += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
+      x -= xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
+      y -= ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       //move the corresponding hitbox
       hitbox.moveHitbox(x,y);
-     
    }
  
    public static Lazer createLazer(double ShipX, double ShipY, double lazerDegrees) {
