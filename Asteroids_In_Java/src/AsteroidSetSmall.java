@@ -59,7 +59,7 @@ public class AsteroidSetSmall{
       asteroidSet.add(asteroid);
    }
 
-   public void addAsteroidAt(int X, int Y) {
+   public void addAsteroidAt(double X, double Y) {
       Asteroid asteroid = Asteroid.createAsteroid(X, Y, 20, 20);
       asteroidSet.add(asteroid);
    }

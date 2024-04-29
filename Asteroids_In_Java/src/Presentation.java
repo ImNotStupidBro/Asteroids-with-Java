@@ -548,7 +548,7 @@ public class Presentation {
       double adjustedY = y;
       double width = hitbox.getWidth();
       double height = hitbox.getHeight();
-      graphicsContext.fillRect(adjustedX, adjustedY, width, height);
+      graphicsContext.fillRect(adjustedX - (width/2), adjustedY - (height/2), width, height);
    }
    
    private double convertPhysicsScaletoPresentationScale(double location) {
