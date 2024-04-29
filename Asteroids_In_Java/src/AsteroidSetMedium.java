@@ -53,12 +53,12 @@ public class AsteroidSetMedium{
          }
       }
    }
-/*
+
    public void addAsteroid() {
-      Asteroid asteroid = Asteroid.createRandomAsteroid();
+      Asteroid asteroid = Asteroid.createRandomMediumAsteroid();
       asteroidSet.add(asteroid);
    }
-*/
+
    public void addAsteroidAt(int X, int Y) {
       Asteroid asteroid = Asteroid.createAsteroid(X, Y, 40, 40);
       asteroidSet.add(asteroid);

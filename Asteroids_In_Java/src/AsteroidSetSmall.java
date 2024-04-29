@@ -53,12 +53,12 @@ public class AsteroidSetSmall{
          }
       }
    }
-/*
+
    public void addAsteroid() {
-      Asteroid asteroid = Asteroid.createRandomAsteroid();
+      Asteroid asteroid = Asteroid.createRandomSmallAsteroid();
       asteroidSet.add(asteroid);
    }
-*/
+
    public void addAsteroidAt(int X, int Y) {
       Asteroid asteroid = Asteroid.createAsteroid(X, Y, 20, 20);
       asteroidSet.add(asteroid);

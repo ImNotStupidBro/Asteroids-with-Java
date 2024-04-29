@@ -19,32 +19,59 @@ public class PointTest {
         assertEquals(6.0, point.getY(), 0.01);
     }
 
-    @Test
+   @Test
     public void testIsBelowAndToLeft() {
-        Point point1 = new Point(2.5, 3.5);
-        Point point2 = new Point(1.5, 2.5);
-        assertTrue(point1.isBelowAndToLeft(point2));
+        Point point1 = new Point(2, 2);
+        Point point2 = new Point(1, 1);
+        assertFalse(point1.isBelowAndToLeft(point2));
     }
 
     @Test
     public void testIsBelowAndToRight() {
-        Point point1 = new Point(2.5, 3.5);
-        Point point2 = new Point(3.5, 4.5);
+        Point point1 = new Point(1, 1);
+        Point point2 = new Point(2, 2);
         assertFalse(point1.isBelowAndToRight(point2));
     }
 
     @Test
     public void testIsAboveAndToLeft() {
-        Point point1 = new Point(2.5, 3.5);
-        Point point3 = new Point(1.5, 2.5);
-        assertFalse(point1.isAboveAndToLeft(point3));
+        Point point1 = new Point(1, 1);
+        Point point2 = new Point(2, 2);
+        assertFalse(point1.isAboveAndToLeft(point2));
     }
 
     @Test
     public void testIsAboveAndToRight() {
-        Point point1 = new Point(2.5, 3.5);
-        Point point3 = new Point(3.5, 2.5);
-        assertFalse(point1.isAboveAndToRight(point3));
+        Point point1 = new Point(0, 0);
+        Point point2 = new Point(1, 1);
+        assertFalse(point1.isAboveAndToRight(point2));
     }
-     
+    
+    @Test
+    public void testIsBelowAndToLeft2() {
+        Point point1 = new Point(1, 1);
+        Point point2 = new Point(2, 2);
+        assertTrue(point1.isBelowAndToLeft(point2));
+    }
+
+    @Test
+    public void testIsBelowAndToRight2() {
+        Point point1 = new Point(2, 1);
+        Point point2 = new Point(1, 2);
+        assertTrue(point1.isBelowAndToRight(point2));
+    }
+
+    @Test
+    public void testIsAboveAndToLeft2() {
+        Point point1 = new Point(1, 2);
+        Point point2 = new Point(2, 1);
+        assertTrue(point1.isAboveAndToLeft(point2));
+    }
+
+    @Test
+    public void testIsAboveAndToRight2() {
+        Point point1 = new Point(2, 2);
+        Point point2 = new Point(1, 1);
+        assertTrue(point1.isAboveAndToRight(point2));
+    }
 }

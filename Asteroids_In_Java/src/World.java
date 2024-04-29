@@ -2,24 +2,23 @@
  * Describes the physics of the world.
  */
 import java.util.Random;
-import javafx.scene.shape.Polygon;
-import javafx.geometry.Bounds;
 import java.util.concurrent.TimeUnit;
 
 public class World {
    private AsteroidSet asteroids;
    private AsteroidSetMedium mediumAsteroids;
    private AsteroidSetSmall smallAsteroids;
+   private AlienShipSet alienShips;
    private Ship ship;
    private Lazers lazers;
    private int currAsteroidCount;
    private int additionalAsteroidCount;
    private int numOfLives = 3;
-   
+  
    public static final int X_DIMENSION = 100; // meters
    public static final int Y_DIMENSION = 70; // meters
-   private final int INITIAL_NUMBER_OF_ASTEROIDS = 4;
    private final int NUMBER_OF_LASERS = 1;
+   private final int INITIAL_NUMBER_OF_ASTEROIDS = 1;
    
    public World() {
       //Create Asteroid sets.
@@ -29,6 +28,9 @@ public class World {
       
       //Create Lazer set.
       lazers = new Lazers();
+      
+      //Create Alien Ship set.
+      alienShips = new AlienShipSet(1);
 
       //Generate the ship.
       double shipXStartLocation = X_DIMENSION/2;
@@ -59,14 +61,31 @@ public class World {
       smallAsteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       lazers.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      alienShips.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       
       respawnAsteroids();
-      //respawnShip();
+      
+      /*
+      if(Collision Detection Method Here){
+         respawnShip();
+      }
+      if(Collision Detection Method Here){
+         asteroidCollision();
+      }
+      
+      if(Collision Detection Method Here){
+         mediumAsteroidCollision();
+      }
+      
+      if(Collision Detection Method Here){
+         smallAsteroidCollision();
+      }
+      */
       
       if(numOfLives < 0){
          System.out.println("Game Over.");
          try{
-            Thread.sleep(3000);
+            Thread.sleep(5000);
          }catch (InterruptedException ie){
             Thread.currentThread().interrupt();
          }
@@ -77,7 +96,7 @@ public class World {
    private void respawnAsteroids(){
       if(currAsteroidCount == 0){
          additionalAsteroidCount++;
-         currAsteroidCount = INITIAL_NUMBER_OF_ASTEROIDS + additionalAsteroidCount;
+         currAsteroidCount += INITIAL_NUMBER_OF_ASTEROIDS + additionalAsteroidCount;
          for(int i = currAsteroidCount; i > 0; i--){
             asteroids.addAsteroid();
          }
@@ -100,7 +119,18 @@ public class World {
    }
    /*
    private asteroidCollision() {
-      
+      If a regular asteroid detects a collision with a bullet,
+      destroy the regular asteroid and spawn two medium asteroids.
+   }
+   
+   private mediumAsteroidCollision() {
+      If a medium asteroid detects a collision with a bullet,
+      destroy the medium asteroid and spawn two small asteroids.
+   }
+   
+   private asteroidCollision() {
+      If a small asteroid detects a collision with a bullet,
+      destroy the small asteroid.
    }
    */
    //Accessor Methods
@@ -116,6 +146,10 @@ public class World {
       return smallAsteroids;
    }
    
+   public AlienShipSet getAlienShipSet(){
+      return alienShips;
+   }
+   
    public Asteroid[] getAsteroidsAsArray() {
       return asteroids.getAsteroidsAsArray();
    }
@@ -126,6 +160,10 @@ public class World {
    
    public Asteroid[] getSmallAsteroidsAsArray() {
       return smallAsteroids.getAsteroidsAsArray();
+   }
+   
+   public AlienShip[] getAlienShipsAsArray() {
+      return alienShips.getAlienShipsAsArray();
    }
 
    public Ship getShip() {
@@ -150,5 +188,9 @@ public class World {
    
    public int getNumOfLives() {
       return numOfLives;
+   }
+   
+   public int getAdditionalAsteroidCount() {
+      return additionalAsteroidCount;
    }
 }

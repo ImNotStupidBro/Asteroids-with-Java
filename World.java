@@ -9,13 +9,16 @@ public class World {
    private AsteroidSet asteroids;
    private Ship ship;
    private Lazers lazers;
+   private Score scoreboard;
    public static final int X_DIMENSION = 100; // meters
    public static final int Y_DIMENSION = 70; // meters
    private final double MAX_SHIP_SPEED = 30.0;
    private final int NUMBER_OF_ASTEROIDS = 5;
-   private final int NUMBER_OF_LASERS = 1; //this is just a test
    
    public World() {
+      //Create the score board
+      scoreboard = new Score();
+      
       //Create Asteroid set.
       asteroids = new AsteroidSet(NUMBER_OF_ASTEROIDS);
       
@@ -28,16 +31,18 @@ public class World {
       double shipXSpeed = 0.0;
       double shipYSpeed = 0.0;
       double shipDirection = 0.0;
+      double shipWidth = 2;
+      double shipHeight = 4;
       Point upperLeft = new Point(0,0); 
       Point upperRight = new Point(0,0);
       Point lowerLeft = new Point(0,0);
       Point lowerRight = new Point(0,0);
       HitBox shipHitbox = new HitBox(0,0,0,0, upperLeft, upperRight, lowerLeft, lowerRight);
-      Point shipUpperLeft = new Point(shipXStartLocation-10,shipYStartLocation+20); 
-      Point shipUpperRight = new Point(shipXStartLocation+10,shipYStartLocation+20);
-      Point shipLowerLeft = new Point(shipXStartLocation-10,shipYStartLocation-20);
-      Point shipLowerRight = new Point(shipXStartLocation+10,shipYStartLocation-20);
-      shipHitbox.set(shipXStartLocation, shipYStartLocation, 20, 40, shipUpperLeft, shipUpperRight, shipLowerLeft, shipLowerRight);
+      Point shipUpperLeft = new Point(shipXStartLocation-(0.5*shipWidth),shipYStartLocation+(0.5*shipHeight)); 
+      Point shipUpperRight = new Point(shipXStartLocation+(0.5*shipWidth),shipYStartLocation+(0.5*shipHeight));
+      Point shipLowerLeft = new Point(shipXStartLocation-(0.5*shipWidth),shipYStartLocation-(0.5*shipHeight));
+      Point shipLowerRight = new Point(shipXStartLocation+(0.5*shipWidth),shipYStartLocation-(0.5*shipHeight));
+      shipHitbox.set(shipXStartLocation, shipYStartLocation, 2, 4, shipUpperLeft, shipUpperRight, shipLowerRight, shipLowerLeft);
       
       ship = new Ship(shipXStartLocation, shipYStartLocation, shipXSpeed, shipYSpeed, shipDirection, shipHitbox);
       
@@ -46,28 +51,27 @@ public class World {
    
    /** Runs the physics of the world. */
    public void run(long elapsedTimeInNanoseconds) {
-      collisionDetect();
-      asteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
-      ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      asteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension(),8,8);
+      ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension(),2,4);
       lazers.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      collisionDetect();
    }
 
    public void collisionDetect(){
-      
       //part 1 (asteroid and ship collision)
-      for(Asteroid asteroid: asteroids.getAsteroidsAsArray()){                          
-         //asteroid.getHitBox().printLowerLeft();
-         //ship.getHitBox().printLowerLeft();
-         if(asteroid.getHitBox().intersect(ship.getHitBox()) == true){ //the reason this isnt working is because this is never true    
+      for(Asteroid asteroid: asteroids.getAsteroidsAsArray()){                   
+         if(asteroid.getHitBox().intersect(ship.getHitBox())){    
             System.out.println("Collision detected");
          }
       }
       
       //part 2 (lazer and ship collision)
-      for(Lazer lazer: lazers.getLazersAsArray()){                                         
+      for(Lazer lazer: lazers.getLazersAsArray()){  ;                                      
          for(Asteroid asteroid: asteroids.getAsteroidsAsArray()){                             
-            if(asteroid.getHitBox().intersect(lazer.getHitbox()) == true){
+            if(asteroid.getHitBox().intersect(lazer.getHitbox())){
                System.out.println("Collision detected");
+               scoreboard.addScore(0, 1, 0);
+               lazers.deleteLazer(lazer);
             }
          }
       }
@@ -100,5 +104,13 @@ public class World {
 
    public double getYDimension() {
       return Y_DIMENSION;
+   }
+   
+   public int getScoreInt() {
+      return scoreboard.getScoreInt();
+   }
+   
+   public String getScoreString() {
+      return scoreboard.getScoreString();
    }
 }

@@ -7,6 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 
 public class Presentation {
    private Stage stage;
@@ -49,6 +50,7 @@ public class Presentation {
       renderShip();
       renderAsteroids();
       renderLazers();
+      renderScore();
       
       stage.show();     
    }
@@ -111,6 +113,15 @@ public class Presentation {
             drawHitbox(lazerX, lazerY, lazerHitbox);
          }
       }
+   }
+   
+   public void renderScore(){
+      String scoreboardString = world.getScoreString();
+      double scoreboardX =  20;
+      double scoreboardY =  20;
+      int fontSize = 18;
+      drawScore(scoreboardString, scoreboardX, scoreboardY, fontSize);
+      
    }
    
    private void drawAsteroid(double x, double y, int CONFIGNUM) {
@@ -189,11 +200,18 @@ public class Presentation {
    
    //could be changed so 4 corners of hitbox are parameters
    private void drawHitbox(double x, double y, HitBox hitbox) {
-      double adjustedX = x-(hitbox.getWidth()/2);
-      double adjustedY = y-(hitbox.getHeight()/2);
-      double width = hitbox.getWidth();
-      double height = hitbox.getHeight();
+      double adjustedX = x;
+      double adjustedY = y;
+      double width = hitbox.getWidth()*10;
+      double height = hitbox.getHeight()*10;
       graphicsContext.fillRect(adjustedX, adjustedY, width, height);
+   }
+   
+   
+   public void drawScore(String scoreboardString, double scoreboardX, double scoreboardY, int fontSize){
+      graphicsContext.setFill(Color.WHITE);
+      graphicsContext.setFont(Font.font("Courier New", fontSize));
+      graphicsContext.fillText("Score: "+scoreboardString, scoreboardX, scoreboardY);
    }
    
    private double convertPhysicsScaletoPresentationScale(double location) {

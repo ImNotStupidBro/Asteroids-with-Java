@@ -16,7 +16,7 @@ public abstract class InteractableObject{
       this.hitbox = hitbox; // Collision-detection tool
    }
    
-   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) {
+   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension, double width, double height) {
       xPosition += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       yPosition += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       
@@ -32,7 +32,7 @@ public abstract class InteractableObject{
          yPosition = yPosition % worldYDimension;
       }
       //move the corresponding hitbox
-      hitbox.moveHitbox(xPosition,yPosition);
+      hitbox.moveHitbox(xPosition,yPosition,width,height);
    }
    
    
