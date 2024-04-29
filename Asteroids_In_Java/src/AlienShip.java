@@ -33,7 +33,11 @@ public class AlienShip extends InteractableObject{
       double alienShipXSpeed = MAX_ALIENSHIP_SPEED;
       double alienShipYSpeed = MAX_ALIENSHIP_SPEED;
       double alienShipDirection = 360 * rand.nextDouble();
-      HitBox alienShipHitbox = new HitBox(alienShipXStartLocation, alienShipYStartLocation, 80, 40);
+      Point alienShipUpperLeft = new Point(alienShipXStartLocation-40,alienShipYStartLocation+20); 
+      Point alienShipUpperRight = new Point(alienShipXStartLocation+40,alienShipYStartLocation+20);
+      Point alienShipLowerLeft = new Point(alienShipXStartLocation-40,alienShipYStartLocation-20);
+      Point alienShipLowerRight = new Point(alienShipXStartLocation+40,alienShipYStartLocation-20);
+      HitBox alienShipHitbox = new HitBox(alienShipXStartLocation, alienShipYStartLocation, 80, 40, alienShipUpperLeft, alienShipUpperRight, alienShipLowerLeft, alienShipLowerRight);
       int alienShipID = rand.nextInt(1000);
       AlienShip alienShip = new AlienShip(alienShipXStartLocation, alienShipYStartLocation, alienShipXSpeed, alienShipYSpeed, alienShipDirection, alienShipHitbox, alienShipID);
       return alienShip;
