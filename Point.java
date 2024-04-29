@@ -14,19 +14,19 @@ public class Point {
    }
    
    public boolean isBelowAndToLeft(Point point) {
-      return point.y <= y && point.x <= x;
+      return this.y <= point.y && this.x <= point.x;
    }
 
    public boolean isBelowAndToRight(Point point) {
-      return point.y <= y && point.x >= x;
+      return this.y <= point.y && this.x >= point.x;
    }
    
    public boolean isAboveAndToLeft(Point point) {
-      return point.y >= y && point.x <= x;
+      return this.y >= point.y && this.x <= point.x;
    }
 
    public boolean isAboveAndToRight(Point point) {
-      return point.y >= y && point.x >= x;
+      return this.y >= point.y && this.x >= point.x;
    }
    
    public double getX() {

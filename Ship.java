@@ -13,8 +13,8 @@ public class Ship extends InteractableObject{
       super(x, y, dx, dy, degrees, hitbox);
    }
    
-   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) {
-      super.move(elapsedTimeInNanoseconds, worldXDimension, worldYDimension);
+   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension, double width, double height) {
+      super.move(elapsedTimeInNanoseconds, worldXDimension, worldYDimension, width, height);
    } 
    
    public double getX() { return super.getX(); }

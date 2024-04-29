@@ -35,34 +35,29 @@ public class HitBox{
       this.lowerRight = lowerRight;
    }
    
-   public void moveHitbox(double x, double y){
+   public void moveHitbox(double x, double y, double width, double height){
       this.x = x;
       this.y = y;
-      upperLeft.movePoint(x,y);
-      upperRight.movePoint(x,y);
-      lowerLeft.movePoint(x,y);
-      lowerRight.movePoint(x,y);
+      upperLeft.movePoint(x-(0.5*this.width),y+(0.5*this.height));
+      upperRight.movePoint(x+(0.5*this.width),y+(0.5*this.height));
+      lowerLeft.movePoint(x-(0.5*this.width),y-(0.5*this.height));
+      lowerRight.movePoint(x+(0.5*this.width),y-(0.5*this.height));
    };
-   
-   //Check whether or not the hitboxes of one object collides with another.
+
+   // Check whether or not the hitboxes of one object collides with another.
    public boolean intersect(HitBox hitbox) {
-      if (upperLeft.isBelowAndToRight(hitbox.upperLeft) && upperLeft.isAboveAndToLeft(hitbox.lowerRight)){
-         System.out.println("collision occurred!");
+      boolean upperRightIsBelowAndToLeftHitboxUpperRight = upperRight.isBelowAndToLeft(hitbox.upperRight);
+      boolean upperRightIsAboveAndToRightHitboxLowerLeft = upperRight.isAboveAndToRight(hitbox.lowerLeft); 
+      //System.out.println(upperRightIsBelowAndToLeftHitboxUpperRight +" "+ upperRightIsAboveAndToRightHitboxLowerLeft);
+      if (upperLeft.isBelowAndToRight(hitbox.upperLeft) && upperLeft.isAboveAndToLeft(hitbox.lowerRight)) {
          return true;
-         }
-      else if (upperRight.isBelowAndToLeft(hitbox.upperRight) && upperRight.isAboveAndToRight(hitbox.lowerLeft)){
-         System.out.println("collision occurred!");
+      } else if (upperRightIsBelowAndToLeftHitboxUpperRight && upperRightIsAboveAndToRightHitboxLowerLeft) {
          return true;
-         }
-      else if (lowerLeft.isBelowAndToLeft(hitbox.upperRight) && lowerLeft.isAboveAndToRight(hitbox.lowerLeft)){
-         System.out.println("collision occurred!");
+      } else if (lowerLeft.isBelowAndToLeft(hitbox.upperRight) && lowerLeft.isAboveAndToRight(hitbox.lowerLeft)) {
          return true;
-         }
-      else if (lowerRight.isAboveAndToLeft(hitbox.lowerRight) && lowerRight.isBelowAndToRight(hitbox.upperLeft)){
-         System.out.println("collision occurred!");
+      } else if (lowerRight.isAboveAndToLeft(hitbox.lowerRight) && lowerRight.isBelowAndToRight(hitbox.upperLeft)) {
          return true;
-         }
-      else{
+      } else {
          return false;
       }
    }
@@ -78,6 +73,9 @@ public class HitBox{
    public Point getLowerLeft(){ return lowerLeft; }
    
    //these methods are just used for testing
-   public void printLowerLeft(){System.out.println("("+lowerRight.getX()+","+lowerRight.getY()+")");};
+   public void printLowerLeft(){System.out.println("("+lowerLeft.getX()+","+lowerLeft.getY()+")");};
+   public void printLowerRight(){System.out.println("("+lowerRight.getX()+","+lowerRight.getY()+")");};
+   public void printUpperRight(){System.out.println("("+upperRight.getX()+","+upperRight.getY()+")");};
+    public void printUpperLeft(){System.out.println("("+upperLeft.getX()+","+upperRight.getY()+")");};
    public void printHitbox(){System.out.println("("+x+","+y+")");};
 }

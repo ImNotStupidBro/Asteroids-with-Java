@@ -11,13 +11,29 @@ public class HitBoxTest {
    @Before public void setUp() {
    }
 
-   @Test
-    public void testIntersect1() {
+    @Test
+    public void testIntersectLowerRight() {
         // Create HitBox objects for testing
-        HitBox hitBox1 = new HitBox(0, 0, 10, 10, new Point(-5, 5), new Point(5, 5), new Point(5, -5), new Point(-5, -5));
-        HitBox hitBox2 = new HitBox(5, 5, 10, 10, new Point(0, 10), new Point(10, 10), new Point(10, 0), new Point(0, 0));
+        HitBox hitBox5 = new HitBox(0, 0, 10, 10, new Point(-5, 5), new Point(5, 5), new Point(5, -5), new Point(-5, -5));
+        HitBox hitBox6 = new HitBox(5, -5, 10, 10, new Point(0, 0), new Point(10, 0), new Point(10, -10), new Point(0, -10));
         // Test intersect when hitboxes are overlapping
-        assertTrue(hitBox1.intersect(hitBox2));
+        assertTrue(hitBox5.intersect(hitBox6));
+    }
+    @Test
+    public void testIntersectLowerLeft() {
+        // Create HitBox objects for testing
+        HitBox hitBox7 = new HitBox(0, 0, 10, 10, new Point(-5, 5), new Point(5, 5), new Point(5, -5), new Point(-5, -5));
+        HitBox hitBox8 = new HitBox(-5, -5, 10, 10, new Point(-10, 0), new Point(0, 0), new Point(0, -10), new Point(-10, -10));
+        // Test intersect when hitboxes are overlapping
+        assertTrue(hitBox7.intersect(hitBox8));
+    }
+    @Test
+    public void testIntersectUpperLeft() {
+        // Create HitBox objects for testing
+        HitBox hitBox9 = new HitBox(0, 0, 10, 10, new Point(-5, 5), new Point(5, 5), new Point(5, -5), new Point(-5, -5));
+        HitBox hitBox10 = new HitBox(-5, 5, 10, 10, new Point(-10, 10), new Point(0, 10), new Point(0, 0), new Point(-10, 0));
+        // Test intersect when hitboxes are overlapping
+        assertTrue(hitBox9.intersect(hitBox10));
     }
     @Test
     public void testIntersect2() {
