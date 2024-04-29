@@ -7,6 +7,7 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.shape.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import java.util.Random;
 
 public class Presentation {
@@ -58,6 +59,8 @@ public class Presentation {
       renderMediumAsteroids();
       renderSmallAsteroids();
       renderAlienShips();
+      
+      renderScore();
       renderLives();
       
       stage.show();     
@@ -271,6 +274,16 @@ public class Presentation {
             drawHitbox(asteroidX, asteroidY, asteroidHitbox);
          }
       }
+   }
+   
+   // Render call for the score display
+   public void renderScore(){
+      String scoreboardString = world.getScoreString();
+      double scoreboardX =  20;
+      double scoreboardY =  20;
+      int fontSize = 18;
+      drawScore(scoreboardString, scoreboardX, scoreboardY, fontSize);
+      
    }
    
    // Regular Asteroid Drawing Method
@@ -540,6 +553,12 @@ public class Presentation {
    
    private double convertPhysicsScaletoPresentationScale(double location) {
       return location * CANVAS_SCALE;
+   }
+   
+   public void drawScore(String scoreboardString, double scoreboardX, double scoreboardY, int fontSize){
+      graphicsContext.setFill(Color.WHITE);
+      graphicsContext.setFont(Font.font("Courier New", fontSize));
+      graphicsContext.fillText("Score: "+scoreboardString, scoreboardX, scoreboardY);
    }
    
    /** The physics world has a normal origin (lower left is 0,0), while the render space has typical graphics origin (upper left is 0,0) */

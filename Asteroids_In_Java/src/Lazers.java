@@ -35,7 +35,7 @@ public class Lazers{
    }
    
    public void addLazer(double ShipX, double ShipY, double ShipDirection) {
-      Lazer lazer = Lazer.createLazer(ShipX, ShipY, ShipDirection);
+      Lazer lazer = Lazer.createLazer(ShipX, ShipY, (ShipDirection+90));
       lazers.add(lazer);
    }
    

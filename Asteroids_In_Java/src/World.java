@@ -14,11 +14,13 @@ public class World {
    private int currAsteroidCount;
    private int additionalAsteroidCount;
    private int numOfLives = 3;
+   private Score scoreboard;
   
    public static final int X_DIMENSION = 100; // meters
    public static final int Y_DIMENSION = 70; // meters
    private final int NUMBER_OF_LASERS = 1;
    private final int INITIAL_NUMBER_OF_ASTEROIDS = 1;
+   
    
    public World() {
       //Create Asteroid sets.
@@ -52,6 +54,9 @@ public class World {
       ship = new Ship(shipXStartLocation, shipYStartLocation, shipXSpeed, shipYSpeed, shipDirection, shipHitbox);
       currAsteroidCount = INITIAL_NUMBER_OF_ASTEROIDS;
       additionalAsteroidCount = 0;
+      
+      //Create the score board
+      scoreboard = new Score();
    }
    
    /** Runs the physics of the world. */
@@ -63,6 +68,7 @@ public class World {
       lazers.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       alienShips.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       
+      collisionDetect();
       respawnAsteroids();
       
       /*
@@ -90,6 +96,26 @@ public class World {
             Thread.currentThread().interrupt();
          }
          System.exit(0);
+      }
+   }
+   
+   public void collisionDetect(){
+      //part 1 (asteroid and ship collision)
+      for(Asteroid asteroid: asteroids.getAsteroidsAsArray()){                   
+         if(asteroid.getHitBox().intersect(ship.getHitBox())){    
+            System.out.println("Collision detected");
+         }
+      }
+      
+      //part 2 (lazer and ship collision)
+      for(Lazer lazer: lazers.getLazersAsArray()){  ;                                      
+         for(Asteroid asteroid: asteroids.getAsteroidsAsArray()){                             
+            if(asteroid.getHitBox().intersect(lazer.getHitbox())){
+               System.out.println("Collision detected");
+               scoreboard.addScore(0, 1, 0);
+               lazers.deleteLazer(lazer);
+            }
+         }
       }
    }
    
@@ -192,5 +218,13 @@ public class World {
    
    public int getAdditionalAsteroidCount() {
       return additionalAsteroidCount;
+   }
+   
+   public int getScoreInt() {
+      return scoreboard.getScoreInt();
+   }
+   
+   public String getScoreString() {
+      return scoreboard.getScoreString();
    }
 }
