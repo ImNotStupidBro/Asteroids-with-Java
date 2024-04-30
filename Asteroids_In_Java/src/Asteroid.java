@@ -17,6 +17,8 @@ public class Asteroid extends InteractableObject{
       xPosition += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       yPosition += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       
+      this.hitbox.moveHitbox(xSpeed, ySpeed, elapsedTimeInNanoseconds, worldXDimension, worldYDimension);
+      
       //Keep object on the torus
       if (xPosition < 0 - (this.hitbox.getWidth() / 4)) { // moving in the negative x direction
          xPosition = worldXDimension + xPosition % worldXDimension + (this.hitbox.getWidth() / 4);
@@ -47,6 +49,14 @@ public class Asteroid extends InteractableObject{
       Point lowerLeft = new Point((asteroidXStartLocation-40),(asteroidYStartLocation-40));
       Point lowerRight = new Point((asteroidXStartLocation+40),(asteroidYStartLocation-40));
       HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, 80, 80, upperLeft, upperRight, lowerLeft, lowerRight);
+      /*
+      System.out.println(asteroidXStartLocation);
+      System.out.println(asteroidYStartLocation);
+      System.out.println(upperLeft.getX() + " " + upperLeft.getY());
+      System.out.println(upperRight.getX() + " " + upperRight.getY());
+      System.out.println(lowerLeft.getX() + " " + lowerLeft.getY());
+      System.out.println(lowerRight.getX() + " " + lowerRight.getY());
+      */
       int asteroidID = rand.nextInt(1000);
       Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidXSpeed, asteroidYSpeed, asteroidDirection, asteroidHitbox, asteroidID);
       asteroid.generateConfiguration();

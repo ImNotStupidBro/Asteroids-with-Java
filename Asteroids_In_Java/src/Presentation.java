@@ -24,7 +24,7 @@ public class Presentation {
    private final double MEDIUM_ASTEROID_SCALE = 5.0;
    private final double SMALL_ASTEROID_SCALE = 2.5;
    
-   public boolean toggleHitbox = false;
+   public boolean toggleHitbox = true;
 
    public Presentation(Stage stage, World world) throws Exception {
       this.stage = stage;
@@ -84,7 +84,7 @@ public class Presentation {
       
       if(toggleHitbox){
          graphicsContext.setFill(new Color(1, 0, 0, 0.5));
-         drawHitbox(shipX, shipY, shipHitbox);
+         drawHitbox(shipHitbox.getX(), shipHitbox.getY(), shipHitbox);
       }
    }
    
@@ -105,7 +105,7 @@ public class Presentation {
          
          if(toggleHitbox){
             graphicsContext.setFill(new Color(1, 0, 0, 0.5));
-            drawHitbox(lazerX, lazerY, lazerHitbox);
+            drawHitbox(lazerHitbox.getX(), lazerHitbox.getY(), lazerHitbox);
          }
       }
    }
@@ -141,7 +141,7 @@ public class Presentation {
          
          if(toggleHitbox){
             graphicsContext.setFill(new Color(1, 0, 0, 0.5));
-            drawHitbox(alienShipX, alienShipY, alienShipHitbox);
+            drawHitbox(alienShipHitbox.getX(), alienShipHitbox.getY(), alienShipHitbox);
          }
       }
    }
@@ -191,7 +191,7 @@ public class Presentation {
          
          if(toggleHitbox){
             graphicsContext.setFill(new Color(1, 0, 0, 0.5));
-            drawHitbox(asteroidX, asteroidY, asteroidHitbox);
+            drawHitbox(asteroidHitbox.getX(), asteroidHitbox.getY(), asteroidHitbox);
          }
       }
    }
@@ -231,7 +231,7 @@ public class Presentation {
          
          if(toggleHitbox){
             graphicsContext.setFill(new Color(1, 0, 0, 0.5));
-            drawHitbox(asteroidX, asteroidY, asteroidHitbox);
+            drawHitbox(asteroidHitbox.getX(), asteroidHitbox.getY(), asteroidHitbox);
          }
       }
    }
@@ -271,7 +271,7 @@ public class Presentation {
          
          if(toggleHitbox){
             graphicsContext.setFill(new Color(1, 0, 0, 0.5));
-            drawHitbox(asteroidX, asteroidY, asteroidHitbox);
+            drawHitbox(asteroidHitbox.getX(), asteroidHitbox.getY(), asteroidHitbox);
          }
       }
    }
@@ -544,11 +544,15 @@ public class Presentation {
    }
    
    private void drawHitbox(double x, double y, HitBox hitbox) {
-      double adjustedX = x;
-      double adjustedY = y;
+      double adjustedX = convertPhysicsScaletoPresentationScale(x);
+      double adjustedY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(y));
       double width = hitbox.getWidth();
       double height = hitbox.getHeight();
       graphicsContext.fillRect(adjustedX - (width/2), adjustedY - (height/2), width, height);
+      //Get Upper Right Point
+      double pointX = convertPhysicsScaletoPresentationScale(hitbox.getUpperRight().getX());
+      double pointY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(hitbox.getUpperRight().getY()));
+      graphicsContext.fillOval(pointX,pointY,5,5);
    }
    
    private double convertPhysicsScaletoPresentationScale(double location) {

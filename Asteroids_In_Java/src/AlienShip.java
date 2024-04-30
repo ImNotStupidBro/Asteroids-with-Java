@@ -13,6 +13,8 @@ public class AlienShip extends InteractableObject{
       xPosition += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       yPosition += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       
+      this.hitbox.moveHitbox(xSpeed, ySpeed, elapsedTimeInNanoseconds, worldXDimension, worldYDimension);
+      
       //Keep object on the torus
       if (xPosition < 0 - (this.hitbox.getWidth() / 4)) { // moving in the negative x direction
          xPosition = worldXDimension + xPosition % worldXDimension + (this.hitbox.getWidth() / 4);

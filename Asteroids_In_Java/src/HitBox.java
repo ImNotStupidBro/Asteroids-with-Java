@@ -2,7 +2,7 @@
 This class was made with help from this website:
 https://www.stefanonsoftware.com/post/gamedev-hit-detection
 
-@author Christian Blair
+@author Christian Blair and Jason Zigmant
 */
 public class HitBox{
    private double x, y, width, height; //x and y are at the center of each hotbox
@@ -18,11 +18,6 @@ public class HitBox{
       this.lowerRight = lowerRight;
    }
    
-   public void offset(double dx, double dy){
-      x += dx;
-      y += dy;
-   }
-   
    //Set the hitboxes' parameters once declared.
    public void set(double x, double y, double width, double height, Point upperLeft, Point upperRight, Point lowerRight, Point lowerLeft){
       this.x = x;
@@ -35,21 +30,29 @@ public class HitBox{
       this.lowerRight = lowerRight;
    }
    
-   public void moveHitbox(double x, double y){
-      this.x = x;
-      this.y = y;
-      upperLeft.movePoint(x,y);
-      upperRight.movePoint(x,y);
-      lowerLeft.movePoint(x,y);
-      lowerRight.movePoint(x,y);
+   public void moveHitbox(double dx, double dy, long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension){
+      this.offset(dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
+      upperLeft.movePoint(dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
+      upperRight.movePoint(dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
+      lowerLeft.movePoint(dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
+      lowerRight.movePoint(dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
    };
    
-   //Set the hitboxes' parameters once declared.
-   public void set(double x, double y, double width, double height){
-      this.x = x;
-      this.y = y;
-      this.width = width;
-      this.height = height;
+   private void offset(double dx, double dy, long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension){
+      x += dx * elapsedTimeInNanoseconds / 1_000_000_000.0;
+      y += dy * elapsedTimeInNanoseconds / 1_000_000_000.0;
+      
+      //Keep object on the torus
+      if (x < 0 - (this.getWidth() / 4)) { // moving in the negative x direction
+         x = worldXDimension + x % worldXDimension + (this.getWidth() / 4);
+      } else if (x >= worldXDimension + (this.getWidth() / 4)) {
+         x = x % worldXDimension - (this.getWidth() / 4);
+      }
+      if (y < 0 - (this.getHeight() / 4)) { // moving in the negative y direction
+         y = worldYDimension + y % worldYDimension + (this.getHeight() / 4);
+      } else if (y >= worldYDimension + (this.getHeight() / 4)) {
+         y = y % worldYDimension - (this.getHeight() / 4);
+      }
    }
    
    //Check whether or not the hitboxes of one object collides with another.
@@ -75,7 +78,9 @@ public class HitBox{
       }
    }
    
-   //Get the hitboxes' width and/or height
+   //Get the hitboxes' base parameters
+   public double getX(){ return x; }
+   public double getY(){ return y; }
    public double getWidth(){ return width; }
    public double getHeight(){ return height; }
    

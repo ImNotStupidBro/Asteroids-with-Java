@@ -11,6 +11,7 @@ public class Lazers{
    public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) { 
       for(Lazer lazer: lazers) {
          lazer.move(elapsedTimeInNanoseconds, worldXDimension, worldYDimension);
+         
          //Delete ball off of the torus
          if (lazer.getX() < 0 - (lazer.getRadius() * 2)) { // moving in the negative x direction
             deleteLazer(lazer); //calls function to delete lazer 

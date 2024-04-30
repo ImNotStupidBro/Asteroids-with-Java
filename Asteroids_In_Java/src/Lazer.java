@@ -26,8 +26,7 @@ public class Lazer{
       x += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       y += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       //move the corresponding hitbox
-      hitbox.moveHitbox(x,y);
-     
+      this.hitbox.moveHitbox(xSpeed, ySpeed, elapsedTimeInNanoseconds, worldXDimension, worldYDimension);
    }
  
    public static Lazer createLazer(double ShipX, double ShipY, double lazerDegrees) {

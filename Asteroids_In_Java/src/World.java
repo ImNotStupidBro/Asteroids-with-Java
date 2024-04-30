@@ -99,6 +99,7 @@ public class World {
          }else{
             isIntersecting = false;
          }
+         System.out.println(asteroid.getHitBox().intersect(ship.getHitBox()));
       }
       return isIntersecting;
    }
