@@ -550,9 +550,9 @@ public class Presentation {
       double height = hitbox.getHeight();
       graphicsContext.fillRect(adjustedX - (width/2), adjustedY - (height/2), width, height);
       //Get Upper Right Point
-      double pointX = convertPhysicsScaletoPresentationScale(hitbox.getUpperRight().getX());
-      double pointY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(hitbox.getUpperRight().getY()));
-      graphicsContext.fillOval(pointX,pointY,5,5);
+      double pointUpperRightX = convertPhysicsScaletoPresentationScale(hitbox.getUpperRight().getX());
+      double pointUpperRightY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(hitbox.getUpperRight().getY()));
+      graphicsContext.fillOval(pointUpperRightX,pointUpperRightY,5,5);
    }
    
    private double convertPhysicsScaletoPresentationScale(double location) {
