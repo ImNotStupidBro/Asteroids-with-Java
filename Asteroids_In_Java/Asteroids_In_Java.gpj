@@ -61,3 +61,5 @@ s#w0canvas
 %\011src%sKeyReleaseHandler.java
 %\011src%sAsteroidSet.java
 %\011src%sWorldController.java
+!26;m
+RunSelect	WorldController
