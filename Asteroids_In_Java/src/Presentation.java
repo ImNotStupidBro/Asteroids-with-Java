@@ -546,8 +546,8 @@ public class Presentation {
    private void drawHitbox(double x, double y, HitBox hitbox) {
       double adjustedX = convertPhysicsScaletoPresentationScale(x);
       double adjustedY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(y));
-      double width = hitbox.getWidth();
-      double height = hitbox.getHeight();
+      double width = hitbox.getWidth() * CANVAS_SCALE;
+      double height = hitbox.getHeight() * CANVAS_SCALE;
       graphicsContext.fillRect(adjustedX - (width/2), adjustedY - (height/2), width, height);
       //Get Upper Right Point
       

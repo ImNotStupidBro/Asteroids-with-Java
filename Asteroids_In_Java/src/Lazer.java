@@ -46,7 +46,7 @@ public class Lazer{
    public static Lazer createLazer(double ShipX, double ShipY, double lazerDegrees) {
       double lazerXStartLocation = ShipX; //ships x position
       double lazerYStartLocation = ShipY; //ships y position
-      radius = 5; 
+      radius = 0.5; 
       Point upperLeft = new Point((lazerXStartLocation-(radius/10)),(lazerYStartLocation+(radius/10))); 
       Point upperRight = new Point((lazerXStartLocation+(radius/10)),(lazerYStartLocation+(radius/10)));
       Point lowerLeft = new Point((lazerXStartLocation-(radius/10)),(lazerYStartLocation-(radius/10)));
