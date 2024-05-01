@@ -6,6 +6,7 @@ public class Lazer{
    private static double ySpeed; // meters/second
    private static double LazerDegrees;
    private HitBox hitbox; // Collision detection tool
+   private boolean offScreen;
 
    public Lazer(double x, double y, double radius, double xSpeed, double ySpeed, HitBox hitbox, double LazerDegrees) {
       this.x = x; // meters
@@ -15,6 +16,7 @@ public class Lazer{
       this.ySpeed = ySpeed; // meter/second
       this.hitbox = hitbox; // Collision-detection tool
       this.LazerDegrees = LazerDegrees;
+      this.offScreen = false;
    }
    
    /** Moves the lazer based on the elapsed time and the velocity. */
@@ -27,6 +29,18 @@ public class Lazer{
       y += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       //move the corresponding hitbox
       this.hitbox.moveHitbox(xSpeed, ySpeed, elapsedTimeInNanoseconds, worldXDimension, worldYDimension);
+      
+      //Delete ball off of the torus
+      if (this.x < 0 - (this.radius * 2)) { // moving in the negative x direction
+         this.offScreen = true;
+      } else if (this.x >= worldXDimension + (this.radius * 2)) {
+         this.offScreen = true;
+      }
+      if (this.y < 0 - (this.radius * 2)) { // moving in the negative y direction
+         this.offScreen = true;
+      } else if (this.y >= worldYDimension + (this.radius * 2)) {
+         this.offScreen = true;
+      }
    }
  
    public static Lazer createLazer(double ShipX, double ShipY, double lazerDegrees) {
@@ -64,6 +78,10 @@ public class Lazer{
    
    public HitBox getHitbox() {
       return hitbox;
+   }
+   
+   public boolean isOffScreen() {
+      return offScreen;
    }
 }
    

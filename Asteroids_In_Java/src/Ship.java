@@ -1,11 +1,9 @@
 public class Ship extends InteractableObject{
    private final double MAX_SHIP_SPEED = 20.0;
    public boolean isAccelerating;
-   public boolean isInvulnerable;
    public Ship(double x, double y, double dx, double dy, double degrees, HitBox hitbox) {
       super(x, y, dx, dy, degrees, hitbox);
       isAccelerating = false;
-      isInvulnerable = false;
    }
    
    public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) {

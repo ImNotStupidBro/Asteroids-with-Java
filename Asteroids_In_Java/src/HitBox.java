@@ -6,7 +6,7 @@ https://www.stefanonsoftware.com/post/gamedev-hit-detection
 */
 public class HitBox{
    private double x, y, width, height; //x and y are at the center of each hotbox
-   private Point upperLeft, upperRight, lowerRight, lowerLeft; //keeps track of each corner of the hitbox
+   public Point upperLeft, upperRight, lowerRight, lowerLeft; //keeps track of each corner of the hitbox
    public HitBox(double x, double y, double width, double height, Point upperLeft, Point upperRight, Point lowerRight, Point lowerLeft){
       this.x = x;
       this.y = y;

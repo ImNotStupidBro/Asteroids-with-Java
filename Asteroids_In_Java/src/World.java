@@ -15,24 +15,25 @@ public class World {
    private int additionalAsteroidCount;
    private int numOfLives = 3;
    private Score scoreboard;
+   private long activatedAt = Long.MAX_VALUE;
   
    public static final int X_DIMENSION = 100; // meters
    public static final int Y_DIMENSION = 70; // meters
    private final int NUMBER_OF_LASERS = 1;
    private final int INITIAL_NUMBER_OF_ASTEROIDS = 1;
-   
+   private long INVULNERABILITYTIMER = 5000;
    
    public World() {
       //Create Asteroid sets.
       asteroids = new AsteroidSet(INITIAL_NUMBER_OF_ASTEROIDS);
-      mediumAsteroids = new AsteroidSetMedium(2);
-      smallAsteroids = new AsteroidSetSmall(2);
+      mediumAsteroids = new AsteroidSetMedium(0);
+      smallAsteroids = new AsteroidSetSmall(0);
       
       //Create Lazer set.
       lazers = new Lazers();
       
       //Create Alien Ship set.
-      alienShips = new AlienShipSet(1);
+      alienShips = new AlienShipSet(0);
 
       //Generate the ship.
       double shipXStartLocation = X_DIMENSION/2;
@@ -76,13 +77,7 @@ public class World {
       
       if(shipCollisionDetect()){
          respawnShip();
-         ship.isInvulnerable = true;
-         try{
-            Thread.sleep(5000);
-         }catch (InterruptedException ie){
-            Thread.currentThread().interrupt();
-         }
-         ship.isInvulnerable = false;
+         toggleInvulnerability();
       }
       
       if(numOfLives < 0){
@@ -100,15 +95,16 @@ public class World {
       //part 1 (asteroid and ship collision)
       boolean isIntersecting = false;
       for(Asteroid asteroid: asteroids.getAsteroidsAsArray()){                   
-         if(asteroid.getHitBox().intersect(ship.getHitBox()) || !ship.isInvulnerable){    
+         if(asteroid.getHitBox().intersect(ship.getHitBox()) || !isInvulnerable()){    
             System.out.println("Collision detected");
             isIntersecting = true;
          }else{
             isIntersecting = false;
          }
+         System.out.println(asteroid.getHitBox().intersect(ship.getHitBox()));
       }
       for(AlienShip alienShip: alienShips.getAlienShipsAsArray()){                   
-         if(alienShip.getHitBox().intersect(ship.getHitBox()) || !ship.isInvulnerable){    
+         if(alienShip.getHitBox().intersect(ship.getHitBox()) || !isInvulnerable()){    
             System.out.println("Collision detected");
             isIntersecting = true;
          }else{
@@ -187,8 +183,18 @@ public class World {
       }
    }
    
+   private void toggleInvulnerability(){
+      activatedAt = System.currentTimeMillis();
+   }
+   
+   private boolean isInvulnerable(){
+      long activeFor = System.currentTimeMillis() - activatedAt;
+      return activeFor >= 0 && activeFor <= INVULNERABILITYTIMER;
+   }
+   
    private void respawnShip(){
       ship.set(X_DIMENSION/2, Y_DIMENSION/2, 0.0, 0.0, 270.0);
+      ship.hitbox.set(ship.xPosition, ship.yPosition, 40, 40, ship.hitbox.upperLeft, ship.hitbox.upperRight, ship.hitbox.lowerRight, ship.hitbox.lowerLeft);
       decrementLives();
    }
    
