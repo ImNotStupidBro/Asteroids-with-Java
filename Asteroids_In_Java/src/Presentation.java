@@ -553,19 +553,19 @@ public class Presentation {
       
       double pointUpperRightX = convertPhysicsScaletoPresentationScale(hitbox.getUpperRight().getX());
       double pointUpperRightY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(hitbox.getUpperRight().getY()));
-      graphicsContext.fillOval(pointUpperRightX,pointUpperRightY,5,5);
+      graphicsContext.fillOval(pointUpperRightX-(5/2),pointUpperRightY-(5/2),5,5);
       
       double pointUpperLeftX = convertPhysicsScaletoPresentationScale(hitbox.getUpperLeft().getX());
       double pointUpperLeftY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(hitbox.getUpperLeft().getY()));
-      graphicsContext.fillOval(pointUpperLeftX,pointUpperLeftY,5,5);
+      graphicsContext.fillOval(pointUpperLeftX-(5/2),pointUpperLeftY-(5/2),5,5);
       
       double pointLowerLeftX = convertPhysicsScaletoPresentationScale(hitbox.getLowerLeft().getX());
       double pointLowerLeftY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(hitbox.getLowerLeft().getY()));
-      graphicsContext.fillOval(pointLowerLeftX,pointLowerLeftY,5,5);
+      graphicsContext.fillOval(pointLowerLeftX-(5/2),pointLowerLeftY-(5/2),5,5);
       
       double pointLowerRightX = convertPhysicsScaletoPresentationScale(hitbox.getLowerRight().getX());
       double pointLowerRightY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(hitbox.getLowerRight().getY()));
-      graphicsContext.fillOval(pointLowerRightX,pointLowerRightY,5,5);
+      graphicsContext.fillOval(pointLowerRightX-(5/2),pointLowerRightY-(5/2),5,5);
    }
    
    private double convertPhysicsScaletoPresentationScale(double location) {
