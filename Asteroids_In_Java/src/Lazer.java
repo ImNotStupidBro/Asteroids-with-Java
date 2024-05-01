@@ -33,10 +33,10 @@ public class Lazer{
       double lazerXStartLocation = ShipX; //ships x position
       double lazerYStartLocation = ShipY; //ships y position
       radius = 5; 
-      Point upperLeft = new Point((lazerXStartLocation-radius),(lazerYStartLocation+radius)); 
-      Point upperRight = new Point((lazerXStartLocation+radius),(lazerYStartLocation+radius));
-      Point lowerLeft = new Point((lazerXStartLocation-radius),(lazerYStartLocation-radius));
-      Point lowerRight = new Point((lazerXStartLocation+radius),(lazerYStartLocation-radius));
+      Point upperLeft = new Point((lazerXStartLocation-(radius/10)),(lazerYStartLocation+(radius/10))); 
+      Point upperRight = new Point((lazerXStartLocation+(radius/10)),(lazerYStartLocation+(radius/10)));
+      Point lowerLeft = new Point((lazerXStartLocation-(radius/10)),(lazerYStartLocation-(radius/10)));
+      Point lowerRight = new Point((lazerXStartLocation+(radius/10)),(lazerYStartLocation-(radius/10)));
       HitBox lazerHitbox = new HitBox(lazerXStartLocation, lazerYStartLocation, (radius * 2), (radius * 2), upperLeft, upperRight, lowerLeft, lowerRight);
       Lazer lazer = new Lazer(lazerXStartLocation, lazerYStartLocation, radius, xSpeed, ySpeed, lazerHitbox, lazerDegrees);
       return lazer;

@@ -60,15 +60,15 @@ public class HitBox{
       point.y += dy * elapsedTimeInNanoseconds / 1_000_000_000.0;
       
       //Keep object on the torus
-      if (point.x < 0) { // moving in the negative x direction
-         point.x = worldXDimension + point.x % worldXDimension;
-      } else if (point.x >= worldXDimension) {
-         point.x = point.x % worldXDimension;
+      if (point.x < 0 - (this.getWidth() / 8)) { // moving in the negative x direction
+         point.x = worldXDimension + point.x % worldXDimension + (this.getWidth() / 8);
+      } else if (point.x >= worldXDimension + (this.getWidth() / 8)) {
+         point.x = point.x % worldXDimension - (this.getWidth() / 8);
       }
-      if (point.y < 0) { // moving in the negative y direction
-         point.y = worldYDimension + point.y % worldYDimension;
-      } else if (point.y >= worldYDimension) {
-         point.y = point.y % worldYDimension;
+      if (point.y < 0 - (this.getHeight() / 8)) { // moving in the negative y direction
+         point.y = worldYDimension + point.y % worldYDimension + (this.getHeight() / 8);
+      } else if (point.y >= worldYDimension + (this.getHeight() / 8)) {
+         point.y = point.y % worldYDimension - (this.getHeight() / 8);
       }
    }
    
