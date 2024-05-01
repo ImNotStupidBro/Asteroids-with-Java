@@ -74,19 +74,19 @@ public class HitBox{
    
    //Check whether or not the hitboxes of one object collides with another.
    public boolean intersect(HitBox hitbox) {
-      if (upperLeft.isBelowAndToRight(hitbox.upperLeft) && upperLeft.isAboveAndToLeft(hitbox.lowerRight)){
+      if (this.upperLeft.isBelowAndToRight(hitbox.upperLeft) && this.upperLeft.isAboveAndToLeft(hitbox.lowerRight)){
          System.out.println("collision occurred!");
          return true;
          }
-      else if (upperRight.isBelowAndToLeft(hitbox.upperRight) && upperRight.isAboveAndToRight(hitbox.lowerLeft)){
+      else if (this.upperRight.isBelowAndToLeft(hitbox.upperRight) && this.upperRight.isAboveAndToRight(hitbox.lowerLeft)){
          System.out.println("collision occurred!");
          return true;
          }
-      else if (lowerLeft.isBelowAndToLeft(hitbox.upperRight) && lowerLeft.isAboveAndToRight(hitbox.lowerLeft)){
+      else if (this.lowerLeft.isBelowAndToLeft(hitbox.upperRight) && this.lowerLeft.isAboveAndToRight(hitbox.lowerLeft)){
          System.out.println("collision occurred!");
          return true;
          }
-      else if (lowerRight.isAboveAndToLeft(hitbox.lowerRight) && lowerRight.isBelowAndToRight(hitbox.upperLeft)){
+      else if (this.lowerRight.isAboveAndToLeft(hitbox.lowerRight) && this.lowerRight.isBelowAndToRight(hitbox.upperLeft)){
          System.out.println("collision occurred!");
          return true;
          }

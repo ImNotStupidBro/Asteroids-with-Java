@@ -76,6 +76,13 @@ public class World {
       
       if(shipCollisionDetect()){
          respawnShip();
+         ship.isInvulnerable = true;
+         try{
+            Thread.sleep(5000);
+         }catch (InterruptedException ie){
+            Thread.currentThread().interrupt();
+         }
+         ship.isInvulnerable = false;
       }
       
       if(numOfLives < 0){
@@ -93,13 +100,20 @@ public class World {
       //part 1 (asteroid and ship collision)
       boolean isIntersecting = false;
       for(Asteroid asteroid: asteroids.getAsteroidsAsArray()){                   
-         if(asteroid.getHitBox().intersect(ship.getHitBox())){    
+         if(asteroid.getHitBox().intersect(ship.getHitBox()) || !ship.isInvulnerable){    
             System.out.println("Collision detected");
             isIntersecting = true;
          }else{
             isIntersecting = false;
          }
-         System.out.println(asteroid.getHitBox().intersect(ship.getHitBox()));
+      }
+      for(AlienShip alienShip: alienShips.getAlienShipsAsArray()){                   
+         if(alienShip.getHitBox().intersect(ship.getHitBox()) || !ship.isInvulnerable){    
+            System.out.println("Collision detected");
+            isIntersecting = true;
+         }else{
+            isIntersecting = false;
+         }
       }
       return isIntersecting;
    }
