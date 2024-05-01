@@ -74,6 +74,7 @@ public class HitBox{
    
    //Check whether or not the hitboxes of one object collides with another.
    public boolean intersect(HitBox hitbox) {
+
       if (this.upperLeft.isBelowAndToRight(hitbox.upperLeft) && this.upperLeft.isAboveAndToLeft(hitbox.lowerRight)){
          System.out.println("collision occurred!");
          return true;
@@ -90,6 +91,7 @@ public class HitBox{
          System.out.println("collision occurred!");
          return true;
          }
+      
       else{
          return false;
       }

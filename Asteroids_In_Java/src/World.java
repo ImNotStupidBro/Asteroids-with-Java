@@ -25,9 +25,9 @@ public class World {
    
    public World() {
       //Create Asteroid sets.
-      asteroids = new AsteroidSet(INITIAL_NUMBER_OF_ASTEROIDS);
+      asteroids = new AsteroidSet(0);
       mediumAsteroids = new AsteroidSetMedium(0);
-      smallAsteroids = new AsteroidSetSmall(0);
+      smallAsteroids = new AsteroidSetSmall(1);
       
       //Create Lazer set.
       lazers = new Lazers();
@@ -50,7 +50,7 @@ public class World {
       Point shipUpperRight = new Point(shipXStartLocation+2,shipYStartLocation+2);
       Point shipLowerLeft = new Point(shipXStartLocation-2,shipYStartLocation-2);
       Point shipLowerRight = new Point(shipXStartLocation+2,shipYStartLocation-2);
-      shipHitbox.set(shipXStartLocation, shipYStartLocation, 40, 40, shipUpperLeft, shipUpperRight, shipLowerLeft, shipLowerRight);
+      shipHitbox.set(shipXStartLocation, shipYStartLocation, 2, 4, shipUpperLeft, shipUpperRight, shipLowerLeft, shipLowerRight);
       
       ship = new Ship(shipXStartLocation, shipYStartLocation, shipXSpeed, shipYSpeed, shipDirection, shipHitbox);
       currAsteroidCount = INITIAL_NUMBER_OF_ASTEROIDS;
@@ -94,8 +94,9 @@ public class World {
    public boolean shipCollisionDetect(){
       //part 1 (asteroid and ship collision)
       boolean isIntersecting = false;
-      for(Asteroid asteroid: asteroids.getAsteroidsAsArray()){                   
-         if(asteroid.getHitBox().intersect(ship.getHitBox()) || !isInvulnerable()){    
+      for(Asteroid asteroid: asteroids.getAsteroidsAsArray()){
+         boolean asteroidCollision = ship.getHitBox().intersect(asteroid.getHitBox());
+         if(asteroidCollision && !isInvulnerable()){    
             System.out.println("Collision detected");
             isIntersecting = true;
          }else{
@@ -103,8 +104,24 @@ public class World {
          }
          System.out.println(asteroid.getHitBox().intersect(ship.getHitBox()));
       }
+      for(Asteroid asteroid: mediumAsteroids.getAsteroidsAsArray()){                   
+         if(asteroid.getHitBox().intersect(ship.getHitBox()) && !isInvulnerable()){    
+            System.out.println("Collision detected");
+            isIntersecting = true;
+         }else{
+            isIntersecting = false;
+         }
+      }
+      for(Asteroid asteroid: smallAsteroids.getAsteroidsAsArray()){                   
+         if(asteroid.getHitBox().intersect(ship.getHitBox()) && !isInvulnerable()){    
+            System.out.println("Collision detected");
+            isIntersecting = true;
+         }else{
+            isIntersecting = false;
+         }
+      }
       for(AlienShip alienShip: alienShips.getAlienShipsAsArray()){                   
-         if(alienShip.getHitBox().intersect(ship.getHitBox()) || !isInvulnerable()){    
+         if(alienShip.getHitBox().intersect(ship.getHitBox()) && !isInvulnerable()){    
             System.out.println("Collision detected");
             isIntersecting = true;
          }else{
@@ -116,7 +133,7 @@ public class World {
    
    public void asteroidCollisionDetect(){
       //part 2 (lazer and ship collision)
-      for(Lazer lazer: lazers.getLazersAsArray()){  ;                                      
+      for(Lazer lazer: lazers.getLazersAsArray()){                                        
          for(Asteroid asteroid: asteroids.getAsteroidsAsArray()){                             
             if(asteroid.getHitBox().intersect(lazer.getHitbox())){
                System.out.println("Collision detected");
@@ -132,7 +149,7 @@ public class World {
    }
    
    public void mediumAsteroidCollisionDetect(){
-      for(Lazer lazer: lazers.getLazersAsArray()){  ;                                      
+      for(Lazer lazer: lazers.getLazersAsArray()){                                        
          for(Asteroid asteroid: mediumAsteroids.getAsteroidsAsArray()){                             
             if(asteroid.getHitBox().intersect(lazer.getHitbox())){
                System.out.println("Collision detected");
@@ -148,7 +165,7 @@ public class World {
    }
    
    public void smallAsteroidCollisionDetect(){
-      for(Lazer lazer: lazers.getLazersAsArray()){  ;                                      
+      for(Lazer lazer: lazers.getLazersAsArray()){                                       
          for(Asteroid asteroid: smallAsteroids.getAsteroidsAsArray()){                             
             if(asteroid.getHitBox().intersect(lazer.getHitbox())){
                System.out.println("Collision detected");
@@ -161,7 +178,7 @@ public class World {
    }
    
    public void alienShipCollisionDetect(){
-      for(Lazer lazer: lazers.getLazersAsArray()){  ;                                      
+      for(Lazer lazer: lazers.getLazersAsArray()){                                        
          for(AlienShip alienShip: alienShips.getAlienShipsAsArray()){                             
             if(alienShip.getHitBox().intersect(lazer.getHitbox())){
                System.out.println("Collision detected");
