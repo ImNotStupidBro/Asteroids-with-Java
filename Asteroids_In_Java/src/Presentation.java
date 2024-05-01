@@ -550,9 +550,22 @@ public class Presentation {
       double height = hitbox.getHeight();
       graphicsContext.fillRect(adjustedX - (width/2), adjustedY - (height/2), width, height);
       //Get Upper Right Point
+      
       double pointUpperRightX = convertPhysicsScaletoPresentationScale(hitbox.getUpperRight().getX());
       double pointUpperRightY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(hitbox.getUpperRight().getY()));
       graphicsContext.fillOval(pointUpperRightX,pointUpperRightY,5,5);
+      
+      double pointUpperLeftX = convertPhysicsScaletoPresentationScale(hitbox.getUpperLeft().getX());
+      double pointUpperLeftY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(hitbox.getUpperLeft().getY()));
+      graphicsContext.fillOval(pointUpperLeftX,pointUpperLeftY,5,5);
+      
+      double pointLowerLeftX = convertPhysicsScaletoPresentationScale(hitbox.getLowerLeft().getX());
+      double pointLowerLeftY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(hitbox.getLowerLeft().getY()));
+      graphicsContext.fillOval(pointLowerLeftX,pointLowerLeftY,5,5);
+      
+      double pointLowerRightX = convertPhysicsScaletoPresentationScale(hitbox.getLowerRight().getX());
+      double pointLowerRightY = convertPhysicsOriginToPresentationOrigin(convertPhysicsScaletoPresentationScale(hitbox.getLowerRight().getY()));
+      graphicsContext.fillOval(pointLowerRightX,pointLowerRightY,5,5);
    }
    
    private double convertPhysicsScaletoPresentationScale(double location) {

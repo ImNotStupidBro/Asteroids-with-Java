@@ -45,10 +45,10 @@ public class World {
       Point lowerLeft = new Point(0,0);
       Point lowerRight = new Point(0,0);
       HitBox shipHitbox = new HitBox(0,0,0,0, upperLeft, upperRight, lowerLeft, lowerRight);
-      Point shipUpperLeft = new Point(shipXStartLocation-10,shipYStartLocation+20); 
-      Point shipUpperRight = new Point(shipXStartLocation+10,shipYStartLocation+20);
-      Point shipLowerLeft = new Point(shipXStartLocation-10,shipYStartLocation-20);
-      Point shipLowerRight = new Point(shipXStartLocation+10,shipYStartLocation-20);
+      Point shipUpperLeft = new Point(shipXStartLocation-2,shipYStartLocation+2); 
+      Point shipUpperRight = new Point(shipXStartLocation+2,shipYStartLocation+2);
+      Point shipLowerLeft = new Point(shipXStartLocation-2,shipYStartLocation-2);
+      Point shipLowerRight = new Point(shipXStartLocation+2,shipYStartLocation-2);
       shipHitbox.set(shipXStartLocation, shipYStartLocation, 40, 40, shipUpperLeft, shipUpperRight, shipLowerLeft, shipLowerRight);
       
       ship = new Ship(shipXStartLocation, shipYStartLocation, shipXSpeed, shipYSpeed, shipDirection, shipHitbox);

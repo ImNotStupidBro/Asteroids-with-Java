@@ -16,15 +16,15 @@ public class AlienShip extends InteractableObject{
       this.hitbox.moveHitbox(xSpeed, ySpeed, elapsedTimeInNanoseconds, worldXDimension, worldYDimension);
       
       //Keep object on the torus
-      if (xPosition < 0 - (this.hitbox.getWidth() / 4)) { // moving in the negative x direction
-         xPosition = worldXDimension + xPosition % worldXDimension + (this.hitbox.getWidth() / 4);
-      } else if (xPosition >= worldXDimension + (this.hitbox.getWidth() / 4)) {
-         xPosition = xPosition % worldXDimension - (this.hitbox.getWidth() / 4);
+      if (xPosition < 0 - (this.hitbox.getWidth() / 8)) { // moving in the negative x direction
+         xPosition = worldXDimension + xPosition % worldXDimension + (this.hitbox.getWidth() / 8);
+      } else if (xPosition >= worldXDimension + (this.hitbox.getWidth() / 8)) {
+         xPosition = xPosition % worldXDimension - (this.hitbox.getWidth() / 8);
       }
-      if (yPosition < 0 - (this.hitbox.getHeight() / 4)) { // moving in the negative y direction
-         yPosition = worldYDimension + yPosition % worldYDimension + (this.hitbox.getHeight() / 4);
-      } else if (yPosition >= worldYDimension + (this.hitbox.getHeight() / 4)) {
-         yPosition = yPosition % worldYDimension - (this.hitbox.getHeight() / 4);
+      if (yPosition < 0 - (this.hitbox.getHeight() / 8)) { // moving in the negative y direction
+         yPosition = worldYDimension + yPosition % worldYDimension + (this.hitbox.getHeight() / 8);
+      } else if (yPosition >= worldYDimension + (this.hitbox.getHeight() / 8)) {
+         yPosition = yPosition % worldYDimension - (this.hitbox.getHeight() / 8);
       }
    }
    
@@ -35,10 +35,10 @@ public class AlienShip extends InteractableObject{
       double alienShipXSpeed = MAX_ALIENSHIP_SPEED;
       double alienShipYSpeed = MAX_ALIENSHIP_SPEED;
       double alienShipDirection = 360 * rand.nextDouble();
-      Point alienShipUpperLeft = new Point(alienShipXStartLocation-40,alienShipYStartLocation+20); 
-      Point alienShipUpperRight = new Point(alienShipXStartLocation+40,alienShipYStartLocation+20);
-      Point alienShipLowerLeft = new Point(alienShipXStartLocation-40,alienShipYStartLocation-20);
-      Point alienShipLowerRight = new Point(alienShipXStartLocation+40,alienShipYStartLocation-20);
+      Point alienShipUpperLeft = new Point(alienShipXStartLocation-4,alienShipYStartLocation+2); 
+      Point alienShipUpperRight = new Point(alienShipXStartLocation+4,alienShipYStartLocation+2);
+      Point alienShipLowerLeft = new Point(alienShipXStartLocation-4,alienShipYStartLocation-2);
+      Point alienShipLowerRight = new Point(alienShipXStartLocation+4,alienShipYStartLocation-2);
       HitBox alienShipHitbox = new HitBox(alienShipXStartLocation, alienShipYStartLocation, 80, 40, alienShipUpperLeft, alienShipUpperRight, alienShipLowerLeft, alienShipLowerRight);
       int alienShipID = rand.nextInt(1000);
       AlienShip alienShip = new AlienShip(alienShipXStartLocation, alienShipYStartLocation, alienShipXSpeed, alienShipYSpeed, alienShipDirection, alienShipHitbox, alienShipID);

@@ -32,10 +32,10 @@ public class HitBox{
    
    public void moveHitbox(double dx, double dy, long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension){
       this.offset(dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
-      upperLeft.movePoint(dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
-      upperRight.movePoint(dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
-      lowerLeft.movePoint(dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
-      lowerRight.movePoint(dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
+      this.movePoint(this.upperLeft,dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
+      this.movePoint(this.upperRight,dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
+      this.movePoint(this.lowerLeft,dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
+      this.movePoint(this.lowerRight,dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
    };
    
    private void offset(double dx, double dy, long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension){
@@ -43,15 +43,32 @@ public class HitBox{
       y += dy * elapsedTimeInNanoseconds / 1_000_000_000.0;
       
       //Keep object on the torus
-      if (x < 0 - (this.getWidth() / 4)) { // moving in the negative x direction
-         x = worldXDimension + x % worldXDimension + (this.getWidth() / 4);
-      } else if (x >= worldXDimension + (this.getWidth() / 4)) {
-         x = x % worldXDimension - (this.getWidth() / 4);
+      if (x < 0 - (this.getWidth() / 8)) { // moving in the negative x direction
+         x = worldXDimension + x % worldXDimension + (this.getWidth() / 8);
+      } else if (x >= worldXDimension + (this.getWidth() / 8)) {
+         x = x % worldXDimension - (this.getWidth() / 8);
       }
-      if (y < 0 - (this.getHeight() / 4)) { // moving in the negative y direction
-         y = worldYDimension + y % worldYDimension + (this.getHeight() / 4);
-      } else if (y >= worldYDimension + (this.getHeight() / 4)) {
-         y = y % worldYDimension - (this.getHeight() / 4);
+      if (y < 0 - (this.getHeight() / 8)) { // moving in the negative y direction
+         y = worldYDimension + y % worldYDimension + (this.getHeight() / 8);
+      } else if (y >= worldYDimension + (this.getHeight() / 8)) {
+         y = y % worldYDimension - (this.getHeight() / 8);
+      }
+   }
+   
+   private void movePoint(Point point, double dx, double dy, long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension){
+      point.x += dx * elapsedTimeInNanoseconds / 1_000_000_000.0;
+      point.y += dy * elapsedTimeInNanoseconds / 1_000_000_000.0;
+      
+      //Keep object on the torus
+      if (point.x < 0) { // moving in the negative x direction
+         point.x = worldXDimension + point.x % worldXDimension;
+      } else if (point.x >= worldXDimension) {
+         point.x = point.x % worldXDimension;
+      }
+      if (point.y < 0) { // moving in the negative y direction
+         point.y = worldYDimension + point.y % worldYDimension;
+      } else if (point.y >= worldYDimension) {
+         point.y = point.y % worldYDimension;
       }
    }
    

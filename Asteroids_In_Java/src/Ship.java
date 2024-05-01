@@ -15,15 +15,15 @@ public class Ship extends InteractableObject{
       decelerate();
       
       //Keep object on the torus
-      if (xPosition < 0 - (this.hitbox.getWidth() / 4)) { // moving in the negative x direction
-         xPosition = worldXDimension + xPosition % worldXDimension + (this.hitbox.getWidth() / 4);
-      } else if (xPosition >= worldXDimension + (this.hitbox.getWidth() / 4)) {
-         xPosition = xPosition % worldXDimension - (this.hitbox.getWidth() / 4);
+      if (xPosition < 0 - (this.hitbox.getWidth() / 8)) { // moving in the negative x direction
+         xPosition = worldXDimension + xPosition % worldXDimension + (this.hitbox.getWidth() / 8);
+      } else if (xPosition >= worldXDimension + (this.hitbox.getWidth() / 8)) {
+         xPosition = xPosition % worldXDimension - (this.hitbox.getWidth() / 8);
       }
-      if (yPosition < 0 - (this.hitbox.getHeight() / 4)) { // moving in the negative y direction
-         yPosition = worldYDimension + yPosition % worldYDimension + (this.hitbox.getHeight() / 4);
-      } else if (yPosition >= worldYDimension + (this.hitbox.getHeight() / 4)) {
-         yPosition = yPosition % worldYDimension - (this.hitbox.getHeight() / 4);
+      if (yPosition < 0 - (this.hitbox.getHeight() / 8)) { // moving in the negative y direction
+         yPosition = worldYDimension + yPosition % worldYDimension + (this.hitbox.getHeight() / 8);
+      } else if (yPosition >= worldYDimension + (this.hitbox.getHeight() / 8)) {
+         yPosition = yPosition % worldYDimension - (this.hitbox.getHeight() / 8);
       }
    }
    
@@ -31,8 +31,14 @@ public class Ship extends InteractableObject{
          if(xSpeed > MAX_SHIP_SPEED){
             xSpeed = MAX_SHIP_SPEED;
          }
+         if(xSpeed < 0 - MAX_SHIP_SPEED){
+            xSpeed = 0 - MAX_SHIP_SPEED;
+         }
          if(ySpeed > MAX_SHIP_SPEED){
             ySpeed = MAX_SHIP_SPEED;
+         }
+         if(ySpeed < 0 - MAX_SHIP_SPEED){
+            ySpeed = 0 - MAX_SHIP_SPEED;
          }
          
          xSpeed += Math.cos(Math.toRadians(this.direction));
