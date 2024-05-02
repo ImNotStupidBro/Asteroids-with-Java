@@ -51,17 +51,19 @@ public class HitBox{
       boolean lowerLeftIntersect = this.lowerLeft.isBelowAndToLeft(hitbox.upperRight) && this.lowerLeft.isAboveAndToRight(hitbox.lowerLeft);
       boolean lowerRightIntersect = this.lowerRight.isAboveAndToLeft(hitbox.lowerRight) && this.lowerRight.isBelowAndToRight(hitbox.upperLeft);
       //System.out.println(upperRightIsBelowAndToLeftHitboxUpperRight +" "+ upperRightIsAboveAndToRightHitboxLowerLeft);
+      
+      return(upperLeftIntersect||upperRightIntersect||lowerLeftIntersect||lowerRightIntersect);
+      /*
       if (upperLeftIntersect) {
+         return true;}
+      if (upperRightIntersect) {
          return true;
-      } else if (upperRightIntersect) {
+      } if (lowerLeftIntersect) {
          return true;
-      } else if (lowerLeftIntersect) {
+      } if (lowerRightIntersect) {
          return true;
-      } else if (lowerRightIntersect) {
-         return true;
-      } else {
-         return false;
-      }
+      } 
+         return false;*/
    }
    
    //Get the hitboxes' width and/or height
