@@ -37,17 +37,17 @@ public abstract class InteractableObject{
    
    
    public void turnRight() {
-      if(direction <= (0 - 5)){
-         direction = 355.0;
-      }
-      this.direction -= 5.0;
-   }
-   
-   public void turnLeft() {
       if(direction >= 365){
          direction = 5.0;
       }
-      this.direction += 5.0;;
+      this.direction += 5.0;
+   }
+   
+   public void turnLeft() {
+      if(direction <= (0 - 5)){
+         direction = 355.0;
+      }
+      this.direction -= 5.0;;
    }
    
    public void accelerate() {

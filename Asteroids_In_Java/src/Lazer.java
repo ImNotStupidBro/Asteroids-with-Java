@@ -20,8 +20,8 @@ public class Lazer{
    /** Moves the lazer based on the elapsed time and the velocity. */
    public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) { 
       //taken from move function in ship
-      xSpeed = 50*(Math.cos(Math.toRadians(LazerDegrees)));
-      ySpeed = 50*(Math.sin(Math.toRadians(LazerDegrees)));
+      xSpeed = 50*(Math.sin(Math.toRadians(LazerDegrees-90)));
+      ySpeed = 50*(Math.cos(Math.toRadians(LazerDegrees-90)));
       //taken from original move function in ball
       x -= xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       y -= ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
