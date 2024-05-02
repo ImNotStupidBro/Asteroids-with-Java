@@ -63,6 +63,8 @@ public class HitBox{
    }
    
    //Get the hitboxes' width and/or height
+   public double getX(){ return x; }
+   public double getY(){ return y; }
    public double getWidth(){ return width; }
    public double getHeight(){ return height; }
    

@@ -200,7 +200,7 @@ public class World {
    
    private void respawnShip(){
       ship.set(X_DIMENSION/2, Y_DIMENSION/2, 0.0, 0.0, 270.0);
-      ship.hitbox.set(ship.xPosition, ship.yPosition, 40, 40, ship.hitbox.upperLeft, ship.hitbox.upperRight, ship.hitbox.lowerRight, ship.hitbox.lowerLeft);
+      ship.hitbox.set(ship.xPosition, ship.yPosition, 4, 4, ship.hitbox.upperLeft, ship.hitbox.upperRight, ship.hitbox.lowerRight, ship.hitbox.lowerLeft);
       decrementLives();
    }
    

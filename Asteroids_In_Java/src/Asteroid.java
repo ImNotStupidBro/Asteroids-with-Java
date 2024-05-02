@@ -84,7 +84,7 @@ public class Asteroid extends InteractableObject{
       Point upperRight = new Point((asteroidXStartLocation+(hitboxWidth/(2*10))),(asteroidYStartLocation+(hitboxHeight/(2*10))));
       Point lowerLeft = new Point((asteroidXStartLocation-(hitboxWidth/(2*10))),(asteroidYStartLocation-(hitboxHeight/(2*10))));
       Point lowerRight = new Point((asteroidXStartLocation+(hitboxWidth/(2*10))),(asteroidYStartLocation-(hitboxHeight/(2*10))));
-      HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, hitboxWidth, hitboxHeight, upperLeft, upperRight, lowerLeft, lowerRight);
+      HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, hitboxWidth/10, hitboxHeight/10, upperLeft, upperRight, lowerLeft, lowerRight);
       int asteroidID = rand.nextInt(1000);
       Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidXSpeed, asteroidYSpeed, asteroidDirection, asteroidHitbox, asteroidID);
       asteroid.generateConfiguration();
