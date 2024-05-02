@@ -18,9 +18,9 @@ public class AsteroidSetMedium{
    }
    
    /** Moves the asteroids based on the elapsed time and the velocity. */
-   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) { 
+   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension, double width, double height) { 
       for(Asteroid asteroid: asteroidSet) {
-         asteroid.move(elapsedTimeInNanoseconds, worldXDimension, worldYDimension);
+         asteroid.move(elapsedTimeInNanoseconds, worldXDimension, worldYDimension, width, height);
       }
    }
    

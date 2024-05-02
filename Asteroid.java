@@ -6,9 +6,11 @@ public class Asteroid extends InteractableObject{
 
    private static final double MAX_ASTEROID_SPEED = 30.0;
    private int configNumber;
+   private int id;
    
-   public Asteroid(double x, double y, double dx, double dy, double degrees, HitBox hitbox){
+   public Asteroid(double x, double y, double dx, double dy, double degrees, HitBox hitbox, int ID){
       super(x, y, dx, dy, degrees, hitbox);
+      id = ID;
    }
    
    private void generateConfiguration() {
@@ -28,11 +30,13 @@ public class Asteroid extends InteractableObject{
       Point lowerLeft = new Point(asteroidXStartLocation-4,asteroidYStartLocation-4);
       Point lowerRight = new Point(asteroidXStartLocation+4,asteroidYStartLocation-4);
       HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, 8, 8, upperLeft, upperRight, lowerRight, lowerLeft);
-      Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidXSpeed, asteroidYSpeed, asteroidDirection, asteroidHitbox);
+      int asteroidID = rand.nextInt(1000);
+      Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidXSpeed, asteroidYSpeed, asteroidDirection, asteroidHitbox, asteroidID);
       asteroid.generateConfiguration();
+      
       return asteroid;
    }
    
    public int getConfigNumber(){ return configNumber; }
-   
+   public int getID(){ return id; }
 }

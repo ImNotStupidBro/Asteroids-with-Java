@@ -7,6 +7,11 @@ public class Point {
       this.y = y;
    }
    
+   public void movePoint(double x, double y){
+      this.x = x;
+      this.y = y;
+   }
+   
    public boolean isBelowAndToLeft(Point point) {
       return point.y <= this.y && point.x <= this.x;
    }

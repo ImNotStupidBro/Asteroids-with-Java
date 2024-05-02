@@ -6,11 +6,11 @@ public class Ship extends InteractableObject{
       isAccelerating = false;
    }
    
-   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) {
+   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension, double width, double height) {
       xPosition += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       yPosition += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       
-      this.hitbox.moveHitbox(xSpeed, ySpeed, elapsedTimeInNanoseconds, worldXDimension, worldYDimension);
+      this.hitbox.moveHitbox(xPosition, yPosition, width, height);
       
       decelerate();
       

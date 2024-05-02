@@ -13,6 +13,7 @@ public class Asteroid extends InteractableObject{
       id = newID;
    }
    
+   /*
    public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) {
       xPosition += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       yPosition += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
@@ -31,6 +32,7 @@ public class Asteroid extends InteractableObject{
          yPosition = yPosition % worldYDimension - (this.hitbox.getHeight() / 8);
       }
    }
+   */
    
    private void generateConfiguration() {
       Random rand = new Random();

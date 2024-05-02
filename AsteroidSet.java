@@ -1,3 +1,4 @@
+import java.util.*;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -38,9 +39,23 @@ public class AsteroidSet{
          }
       }
    }
-   /*
-   public void deleteSpecifiedAsteroid(); //Work in progress
-   */
+   
+   public void deleteSpecifiedAsteroid(Asteroid asteroidIDToDelete) {
+      int size = asteroidSet.size();
+      if (size > 0) { // don't try to delete from empty set of balls
+         Iterator<Asteroid> value = asteroidSet.iterator();
+         Asteroid indexOfAsteroidToDelete = asteroidIDToDelete;
+         while(value.hasNext()) {
+            Asteroid element = value.next();
+            if (element == indexOfAsteroidToDelete) {
+               value.remove();
+               break;
+            }
+
+         }
+      }
+   }
+   
    public void addAsteroid() {
       Asteroid asteroid = Asteroid.createRandomAsteroid();
       asteroidSet.add(asteroid);

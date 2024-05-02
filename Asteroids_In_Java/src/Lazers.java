@@ -7,9 +7,9 @@ public class Lazers{
       lazers = new HashSet<Lazer>();
     }
     
-   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) { 
+   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension, double width, double height) { 
       for(Lazer lazer: lazers) {
-         lazer.move(elapsedTimeInNanoseconds, worldXDimension, worldYDimension);
+         lazer.move(elapsedTimeInNanoseconds, worldXDimension, worldYDimension, width, height);
          if(lazer.isOffScreen()){
             deleteLazer(lazer);
          }

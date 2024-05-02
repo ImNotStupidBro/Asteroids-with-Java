@@ -24,19 +24,20 @@ public class HitBox{
       this.y = y;
       this.width = width;
       this.height = height;
-      this.upperLeft = upperLeft; 
-      this.upperRight = upperRight;
-      this.lowerLeft = lowerLeft;
-      this.lowerRight = lowerRight;
+      this.upperLeft.movePoint(x-(0.5*this.width),y+(0.5*this.height)); 
+      this.upperRight.movePoint(x+(0.5*this.width),y+(0.5*this.height));
+      this.lowerLeft.movePoint(x-(0.5*this.width),y-(0.5*this.height));
+      this.lowerRight.movePoint(x+(0.5*this.width),y-(0.5*this.height));
    }
    
-   public void moveHitbox(double dx, double dy, long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension){
-      this.offset(dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
-      this.movePoint(this.upperLeft,dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
-      this.movePoint(this.upperRight,dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
-      this.movePoint(this.lowerLeft,dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
-      this.movePoint(this.lowerRight,dx,dy,elapsedTimeInNanoseconds,worldXDimension,worldYDimension);
-   };
+   public void moveHitbox(double x, double y, double width, double height){
+      this.x = x;
+      this.y = y;
+      upperLeft.movePoint(x-(0.5*this.width),y+(0.5*this.height));
+      upperRight.movePoint(x+(0.5*this.width),y+(0.5*this.height));
+      lowerLeft.movePoint(x-(0.5*this.width),y-(0.5*this.height));
+      lowerRight.movePoint(x+(0.5*this.width),y-(0.5*this.height));
+   }
    
    private void offset(double dx, double dy, long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension){
       x += dx * elapsedTimeInNanoseconds / 1_000_000_000.0;
@@ -55,6 +56,7 @@ public class HitBox{
       }
    }
    
+   /*
    private void movePoint(Point point, double dx, double dy, long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension){
       point.x += dx * elapsedTimeInNanoseconds / 1_000_000_000.0;
       point.y += dy * elapsedTimeInNanoseconds / 1_000_000_000.0;
@@ -71,28 +73,22 @@ public class HitBox{
          point.y = point.y % worldYDimension - (this.getHeight() / 8);
       }
    }
+   */
    
    //Check whether or not the hitboxes of one object collides with another.
    public boolean intersect(HitBox hitbox) {
-
-      if (this.upperLeft.isBelowAndToRight(hitbox.upperLeft) && this.upperLeft.isAboveAndToLeft(hitbox.lowerRight)){
-         System.out.println("collision occurred!");
+      boolean upperRightIsBelowAndToLeftHitboxUpperRight = upperRight.isBelowAndToLeft(hitbox.upperRight);
+      boolean upperRightIsAboveAndToRightHitboxLowerLeft = upperRight.isAboveAndToRight(hitbox.lowerLeft); 
+      //System.out.println(upperRightIsBelowAndToLeftHitboxUpperRight +" "+ upperRightIsAboveAndToRightHitboxLowerLeft);
+      if (upperLeft.isBelowAndToRight(hitbox.upperLeft) && upperLeft.isAboveAndToLeft(hitbox.lowerRight)) {
          return true;
-         }
-      else if (this.upperRight.isBelowAndToLeft(hitbox.upperRight) && this.upperRight.isAboveAndToRight(hitbox.lowerLeft)){
-         System.out.println("collision occurred!");
+      } else if (upperRightIsBelowAndToLeftHitboxUpperRight && upperRightIsAboveAndToRightHitboxLowerLeft) {
          return true;
-         }
-      else if (this.lowerLeft.isBelowAndToLeft(hitbox.upperRight) && this.lowerLeft.isAboveAndToRight(hitbox.lowerLeft)){
-         System.out.println("collision occurred!");
+      } else if (lowerLeft.isBelowAndToLeft(hitbox.upperRight) && lowerLeft.isAboveAndToRight(hitbox.lowerLeft)) {
          return true;
-         }
-      else if (this.lowerRight.isAboveAndToLeft(hitbox.lowerRight) && this.lowerRight.isBelowAndToRight(hitbox.upperLeft)){
-         System.out.println("collision occurred!");
+      } else if (lowerRight.isAboveAndToLeft(hitbox.lowerRight) && lowerRight.isBelowAndToRight(hitbox.upperLeft)) {
          return true;
-         }
-      
-      else{
+      } else {
          return false;
       }
    }

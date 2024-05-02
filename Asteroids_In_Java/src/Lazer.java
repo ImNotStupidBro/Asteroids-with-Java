@@ -20,7 +20,7 @@ public class Lazer{
    }
    
    /** Moves the lazer based on the elapsed time and the velocity. */
-   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) { 
+   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension, double width, double height) { 
       //taken from move function in ship
       xSpeed = 50*(Math.sin(Math.toRadians(LazerDegrees)));
       ySpeed = 50*(Math.cos(Math.toRadians(LazerDegrees)));
@@ -28,7 +28,7 @@ public class Lazer{
       x += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       y += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       //move the corresponding hitbox
-      this.hitbox.moveHitbox(xSpeed, ySpeed, elapsedTimeInNanoseconds, worldXDimension, worldYDimension);
+      this.hitbox.moveHitbox(x, y, 1, 1);
       
       //Delete ball off of the torus
       if (this.x < 0 - (this.radius * 2)) { // moving in the negative x direction

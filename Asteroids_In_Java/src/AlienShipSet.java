@@ -18,9 +18,9 @@ public class AlienShipSet{
    }
    
    /** Moves the alienShips based on the elapsed time and the velocity. */
-   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) { 
+   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension, double width, double height) { 
       for(AlienShip alienShip: alienShipSet) {
-         alienShip.move(elapsedTimeInNanoseconds, worldXDimension, worldYDimension);
+         alienShip.move(elapsedTimeInNanoseconds, worldXDimension, worldYDimension, width, height);
       }
    }
    

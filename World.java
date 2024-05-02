@@ -42,7 +42,7 @@ public class World {
       Point shipUpperRight = new Point(shipXStartLocation+(0.5*shipWidth),shipYStartLocation+(0.5*shipHeight));
       Point shipLowerLeft = new Point(shipXStartLocation-(0.5*shipWidth),shipYStartLocation-(0.5*shipHeight));
       Point shipLowerRight = new Point(shipXStartLocation+(0.5*shipWidth),shipYStartLocation-(0.5*shipHeight));
-      shipHitbox.set(shipXStartLocation, shipYStartLocation, 2, 4, shipUpperLeft, shipUpperRight, shipLowerRight, shipLowerLeft);
+      shipHitbox.set(shipXStartLocation, shipYStartLocation, 4, 4, shipUpperLeft, shipUpperRight, shipLowerRight, shipLowerLeft);
       
       ship = new Ship(shipXStartLocation, shipYStartLocation, shipXSpeed, shipYSpeed, shipDirection, shipHitbox);
       
@@ -69,7 +69,8 @@ public class World {
       for(Lazer lazer: lazers.getLazersAsArray()){  ;                                      
          for(Asteroid asteroid: asteroids.getAsteroidsAsArray()){                             
             if(asteroid.getHitBox().intersect(lazer.getHitbox())){
-               System.out.println("Collision detected");
+               System.out.println("Boom!");
+               asteroids.deleteSpecifiedAsteroid(asteroid);
                scoreboard.addScore(0, 1, 0);
                lazers.deleteLazer(lazer);
             }

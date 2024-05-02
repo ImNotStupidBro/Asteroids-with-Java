@@ -204,7 +204,7 @@ public class Presentation {
       double adjustedY = y;
       double width = hitbox.getWidth()*10;
       double height = hitbox.getHeight()*10;
-      graphicsContext.fillRect(adjustedX, adjustedY, width, height);
+      graphicsContext.fillRect(adjustedX-(width/2), adjustedY-(height/2), width, height);
    }
    
    
