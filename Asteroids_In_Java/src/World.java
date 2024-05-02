@@ -62,12 +62,20 @@ public class World {
    
    /** Runs the physics of the world. */
    public void run(long elapsedTimeInNanoseconds) {
+<<<<<<< Updated upstream
       asteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension(), 8, 8);
       mediumAsteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension(), 4, 4);
       smallAsteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension(), 2, 2);
       ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension(), 4, 4);
       lazers.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
       alienShips.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension(), 8, 4);
+=======
+      asteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension(),8,8);
+      ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension(),2,4);
+      lazers.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
+      collisionDetect();
+   }
+>>>>>>> Stashed changes
 
       respawnAsteroids(); 
       
