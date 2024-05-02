@@ -8,31 +8,10 @@ public class Asteroid extends InteractableObject{
    private int configNumber;
    private int id;
    
-   public Asteroid(double x, double y, double dx, double dy, double degrees, HitBox hitbox, int newID){
+   public Asteroid(double x, double y, double dx, double dy, double degrees, HitBox hitbox, int ID){
       super(x, y, dx, dy, degrees, hitbox);
-      id = newID;
+      id = ID;
    }
-   
-   /*
-   public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension) {
-      xPosition += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
-      yPosition += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
-      
-      this.hitbox.moveHitbox(xSpeed, ySpeed, elapsedTimeInNanoseconds, worldXDimension, worldYDimension);
-      
-      //Keep object on the torus
-      if (xPosition < 0 - (this.hitbox.getWidth() / 8)) { // moving in the negative x direction
-         xPosition = worldXDimension + xPosition % worldXDimension + (this.hitbox.getWidth() / 8);
-      } else if (xPosition >= worldXDimension + (this.hitbox.getWidth() / 8)) {
-         xPosition = xPosition % worldXDimension - (this.hitbox.getWidth() / 8);
-      }
-      if (yPosition < 0 - (this.hitbox.getHeight() / 8)) { // moving in the negative y direction
-         yPosition = worldYDimension + yPosition % worldYDimension + (this.hitbox.getHeight() / 8);
-      } else if (yPosition >= worldYDimension + (this.hitbox.getHeight() / 8)) {
-         yPosition = yPosition % worldYDimension - (this.hitbox.getHeight() / 8);
-      }
-   }
-   */
    
    private void generateConfiguration() {
       Random rand = new Random();
@@ -46,76 +25,15 @@ public class Asteroid extends InteractableObject{
       double asteroidXSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
       double asteroidYSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
       double asteroidDirection = 360 * rand.nextDouble();
-      Point upperLeft = new Point((asteroidXStartLocation-4),(asteroidYStartLocation+4)); 
+      Point upperLeft = new Point(asteroidXStartLocation-4,(asteroidYStartLocation+4)); 
       Point upperRight = new Point((asteroidXStartLocation+4),(asteroidYStartLocation+4));
-      Point lowerLeft = new Point((asteroidXStartLocation-4),(asteroidYStartLocation-4));
-      Point lowerRight = new Point((asteroidXStartLocation+4),(asteroidYStartLocation-4));
-      HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, 8, 8, upperLeft, upperRight, lowerLeft, lowerRight);
-      /*
-      System.out.println(asteroidXStartLocation);
-      System.out.println(asteroidYStartLocation);
-      System.out.println(upperLeft.getX() + " " + upperLeft.getY());
-      System.out.println(upperRight.getX() + " " + upperRight.getY());
-      System.out.println(lowerLeft.getX() + " " + lowerLeft.getY());
-      System.out.println(lowerRight.getX() + " " + lowerRight.getY());
-      */
+      Point lowerLeft = new Point(asteroidXStartLocation-4,asteroidYStartLocation-4);
+      Point lowerRight = new Point(asteroidXStartLocation+4,asteroidYStartLocation-4);
+      HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, 8, 8, upperLeft, upperRight, lowerRight, lowerLeft);
       int asteroidID = rand.nextInt(1000);
       Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidXSpeed, asteroidYSpeed, asteroidDirection, asteroidHitbox, asteroidID);
       asteroid.generateConfiguration();
-      return asteroid;
-   }
-   
-   public static Asteroid createRandomMediumAsteroid(){
-      Random rand = new Random();
-      double asteroidXStartLocation = rand.nextInt(World.X_DIMENSION);
-      double asteroidYStartLocation = rand.nextInt(World.Y_DIMENSION);
-      double asteroidXSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
-      double asteroidYSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
-      double asteroidDirection = 360 * rand.nextDouble();
-      Point upperLeft = new Point((asteroidXStartLocation-2),(asteroidYStartLocation+2)); 
-      Point upperRight = new Point((asteroidXStartLocation+2),(asteroidYStartLocation+2));
-      Point lowerLeft = new Point((asteroidXStartLocation-2),(asteroidYStartLocation-2));
-      Point lowerRight = new Point((asteroidXStartLocation+2),(asteroidYStartLocation-2));
-      HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, 4, 4, upperLeft, upperRight, lowerLeft, lowerRight);
-      int asteroidID = rand.nextInt(1000);
-      Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidXSpeed, asteroidYSpeed, asteroidDirection, asteroidHitbox, asteroidID);
-      asteroid.generateConfiguration();
-      return asteroid;
-   }
-   
-   public static Asteroid createRandomSmallAsteroid(){
-      Random rand = new Random();
-      double asteroidXStartLocation = rand.nextInt(World.X_DIMENSION);
-      double asteroidYStartLocation = rand.nextInt(World.Y_DIMENSION);
-      double asteroidXSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
-      double asteroidYSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
-      double asteroidDirection = 360 * rand.nextDouble();
-      Point upperLeft = new Point((asteroidXStartLocation-1),(asteroidYStartLocation+1)); 
-      Point upperRight = new Point((asteroidXStartLocation+1),(asteroidYStartLocation+1));
-      Point lowerLeft = new Point((asteroidXStartLocation-1),(asteroidYStartLocation-1));
-      Point lowerRight = new Point((asteroidXStartLocation+1),(asteroidYStartLocation-1));
-      HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, 2, 2, upperLeft, upperRight, lowerLeft, lowerRight);
-      int asteroidID = rand.nextInt(1000);
-      Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidXSpeed, asteroidYSpeed, asteroidDirection, asteroidHitbox, asteroidID);
-      asteroid.generateConfiguration();
-      return asteroid;
-   }
-   
-   public static Asteroid createAsteroid(double initialX, double initialY, int hitboxWidth, int hitboxHeight){
-      Random rand = new Random();
-      double asteroidXStartLocation = initialX;
-      double asteroidYStartLocation = initialY;
-      double asteroidXSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
-      double asteroidYSpeed = (rand.nextDouble() - 0.5) * MAX_ASTEROID_SPEED;
-      double asteroidDirection = 360 * rand.nextDouble();
-      Point upperLeft = new Point((asteroidXStartLocation-(hitboxWidth/(2*10))),(asteroidYStartLocation+(hitboxHeight/(2*10)))); 
-      Point upperRight = new Point((asteroidXStartLocation+(hitboxWidth/(2*10))),(asteroidYStartLocation+(hitboxHeight/(2*10))));
-      Point lowerLeft = new Point((asteroidXStartLocation-(hitboxWidth/(2*10))),(asteroidYStartLocation-(hitboxHeight/(2*10))));
-      Point lowerRight = new Point((asteroidXStartLocation+(hitboxWidth/(2*10))),(asteroidYStartLocation-(hitboxHeight/(2*10))));
-      HitBox asteroidHitbox = new HitBox(asteroidXStartLocation, asteroidYStartLocation, hitboxWidth, hitboxHeight, upperLeft, upperRight, lowerLeft, lowerRight);
-      int asteroidID = rand.nextInt(1000);
-      Asteroid asteroid = new Asteroid(asteroidXStartLocation, asteroidYStartLocation, asteroidXSpeed, asteroidYSpeed, asteroidDirection, asteroidHitbox, asteroidID);
-      asteroid.generateConfiguration();
+      
       return asteroid;
    }
    

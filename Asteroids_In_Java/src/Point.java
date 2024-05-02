@@ -1,7 +1,8 @@
 public class Point {
-   public double x;
-   public double y;
+   private double x;
+   private double y;
 
+   
    public Point(double x, double y) {
       this.x = x;
       this.y = y;
@@ -13,19 +14,19 @@ public class Point {
    }
    
    public boolean isBelowAndToLeft(Point point) {
-      return point.y <= this.y && point.x <= this.x;
+      return this.y <= point.y && this.x <= point.x;
    }
 
    public boolean isBelowAndToRight(Point point) {
-      return point.y <= this.y && point.x >= this.x;
+      return this.y <= point.y && this.x >= point.x;
    }
    
    public boolean isAboveAndToLeft(Point point) {
-      return point.y >= this.y && point.x <= this.x;
+      return this.y >= point.y && this.x <= point.x;
    }
 
    public boolean isAboveAndToRight(Point point) {
-      return point.y >= this.y && point.x >= this.x;
+      return this.y >= point.y && this.x >= point.x;
    }
    
    public double getX() {

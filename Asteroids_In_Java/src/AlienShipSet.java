@@ -1,3 +1,4 @@
+import java.util.*;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -39,17 +40,18 @@ public class AlienShipSet{
       }
    }
    
-   public void deleteSpecifiedAlienShip(int alienShipIDToDelete) {
+   public void deleteSpecifiedAlienShip(AlienShip alienShipIDToDelete) {
       int size = alienShipSet.size();
-      if (size > 0) {
-         int indexOfAlienShipToDelete = alienShipIDToDelete;
-         int currentIndex = 0;
-         for(AlienShip alienShip: alienShipSet) {
-            if (currentIndex == indexOfAlienShipToDelete) {
-               alienShipSet.remove(alienShip);
+      if (size > 0) { // don't try to delete from empty set of balls
+         Iterator<AlienShip> value = alienShipSet.iterator();
+         AlienShip indexOfAlienShipToDelete = alienShipIDToDelete;
+         while(value.hasNext()) {
+            AlienShip element = value.next();
+            if (element == indexOfAlienShipToDelete) {
+               value.remove();
                break;
             }
-            currentIndex++;
+
          }
       }
    }

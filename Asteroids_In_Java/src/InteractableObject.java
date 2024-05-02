@@ -31,24 +31,33 @@ public abstract class InteractableObject{
       } else if (yPosition >= worldYDimension) {
          yPosition = yPosition % worldYDimension;
       }
-      
-      hitbox.moveHitbox(xPosition, yPosition, width, height);
+      //move the corresponding hitbox
+      hitbox.moveHitbox(xPosition,yPosition,width,height);
    }
+   
    
    public void turnRight() {
-      if(direction >= 365){
-         direction = 5.0;
-      }
-      this.direction += 5.0;
-   }
-   
-   public void turnLeft() {
       if(direction <= (0 - 5)){
          direction = 355.0;
       }
-      this.direction -= 5.0;;
+      this.direction -= 5.0;
    }
+   
+   public void turnLeft() {
+      if(direction >= 365){
+         direction = 5.0;
+      }
+      this.direction += 5.0;;
+   }
+   
+   public void accelerate() {
+      xSpeed += Math.cos(Math.toRadians(this.direction));
+      ySpeed += Math.sin(Math.toRadians(this.direction));
 
+      xSpeed *= 0.9;
+      ySpeed *= 0.9;
+   }
+   
    public double getX() { return xPosition; }
    public double getY() { return yPosition; }
    public double getXSpeed() { return xSpeed; }

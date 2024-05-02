@@ -51,7 +51,6 @@ public class AsteroidSet{
                value.remove();
                break;
             }
-
          }
       }
    }
