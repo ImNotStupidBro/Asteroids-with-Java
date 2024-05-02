@@ -46,16 +46,18 @@ public class HitBox{
 
    // Check whether or not the hitboxes of one object collides with another.
    public boolean intersect(HitBox hitbox) {
-      boolean upperRightIsBelowAndToLeftHitboxUpperRight = upperRight.isBelowAndToLeft(hitbox.upperRight);
-      boolean upperRightIsAboveAndToRightHitboxLowerLeft = upperRight.isAboveAndToRight(hitbox.lowerLeft); 
+      boolean upperRightIntersect = this.upperRight.isBelowAndToLeft(hitbox.upperRight) && this.upperRight.isAboveAndToRight(hitbox.lowerLeft);
+      boolean upperLeftIntersect = this.upperLeft.isBelowAndToRight(hitbox.upperLeft) && this.upperLeft.isAboveAndToLeft(hitbox.lowerRight);
+      boolean lowerLeftIntersect = this.lowerLeft.isBelowAndToLeft(hitbox.upperRight) && this.lowerLeft.isAboveAndToRight(hitbox.lowerLeft);
+      boolean lowerRightIntersect = this.lowerRight.isAboveAndToLeft(hitbox.lowerRight) && this.lowerRight.isBelowAndToRight(hitbox.upperLeft);
       //System.out.println(upperRightIsBelowAndToLeftHitboxUpperRight +" "+ upperRightIsAboveAndToRightHitboxLowerLeft);
-      if (upperLeft.isBelowAndToRight(hitbox.upperLeft) && upperLeft.isAboveAndToLeft(hitbox.lowerRight)) {
+      if (upperLeftIntersect) {
          return true;
-      } else if (upperRightIsBelowAndToLeftHitboxUpperRight && upperRightIsAboveAndToRightHitboxLowerLeft) {
+      } else if (upperRightIntersect) {
          return true;
-      } else if (lowerLeft.isBelowAndToLeft(hitbox.upperRight) && lowerLeft.isAboveAndToRight(hitbox.lowerLeft)) {
+      } else if (lowerLeftIntersect) {
          return true;
-      } else if (lowerRight.isAboveAndToLeft(hitbox.lowerRight) && lowerRight.isBelowAndToRight(hitbox.upperLeft)) {
+      } else if (lowerRightIntersect) {
          return true;
       } else {
          return false;

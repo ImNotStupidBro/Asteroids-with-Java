@@ -24,14 +24,14 @@ public class World {
    public static final int X_DIMENSION = 100; // meters
    public static final int Y_DIMENSION = 70; // meters
    private final int NUMBER_OF_LASERS = 1;
-   private final int INITIAL_NUMBER_OF_ASTEROIDS = 5;
+   private final int INITIAL_NUMBER_OF_ASTEROIDS = 4;
    private long INVULNERABILITYTIMER = 5000;
    
    public World() {
       //Create Asteroid sets.
       asteroids = new AsteroidSet(1);
       mediumAsteroids = new AsteroidSetMedium(2);
-      smallAsteroids = new AsteroidSetSmall(2);
+      smallAsteroids = new AsteroidSetSmall(1);
       
       //Create Lazer set.
       lazers = new Lazers();
@@ -54,7 +54,7 @@ public class World {
       Point shipUpperRight = new Point(shipXStartLocation+2,shipYStartLocation+2);
       Point shipLowerLeft = new Point(shipXStartLocation-2,shipYStartLocation-2);
       Point shipLowerRight = new Point(shipXStartLocation+2,shipYStartLocation-2);
-      shipHitbox.set(shipXStartLocation, shipYStartLocation, 4, 4, shipUpperLeft, shipUpperRight, shipLowerLeft, shipLowerRight);
+      shipHitbox.set(shipXStartLocation, shipYStartLocation, 3, 3, shipUpperLeft, shipUpperRight, shipLowerLeft, shipLowerRight);
       
       ship = new Ship(shipXStartLocation, shipYStartLocation, shipXSpeed, shipYSpeed, shipDirection, shipHitbox);
       currAsteroidCount = INITIAL_NUMBER_OF_ASTEROIDS;
@@ -75,11 +75,12 @@ public class World {
       smallAsteroids.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension(), 2, 2);
       ship.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension(), 3, 3);
       lazers.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension());
-      alienShips.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension(), 8, 4);
+      alienShips.move(elapsedTimeInNanoseconds, getXDimension(), getYDimension(), 4, 8);
       
       asteroidCollisionDetect();
       mediumAsteroidCollisionDetect();
       smallAsteroidCollisionDetect();
+      alienShipCollisionDetect();
       
       shipCollisionDetect();
    

@@ -12,7 +12,41 @@ public class Point {
       this.x = x;
       this.y = y;
    }
+   /*
+   public boolean isToLeft(Point point){
+      return this.x <= point.x;
+   }
    
+   public boolean isToLeft(Point point1, Point point2){
+      return this.x <= point1.x && this.x <= point2.x;
+   }
+   
+   public boolean isToRight(Point point){
+      return this.x >= point.x;
+   }
+   
+   public boolean isToRight(Point point1, Point point2){
+      return this.x >= point1.x && this.x >= point2.x;
+   }
+   
+   public boolean isAbove(Point point){
+      return this.y <= point.y;
+   }
+   
+   public boolean isAbove(Point point1, Point point2){
+      return this.y <= point1.y && this.y <= point2.y;
+   }
+   
+   public boolean isBelow(Point point){
+      return this.y >= point.y;
+   }
+   
+   public boolean isBelow(Point point1, Point point2){
+      return this.y >= point1.y && this.y >= point2.y;
+   }
+   */
+   
+   //The "point" parameter being referenced is the point that has the boolean applied to it.
    public boolean isBelowAndToLeft(Point point) {
       return this.y <= point.y && this.x <= point.x;
    }

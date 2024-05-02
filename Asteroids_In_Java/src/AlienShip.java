@@ -32,8 +32,8 @@ public class AlienShip extends InteractableObject{
       Random rand = new Random();
       double alienShipXStartLocation = rand.nextInt(World.X_DIMENSION);
       double alienShipYStartLocation = rand.nextInt(World.Y_DIMENSION);
-      double alienShipXSpeed = 0;
-      double alienShipYSpeed = 0;
+      double alienShipXSpeed = MAX_ALIENSHIP_SPEED;
+      double alienShipYSpeed = MAX_ALIENSHIP_SPEED;
       double alienShipDirection = 360 * rand.nextDouble();
       Point alienShipUpperLeft = new Point(alienShipXStartLocation-4,alienShipYStartLocation+2); 
       Point alienShipUpperRight = new Point(alienShipXStartLocation+4,alienShipYStartLocation+2);
