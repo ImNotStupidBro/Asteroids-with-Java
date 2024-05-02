@@ -61,6 +61,8 @@ public class Presentation {
       renderAlienShips();
       
       renderScore();
+      renderNumberOfAsteroids();
+      renderLevelIndicator();
       renderLives();
       
       stage.show();     
@@ -283,7 +285,22 @@ public class Presentation {
       double scoreboardY =  20;
       int fontSize = 18;
       drawScore(scoreboardString, scoreboardX, scoreboardY, fontSize);
-      
+   }
+   
+   public void renderNumberOfAsteroids(){
+      int numOfAsteroids = world.getCurrAsteroidCount();
+      double indicatorX = 20;
+      double indicatorY = 40;
+      int fontSize = 18;
+      drawAsteroidCountIndicator(numOfAsteroids, indicatorX, indicatorY, fontSize);
+   }
+   
+   public void renderLevelIndicator(){
+      int numOfAsteroids = world.getLevelNumber();
+      double indicatorX = 20;
+      double indicatorY = 60;
+      int fontSize = 18;
+      drawLevelIndicator(numOfAsteroids, indicatorX, indicatorY, fontSize);
    }
    
    // Regular Asteroid Drawing Method
@@ -576,6 +593,18 @@ public class Presentation {
       graphicsContext.setFill(Color.WHITE);
       graphicsContext.setFont(Font.font("Courier New", fontSize));
       graphicsContext.fillText("Score: "+scoreboardString, scoreboardX, scoreboardY);
+   }
+   
+   public void drawAsteroidCountIndicator(int asteroidCount, double indicatorX, double indicatorY, int fontSize){
+      graphicsContext.setFill(Color.WHITE);
+      graphicsContext.setFont(Font.font("Courier New", fontSize));
+      graphicsContext.fillText("Asteroids: "+asteroidCount, indicatorX, indicatorY);
+   }
+   
+   public void drawLevelIndicator(int levelNumber, double indicatorX, double indicatorY, int fontSize){
+      graphicsContext.setFill(Color.WHITE);
+      graphicsContext.setFont(Font.font("Courier New", fontSize));
+      graphicsContext.fillText("Level: "+levelNumber, indicatorX, indicatorY);
    }
    
    /** The physics world has a normal origin (lower left is 0,0), while the render space has typical graphics origin (upper left is 0,0) */

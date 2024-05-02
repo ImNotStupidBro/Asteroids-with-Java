@@ -8,7 +8,7 @@ public class AlienShip extends InteractableObject{
       super(x, y, dx, dy, degrees, hitbox);
       id = newID;
    }
-   
+   /*
    public void move(long elapsedTimeInNanoseconds, double worldXDimension, double worldYDimension, double width, double height) {
       xPosition += xSpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
       yPosition += ySpeed * elapsedTimeInNanoseconds / 1_000_000_000.0;
@@ -27,19 +27,19 @@ public class AlienShip extends InteractableObject{
          yPosition = yPosition % worldYDimension - (this.hitbox.getHeight() / 8);
       }
    }
-   
+   */
    public static AlienShip createRandomAlienShip(){
       Random rand = new Random();
       double alienShipXStartLocation = rand.nextInt(World.X_DIMENSION);
       double alienShipYStartLocation = rand.nextInt(World.Y_DIMENSION);
-      double alienShipXSpeed = MAX_ALIENSHIP_SPEED;
-      double alienShipYSpeed = MAX_ALIENSHIP_SPEED;
+      double alienShipXSpeed = 0;
+      double alienShipYSpeed = 0;
       double alienShipDirection = 360 * rand.nextDouble();
       Point alienShipUpperLeft = new Point(alienShipXStartLocation-4,alienShipYStartLocation+2); 
       Point alienShipUpperRight = new Point(alienShipXStartLocation+4,alienShipYStartLocation+2);
       Point alienShipLowerLeft = new Point(alienShipXStartLocation-4,alienShipYStartLocation-2);
       Point alienShipLowerRight = new Point(alienShipXStartLocation+4,alienShipYStartLocation-2);
-      HitBox alienShipHitbox = new HitBox(alienShipXStartLocation, alienShipYStartLocation, 80, 40, alienShipUpperLeft, alienShipUpperRight, alienShipLowerLeft, alienShipLowerRight);
+      HitBox alienShipHitbox = new HitBox(alienShipXStartLocation, alienShipYStartLocation, 8, 4, alienShipUpperLeft, alienShipUpperRight, alienShipLowerLeft, alienShipLowerRight);
       int alienShipID = rand.nextInt(1000);
       AlienShip alienShip = new AlienShip(alienShipXStartLocation, alienShipYStartLocation, alienShipXSpeed, alienShipYSpeed, alienShipDirection, alienShipHitbox, alienShipID);
       return alienShip;
